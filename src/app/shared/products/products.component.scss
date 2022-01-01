@@ -1,0 +1,15 @@
+.auto-complete {
+  height: 300px;
+    width: 100%;
+    overflow: auto;
+    z-index: 1000;
+    position: absolute;
+}
+.backdrop {
+  background-color: #0000002e;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+}

@@ -1,0 +1,27 @@
+$font-stack: "Arial";
+$primary-color: #302d2d; //#302d2d;
+$border: 1px solid #302d2d;
+$backgroundcolor: #c1bfbf78 !important;
+
+%myfont {
+  font-family: Arial;
+  font-style: normal;
+  font-variant: normal;
+  font-size: 8pt;
+  color: $primary-color;
+}
+
+%bordernoneitemdetails {
+  border-left: none;
+  border-bottom: none;
+  border-top: none;
+}
+
+body {
+  font-family: Arial;
+  font-style: normal;
+  font-variant: normal;
+  font-size: 8pt;
+}
+
+

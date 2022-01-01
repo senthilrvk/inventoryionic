@@ -1,0 +1,67 @@
+.box {
+    box-shadow: 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12);
+
+    .main-box {
+
+        padding: 5px;
+        height: 170px;
+        display: flex;
+        overflow: hidden;
+
+        .close-btn {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+
+            button {
+                background: #d9d9d9;
+                border-radius: 50%;
+                padding: 5px;
+            }
+        }
+
+        .left-box {
+            width: 50%;
+
+            .inner-image {
+                height: 100%;
+                display: flex;
+                padding: 6px;
+            }
+        }
+
+        .right-box {
+            width: 50%;
+            align-self: center;
+
+            .inner-text {
+                padding: 5px;
+
+                label:first-child {
+                    font-size: 13px;
+                    color: #666;
+                    display: block;
+                }
+
+                label:nth-child(2) {
+                    font-size: 12px;
+                    color: #3171e0;
+                    display: block;
+                }
+
+                label:nth-child(3) {
+                    font-size: 12px;
+                    color: #0ec254;
+                    display: block;
+                }
+
+                label:last-child {
+                    font-size: 12px;
+                    color: #000000;
+                    display: block;
+                }
+            }
+        }
+    }
+
+}

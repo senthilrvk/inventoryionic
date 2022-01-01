@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-searchbar showCancelButton="always" debounce="500" [(ngModel)]="searchkey" 
+    (ionChange)='fnBillGets()' (ionCancel)='onDissmiss($event)'></ion-searchbar>
+    
+    <ion-item slot="end" >
+      <ion-select mode="ios" placeholder="Select One" style="min-width: 100%;" (ionChange)="fnBillCopyChangeBillSeries($event)"
+      [value]='dCopyBillSerId'>
+        <ion-select-option *ngFor="let item of billSeriesJson" [value]="item.BillSerId" selected>
+          {{item.BillSerPrefix}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid class="sticky-date">
+      <ion-row nowrap>
+      <ion-col align-self-start>
+      <ion-item button color="primary" (click)="calenderPicker('from')" >
+        <ion-label >
+          <h3>From Date</h3>
+          <p>{{fromdate}}</p>
+          
+        </ion-label>
+        <ion-icon mode="ios" slot="end" name="calendar" ></ion-icon>
+      </ion-item>
+    </ion-col>
+
+    <ion-col align-self-end>
+      <ion-item button (click)="calenderPicker('to')" color="primary">
+        <ion-label>
+          <h3>To Date</h3>
+          <p >{{Todate}}</p>
+        </ion-label>
+        <ion-icon mode="ios" slot="end" name="calendar" ></ion-icon>
+      </ion-item>
+    </ion-col>
+    </ion-row>
+    </ion-grid>
+ 
+
+  <ion-virtual-scroll [items]="dataGetList">
+    <ion-item button *virtualItem="let item" lines="full"  
+    [disabled]="(item.Issue_Cancel !== 'Yes' && item.GodownId == 0)? false: true">
+      <ion-label class="ion-text-wrap" >
+        <ion-text color="primary">
+            <h3>{{item.Customer}} </h3>
+          </ion-text>
+         <p>{{item.Address}} </p>
+         <div style="display: flex; place-content: space-between;">
+          <ion-text color="dark">
+            <p >{{item.BillNo}}</p>
+            </ion-text> 
+          <ion-text slot="end" color="success">
+          <p >{{item.Amount | number:'1.2-2'}}</p>
+          </ion-text>
+        </div>
+      </ion-label>
+
+      <div slot="end" class="btn-grid">
+        <ion-button fill="clear" (click)="anchorClick(item,'print')">
+          <ion-icon mode="ios" slot="icon-only" color="medium" name="print"></ion-icon>
+        </ion-button>
+  
+        <ion-button fill="clear"  (click)='anchorClick(item, "anchor")'>
+          <ion-icon mode="ios" slot="icon-only" color="primary" name="create"></ion-icon>
+        </ion-button>
+      </div>
+     
+    </ion-item>
+  
+  </ion-virtual-scroll>
+</ion-content>

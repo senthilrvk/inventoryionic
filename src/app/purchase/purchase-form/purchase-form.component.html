@@ -1,0 +1,358 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>{{ data.ItemName }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="light" (click)="close()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-grid>
+      <ion-row>
+        <ng-container *ngFor="let col of column">
+          <ion-col size="12" *ngIf="col == 'Code'">
+            <ion-item>
+              <ion-label for="Code" position="stacked">{{ col }}</ion-label>
+              <ion-input id="Code" [(ngModel)]="data.Code"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <!-- <ion-col size="12" *ngIf="col == 'Product Name & Packing'">
+            <ion-item >
+              <ion-label position="stacked">{{ col }}</ion-label>
+              <ion-input [(ngModel)]="data.ItemDesc"></ion-input>
+            </ion-item>
+          </ion-col> -->
+
+          <ion-col size="6" *ngIf="col == 'GST%'">
+            <ion-item>
+              <ion-label for="GST" position="stacked">{{ col }}</ion-label>
+              <ion-input id="GST" type="number" inputmode="decimal" disabled
+                [(ngModel)]="data.ReceiptSub_TaxPercentage"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == 'Qty'">
+            <ion-item>
+              <ion-label for="Qty" position="stacked">{{ col }}</ion-label>
+              <ion-input #Qty id="Qty" type="number" inputmode="decimal" ng-keypressed='fnQtyCalculation()'
+              (ionChange)='fnQtyCalculation()'
+                [(ngModel)]="data.ReceiptSub_ReceiptQty"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == 'Freight'">
+            <ion-item>
+              <ion-label for="Freight" position="stacked">{{ col }}</ion-label>
+              <ion-input id="Freight" [(ngModel)]="data.ReceiptSub_Freight" (keydown)='fnGetTotal()' (ionChange)='fnGetTotal()'></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == 'FQty'">
+            <ion-item>
+              <ion-label for="FQty" position="stacked">{{ col }}</ion-label>
+              <ion-input id="FQty" type="number" inputmode="decimal" (keydown)='fnQtyCalculation()' (ionChange)='fnQtyCalculation()'
+                [(ngModel)]="data.ReceiptSub_ReceiptFree"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == 'ReplaceQty'">
+            <ion-item>
+              <ion-label for="ReplaceQty" position="stacked">{{ col }}</ion-label>
+              <ion-input id="ReplaceQty" [(ngModel)]="data.ReceiptSub_ReplaceQty" (keydown)='fnQtyCalculation()' (ionChange)='fnQtyCalculation()'>
+              </ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == 'Batch'">
+            <ion-item>
+              <ion-label for="Batch" position="stacked">{{ col }}</ion-label>
+              <ion-input id="Batch" [(ngModel)]="data.ReceiptSub_Batch"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == 'ExpDate'">
+            <ion-item>
+              <ion-label for="ExpDate" position="stacked">{{ col }}</ion-label>
+              <ion-input id="ExpDate" (ionChange)='fnExpDateKey($event,data)' [(ngModel)]="data.ReceiptSub_ExpDate">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == 'PRateWithTax'">
+            <ion-item>
+              <ion-label for="PRateWithTax" position="stacked">{{ col }}</ion-label>
+              <ion-input id="PRateWithTax" type="number" inputmode="decimal" [(ngModel)]="data.ReceiptSub_Freight"
+                (keydown)='fnGetTotal()' (ionChange)='fnGetTotal()' ></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == 'PurRate'">
+            <ion-item>
+              <ion-label for="PurRate" position="stacked">{{ col }}</ion-label>
+              <ion-input id="PurRate" type="number" inputmode="decimal" (keydown)='fnGetTotal()' (ionChange)='fnGetTotal()'
+                [(ngModel)]="data.ReceiptSub_ReceiptRate"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == 'Dis(%)'">
+            <ion-item>
+              <ion-label for="Dis" position="stacked">{{ col }}</ion-label>
+              <ion-input id="Dis" type="number" inputmode="decimal" (keydown)='fnGetTotal()' (ionChange)='fnGetTotal()'
+                [(ngModel)]="data.ReceiptSub_ProdDiscount"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == 'DisAmt'">
+            <ion-item>
+              <ion-label for="DisAmt" position="stacked">{{ col }}</ion-label>
+              <ion-input id="DisAmt" type="number" inputmode="decimal" [(ngModel)]="data.ReceiptSub_ProdDisAmt">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == 'ScheAmt'">
+            <ion-item>
+              <ion-label for="DisAmt" position="stacked">{{ col }}</ion-label>
+              <ion-input id="ScheAmt" type="number" inputmode="decimal" (keydown)='fnGetTotal()' (ionChange)='fnGetTotal()'
+                [(ngModel)]="data.ReceiptSub_SchemeAmt"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == 'LCost'">
+            <ion-item>
+              <ion-label for="LCost" position="stacked">{{ col }}</ion-label>
+              <ion-input id="LCost" type="number" inputmode="decimal" [(ngModel)]="data.ReceiptSub_LandCost">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == 'R Mar(%)'">
+            <ion-item>
+              <ion-label for="RMRP" position="stacked">{{ col }}</ion-label>
+              <ion-input id="RMRP" type="number" inputmode="decimal" (keydown)='fnGetTotal()' (ionChange)='fnGetTotal()'
+                [(ngModel)]="data.ReceiptSub_NeethiDisPers"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == 'W Mar(%)'">
+            <ion-item>
+              <ion-label for="WMRP" position="stacked">{{ col }}</ion-label>
+              <ion-input id="WMRP" type="number" inputmode="decimal" (keydown)='fnGetTotal()' (ionChange)='fnGetTotal()'
+                [(ngModel)]="data.ReceiptSub_WRateDis"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == priceColumn.lblRetailRate">
+            <ion-item>
+              <ion-label for="RetailRate" position="stacked">{{ col }}</ion-label>
+              <ion-input id="RetailRate" type="number" inputmode="decimal" [(ngModel)]="data.ReceiptSub_SellRate">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == priceColumn.lblWholSalRate">
+            <ion-item>
+              <ion-label for="WholSalRate" position="stacked">{{ col }}</ion-label>
+              <ion-input id="WholSalRate" type="number" inputmode="decimal" (keydown)='fnGetTotal()' (ionChange)='fnGetTotal()'
+                [(ngModel)]="data.ReceiptSub_WholeSaleRate"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == priceColumn.lblMRP">
+            <ion-item>
+              <ion-label for="lblMRP" position="stacked">{{ col }}</ion-label>
+              <ion-input id="lblMRP" type="number" inputmode="decimal" [(ngModel)]="data.ReceiptSub_MRP"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == 'Pack'">
+            <ion-item>
+              <ion-label for="Pack" position="stacked">{{ col }}</ion-label>
+              <ion-input id="Pack" type="number" (keydown)='fnQtyCalculation()' (ionChange)='fnQtyCalculation()' inputmode="decimal"
+                [(ngModel)]="data.ReceiptSub_Pack"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == 'SalesQty'">
+            <ion-item>
+              <ion-label for="SalesQty" position="stacked">{{ col }}</ion-label>
+              <ion-input id="SalesQty" type="number" inputmode="decimal" [(ngModel)]="data.ReceiptSub_SaleQty">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == 'SalesFre'">
+            <ion-item>
+              <ion-label for="SalesFre" position="stacked">{{ col }}</ion-label>
+              <ion-input id="SalesFre" type="number" inputmode="decimal" [(ngModel)]="data.ReceiptSub_SaleFree">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == 'Loose'">
+            <ion-item>
+              <ion-label for="Loose" position="stacked">{{ col }}</ion-label>
+              <ion-input id="Loose" type="number" inputmode="decimal" (keydown)='fnQtyCalculation()' (ionChange)='fnQtyCalculation()'
+                [(ngModel)]="data.ReceiptSub_LooseQty"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == 'SalePeriod'">
+            <ion-item>
+              <ion-label for="SalePeriod" position="stacked">{{ col }}</ion-label>
+              <ion-input id="SalePeriod" [(ngModel)]="data.ReceiptSub_Period"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == '%SRateMargin'">
+            <ion-item>
+              <ion-label for="SRateMargin" position="stacked">{{ col }}</ion-label>
+              <ion-input id="SRateMargin" type="number" inputmode="decimal" [(ngModel)]="data.txtPurSelRateMarginPers">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == 'MarginAmt'">
+            <ion-item>
+              <ion-label for="MarginAmt" position="stacked">{{ col }}</ion-label>
+              <ion-input id="MarginAmt" type="number" inputmode="decimal" [(ngModel)]="data.txtSalesMarginAmt">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == '%MrpMargin'">
+            <ion-item>
+              <ion-label for="MrpMargin" position="stacked">{{ col }}</ion-label>
+              <ion-input id="MrpMargin" type="number" inputmode="decimal" [(ngModel)]="data.txtPurMrpMarginPers">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == 'MrpMarginAmt'">
+            <ion-item>
+              <ion-label for="MrpMarginAmt" position="stacked">{{ col }}</ion-label>
+              <ion-input id="MrpMarginAmt" type="number" inputmode="decimal" [(ngModel)]="data.txtPurMrpMarginAmt">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == 'Color'">
+            <ion-item>
+              <ion-label for="Color" position="stacked">{{ col }}</ion-label>
+              <ion-input id="Color" [(ngModel)]="data.Color"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == 'HsnCode'">
+            <ion-item>
+              <ion-label for="HsnCode" position="stacked">{{ col }}</ion-label>
+              <ion-input id="HsnCode" [(ngModel)]="data.ReceiptSub_Field2"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == 'MRP(%)'">
+            <ion-item>
+              <ion-label for="MRPr" position="stacked">{{ col }}</ion-label>
+              <ion-input id="MRPr"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == 'RMRP(%)'">
+            <ion-item>
+              <ion-label for="RMRP" position="stacked">{{ col }}</ion-label>
+              <ion-input id="RMRP"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == 'GSTAmt'">
+            <ion-item>
+              <ion-label for="GSTAmt" position="stacked">{{ col }}</ion-label>
+              <ion-input id="GSTAmt" type="number" inputmode="decimal" disabled [(ngModel)]="data.ReceiptSub_TaxAmt">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == 'BeforeGST'">
+            <ion-item>
+              <ion-label for="BeforeGST" position="stacked">{{ col }}</ion-label>
+              <ion-input id="BeforeGST" type="number" inputmode="decimal" [(ngModel)]="data.ReceiptSub_AmtBeforeTax">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="12" *ngIf="col == 'Amount'">
+            <ion-item>
+              <ion-label for="Amount" position="stacked">
+                {{ col }}
+              </ion-label>
+
+              <ion-input id="Amount" type="number" inputmode="decimal" disabled [(ngModel)]="data.ReceiptSub_Amount">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == priceColumn.lblSpRate1">
+            <ion-item>
+              <ion-label for="SpRate1" position="stacked">{{ col }}</ion-label>
+              <ion-input id="SpRate1" type="number" inputmode="decimal" [(ngModel)]="data.ReceiptSub_SpRate1">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == priceColumn.lblSpRate2">
+            <ion-item>
+              <ion-label for="SpRate2" position="stacked">{{ col }}</ion-label>
+              <ion-input id="SpRate2" type="number" inputmode="decimal" [(ngModel)]="data.ReceiptSub_SpRate2">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == priceColumn.lblSpRate3">
+            <ion-item>
+              <ion-label for="SpRate3" position="stacked">{{ col }}</ion-label>
+              <ion-input id="SpRate3" type="number" inputmode="decimal" [(ngModel)]="data.ReceiptSub_SpRate3">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == priceColumn.lblSpRate4">
+            <ion-item>
+              <ion-label for="SpRate4" position="stacked">{{ col }}</ion-label>
+              <ion-input id="SpRate4" type="number" inputmode="decimal" [(ngModel)]="data.ReceiptSub_SpRate4">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6" *ngIf="col == priceColumn.lblSpRate5">
+            <ion-item>
+              <ion-label for="SpRate5" position="stacked">{{ col }}</ion-label>
+              <ion-input id="SpRate5" type="number" inputmode="decimal" [(ngModel)]="data.ReceiptSub_SpRate5">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+        </ng-container>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button expand="full" color="secondary" (click)="onProductCancel()">
+            Cancel
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button expand="full" color="secondary" (click)="onProductSubmit(data)">
+            Submit
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </ion-list>
+</ion-content>

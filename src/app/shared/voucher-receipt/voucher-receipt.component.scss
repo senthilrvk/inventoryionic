@@ -1,0 +1,199 @@
+ion-auto-complete ul {
+    left: auto;
+}
+.search-fixed {
+    position: fixed;
+    top: 62px;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: #fff;
+}
+
+.name_show {
+    padding: 0;
+    position: absolute;
+    background: #fff;
+    z-index: 10;
+    max-height: 300px;
+    overflow: auto;
+    width: 100%;
+
+    ion-item {
+        --min-height: 35px;
+        --padding-start: 2px;
+        --inner-padding-end: 0px;
+        font-size: 12px;
+        --padding-top: 0;
+        --padding-bottom: 0px;
+
+    }
+}
+
+.form_control {
+    ion-item {
+        --min-height: 35px;
+        --padding-start: 2px;
+        --inner-padding-end: 0px;
+        font-size: 12px;
+        --padding-top: 0;
+        --padding-bottom: 0px;
+
+    }
+}
+
+.tbl-list {
+    width: 100%;
+    overflow: auto;
+    background-color: #fff;
+
+    table {
+        width: 100%;
+
+        th {
+            padding: 5px 5px;
+            font-size: 12px;
+            border: 1px solid #999;
+            background: #307ea5;
+            color: #fff;
+        }
+
+        td {
+            // padding: 0 5px;
+            font-size: 12px;
+            border: 1px solid #ccc;
+            white-space: nowrap;
+
+            ion-input {
+                background: #6de88e;
+            }
+        }
+    }
+}
+
+.pop_bank {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: max-content;
+
+    ion-card {
+        background: #fff;
+    }
+
+    ion-item {
+        --min-height: 35px;
+        --padding-start: 2px;
+        --inner-padding-end: 0px;
+        font-size: 12px;
+        --padding-top: 0;
+        --padding-bottom: 0px;
+        color: #424242 !important;
+    }
+}
+
+.main-form {
+    ion-item {
+        --inner-padding-end: 0px;
+        margin-bottom: 0px;
+}
+    
+}
+
+.div_inline {
+    display: inline-flex;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+    font-size: 12px;
+
+}
+
+.card-main {
+    display: flex;
+    width: 100%;
+
+    .innerbox_one {
+        width: 80%;
+        display: grid;
+        font-size: 12px;
+        justify-content: start;
+    }
+
+    .innerbox_two {
+        display: grid;
+        width: 20%;
+        text-align: center;
+        justify-content: end;
+        font-size: 12px;
+    }
+}
+
+
+.calender {
+    height: 30px;
+    background: #ffffff;
+    font-size: 18px;
+    color: #424242;
+}
+
+.flex-product {
+    display: flex;
+
+    .receipt-band {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        min-width: 80px;
+        text-align: center;
+        background: #3880ff;
+        color: #fff;
+        padding: 5px;
+
+        ion-text {
+            font-size: 11px;
+        }
+    }
+
+    .receipt-detail {
+        display: inline-flex;
+        padding: 7px;
+        flex-direction: column;
+        width: 100%;
+
+        p {
+            font-size: 11px;
+            word-break: break-all;
+            margin: 0;
+            color: #000;
+        }
+    }
+    .stocknull {
+        background-color: #f04141 !important
+    }
+    .receipt-action {
+        display: inline-flex;
+        place-content: space-between;
+        align-items: flex-end;
+        margin-top: 5px;
+        .btn-group {
+            margin: 0;
+
+            button {
+                border-radius: 50%;
+                background: #fff;
+                margin-left: 10px;
+                border: 1px solid #ccc;
+                height: 25px;
+                width: 25px;
+                outline: none;
+               
+            }
+        }
+    }
+}

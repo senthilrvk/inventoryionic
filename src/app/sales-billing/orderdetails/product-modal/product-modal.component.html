@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar >
+    <ion-title >
+      Product view
+    </ion-title>
+
+    <ion-buttons slot="end">
+
+
+      <ion-button (click)="dismissWithData()" color='success'>
+        Add Cart
+      </ion-button>
+
+      <ion-button (click)="presentAlertConfirm()" color="danger">
+       Close
+      </ion-button>
+
+    </ion-buttons>
+  </ion-toolbar>
+  
+
+  
+</ion-header>
+
+  <ion-segment [(ngModel)]="segmentValue" color="secondary" scrollable>
+    <ion-segment-button value="product">
+      <ion-label>Product</ion-label>
+    </ion-segment-button>
+
+    <ion-segment-button value="category">
+      <ion-label>Category</ion-label>
+    </ion-segment-button>
+
+    <ion-segment-button value="company">
+      <ion-label>Company</ion-label>
+    </ion-segment-button>
+
+  </ion-segment>
+
+  <ion-content >
+  <div [ngSwitch]="segmentValue">
+  
+    <app-product-list *ngSwitchCase="'product'" [type]='typeName' (showEvent)="productQtyAlert($event)" [params]='params'></app-product-list>
+    <app-categoryorder *ngSwitchCase="'category'" (showEvent)="onCategoryClick($event)"></app-categoryorder>
+    <app-companyorder *ngSwitchCase="'company'" (showEvent)="onManufactureClick($event)"></app-companyorder>
+    
+  </div>
+
+ 
+</ion-content>
+
+<ion-footer *ngIf="typeName != 'product'" class="ion-no-border">
+  <ion-toolbar>
+    <ion-button clear expand="full" fill="clear" color="danger" (click)="resetProduct()">
+      clear filter
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

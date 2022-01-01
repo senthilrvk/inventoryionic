@@ -1,0 +1,195 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Purchase </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="view-box">
+    <ion-card style="margin: 4px">
+      <ion-item button lines="none" (click)="onAddCustomer()">
+        <ion-icon slot="icon-only" name="person" color="primary" slot="start"></ion-icon>
+        <ion-label>
+          <h3>
+            {{receiptInfoMain.Receipt_SupplierName ?
+            receiptInfoMain.Receipt_SupplierName: 'Add Supplier'}}
+          </h3>
+          <p>{{receiptInfoMain.Receipt_Address}}</p>
+        </ion-label>
+
+        <ion-button shape="round" size="large" fill="clear" color="medium" slot="end">
+          <ion-icon slot="icon-only" name="add"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-card>
+
+    <ion-grid class="inner-border">
+
+      <ion-row responsive-sm>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label>
+              Pur No: {{tempField.purNo}}
+            </ion-label>
+
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item (click)="calenderPicker(tempField.purDate, 'purchase-date')">
+            <ion-label>
+              Pur Date: {{tempField.purDate}}
+            </ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row responsive-sm>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label>Invoice No:</ion-label>
+            <ion-input [(ngModel)]="receiptInfoMain.Receipt_InvoNo"></ion-input>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="6">
+          <ion-item button (click)="calenderPicker(receiptInfoMain.Receipt_InvoDate, 'invoice-date')">
+            <ion-label>Invoice Date: {{receiptInfoMain.Receipt_InvoDate}}</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row responsive-sm>
+    
+        <ion-col size="6">
+          <ion-item>
+            <ion-label>Pay Terms:</ion-label>
+            <ion-select [interfaceOptions]="customPopoverOptions" interface="popover"
+              [(ngModel)]="receiptInfoMain.Receipt_PayTerms">
+              <ion-select-option value="CREDIT">CREDIT</ion-select-option>
+              <ion-select-option value="CASH">CASH</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="6">
+          <ion-item>
+            <ion-label>Bill Type:</ion-label>
+            <ion-select [interfaceOptions]="customPopoverOptions" interface="popover"
+              [(ngModel)]='receiptInfoMain.PurBillSerId' (ionChange)="fnGetMaxBillNo()">
+              <ion-select-option *ngFor="let item of billSeries" [value]='item.PurBillSerId'>
+                {{ item.PurBillSerPrefix }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+
+      </ion-row>
+
+
+      <ion-row responsive-sm>
+
+        <ion-col size="6" >
+          <ion-item>
+            <ion-label>{{tempField.strGSTName}}: {{tempField.gstNo}}</ion-label>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="6">
+          <ion-item>
+            <ion-label>Inv Amount:</ion-label>
+            <ion-input [(ngModel)]="receiptInfoMain.Receipt_InvoAmt" type="number"></ion-input>
+          </ion-item>
+        </ion-col>
+
+      </ion-row>
+
+    </ion-grid>
+  </div>
+
+  <div class="tbltable">
+    <table>
+      <thead>
+        <tr>
+          <th *ngFor="let col of columnHeader">{{col}}</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let item of dynamicArray; let i = index" (click)="presentPopover($event, item, i)">
+          <ng-container *ngFor="let col of columnHeader">
+            <td *ngIf="col == 'Code'">{{item.Code}}</td>
+            <td *ngIf="col == 'Product Name & Packing'">{{item.ItemName}}</td>
+            <td *ngIf="col == 'GST%'">{{item.ReceiptSub_TaxPercentage}}</td>
+            <td *ngIf="col == 'Qty'">{{item.ReceiptSub_ReceiptQty}}</td>
+            <td *ngIf="col == 'Freight'">{{item.ReceiptSub_Freight}}</td>
+            <td *ngIf="col == 'FQty'">{{item.ReceiptSub_ReceiptFree}}</td>
+            <td *ngIf="col == 'ReplaceQty'">{{item.ReceiptSub_ReplaceQty}}</td>
+            <td *ngIf="col ==  settingsName('BatchDisplayName')">{{item.ReceiptSub_Batch}}</td>
+            <td *ngIf="col == 'ExpDate'">{{item.ReceiptSub_ExpDate}}</td>
+            <td *ngIf="col == 'PRateWithTax'">{{item.ReceiptSub_Freight}}</td>
+            <td *ngIf="col == 'PurRate'">{{item.ReceiptSub_ReceiptRate}}</td>
+            <td *ngIf="col == 'Dis(%)'">{{item.ReceiptSub_ProdDiscount}}</td>
+            <td *ngIf="col == 'DisAmt'">{{item.ReceiptSub_ProdDisAmt}}</td>
+            <td *ngIf="col == 'ScheAmt'">{{item.ReceiptSub_SchemeAmt}}</td>
+            <td *ngIf="col == 'LCost'">{{item.ReceiptSub_LandCost}}</td>
+            <td *ngIf="col == 'R Mar(%)'">{{item.ReceiptSub_NeethiDisPers}}</td>
+            <td *ngIf="col == 'W Mar(%)'">{{item.ReceiptSub_WRateDis}}</td>
+            <td *ngIf="col == priceColumn.lblRetailRate">{{item.ReceiptSub_SellRate}}</td>
+            <td *ngIf="col == priceColumn.lblWholSalRate">{{item.ReceiptSub_WholeSaleRate}}</td>
+            <td *ngIf="col == priceColumn.lblMRP">{{item.ReceiptSub_MRP}}</td>
+            <td *ngIf="col == 'Pack'">{{item.ReceiptSub_Pack}}</td>
+            <td *ngIf="col == 'SalesQty'">{{item.ReceiptSub_SaleQty}}</td>
+            <td *ngIf="col == 'SalesFre'">{{item.ReceiptSub_SaleFree}}</td>
+            <td *ngIf="col == 'Loose'">{{item.ReceiptSub_LooseQty}}</td>
+            <td *ngIf="col == 'SalePeriod'">{{item.ReceiptSub_Period}}</td>
+            <td *ngIf="col == '%SRateMargin'">{{item.txtPurSelRateMarginPers}}</td>
+            <td *ngIf="col == 'MarginAmt'">{{item.txtSalesMarginAmt}}</td>
+            <td *ngIf="col == '%MrpMargin'">{{item.txtPurMrpMarginPers}}</td>
+            <td *ngIf="col == 'MrpMarginAmt'">{{item.txtPurMrpMarginAmt}}</td>
+            <td *ngIf="col == 'Color'">{{item.Color}}</td>
+            <td *ngIf="col == 'HsnCode'">{{item.ReceiptSub_Field2}}</td>
+            <td *ngIf="col =='MRP(%)'" class="tblTaxAmt"> </td>
+            <td *ngIf="col =='RMRP(%)'" class="tblTaxAmt"> </td>
+            <td *ngIf="col =='GSTAmt'"> {{item.ReceiptSub_TaxAmt}} </td>
+            <td *ngIf="col =='BeforeGST'" class="tblTaxAmt">{{item.ReceiptSub_AmtBeforeTax}} </td>
+            <td *ngIf="col =='Amount'"> {{item.ReceiptSub_Amount}} </td>
+            <td *ngIf="col == priceColumn.lblSpRate1"> {{item.ReceiptSub_SpRate1}} </td>
+            <td *ngIf="col == priceColumn.lblSpRate2"> {{item.ReceiptSub_SpRate2}} </td>
+            <td *ngIf="col == priceColumn.lblSpRate3"> {{item.ReceiptSub_SpRate3}} </td>
+            <td *ngIf="col == priceColumn.lblSpRate4"> {{item.ReceiptSub_SpRate4}} </td>
+            <td *ngIf="col == priceColumn.lblSpRate5"> {{item.ReceiptSub_SpRate5}} </td>
+          </ng-container>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</ion-content>
+
+<ion-footer>
+
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="success" (click)="fnsave('save')">Save</ion-button>
+    </ion-buttons>
+
+    <ion-title size="small" slot="end">
+      Total: {{this.dynamicArray.length ? (onGetTotal() | number:'1.1-2') : 0 }}
+    </ion-title>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="secondary" routerLink="/purchase/purchaselist">List</ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button color="primary" (click)="presentModal()">Product List</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

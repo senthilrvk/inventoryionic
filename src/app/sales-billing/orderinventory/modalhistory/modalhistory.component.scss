@@ -1,0 +1,28 @@
+.div-table {
+    width: 100%;
+    overflow: auto;
+
+    table {
+        width: 100%;
+        th {
+            font-size: 13px;
+            border: 1px solid #ccc;
+            background: #3880fe;
+            color: #fff;
+            padding: 8px 4px 8px 4px;
+            text-align: left;
+        }
+        td {
+            font-size: 13px;
+            border: 1px solid #ccc;
+            padding: 8px 4px 8px 4px;
+        }
+    }
+}
+
+.div-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+}

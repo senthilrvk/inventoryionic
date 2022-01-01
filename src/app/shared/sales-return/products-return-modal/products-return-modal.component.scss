@@ -1,0 +1,36 @@
+.product-card {
+    // margin: 0;
+    background-color: #fff;
+    .product-card-inner {
+        display: flex;
+      .product-card-band {
+        display: inline-flex;
+    align-items: center;
+    flex-direction: column;
+    min-width: 97px;
+    justify-content: center;
+    background: #3880ff;
+    color: #fff;
+      }
+      .product-card-banner {
+        padding: 10px;
+        span {
+          color: #000
+        }
+        p {
+          margin: 4px 0px 0px 0px;
+        }
+      }
+    }
+  }
+
+  ::ng-deep .picker-toolbar {
+    justify-content: unset;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    h3 {
+      width: 100%;
+      margin-left: 10px;
+
+    }
+  }

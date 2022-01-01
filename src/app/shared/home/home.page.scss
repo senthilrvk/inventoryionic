@@ -1,0 +1,42 @@
+.welcome-card ion-img {
+  max-height: 35vh;
+  overflow: hidden;
+}
+
+.grid-card {
+  // background-image: url('https://wallimpex.com/data/out/342/wallpapers-phone-android-7186246.jpg');
+  // background-repeat: no-repeat;
+  //   background-size: cover;
+ ion-card {
+  margin-inline-start: 6px;
+  margin-inline-end: 6px;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  background-color: #fff;
+  p {
+    color: #000;
+  }
+ }
+  ion-card-header {
+    white-space: nowrap;
+    padding: 10px;
+    ion-card-subtitle {
+      font-size: 13px;
+    }
+    ion-card-title {
+      font-size: 14px;
+    }
+  }
+
+  ion-card-content {
+    height: 90px;
+    text-align: center;
+    img {
+      height: 85px;
+      width: auto;
+      margin: auto
+    }
+
+  }
+}
+

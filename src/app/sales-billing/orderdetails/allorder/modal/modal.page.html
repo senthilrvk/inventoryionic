@@ -1,0 +1,57 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons color="light" (click)="dismiss()" class="btn-close" slot="start">
+            <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-buttons>
+        <ion-title>
+           {{tittle}}
+        </ion-title>
+
+    </ion-toolbar> 
+</ion-header>
+
+<ion-content>
+    <div *ngIf="!Imgagebox">
+    <ion-list>
+        <ion-item>
+            <ion-label>
+                <h2>Name</h2>
+                <p>{{ AcName}}</p>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                <h2>Address</h2>
+                <p>{{ AcAddr1 }}</p>
+                <p>{{ AcAddr2 }}</p>
+                <p>{{ AcAddr3 }}</p>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                <h2>Phone</h2>
+                <p>{{ AcPhone }}</p>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                <h2>Mobile</h2>
+                <p>{{ AcMobile }}</p>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                <h2>Email</h2>
+                <p>{{ AcEmail }}</p>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+</div>
+
+<div *ngIf="Imgagebox" padding style="text-align: center;">
+    <ion-text color="medium">
+        <p>{{ProductName}}</p>
+    </ion-text>
+<img [src]="Image" class="image-preview" />
+</div>
+</ion-content>

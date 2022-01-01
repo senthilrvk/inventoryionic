@@ -1,0 +1,706 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Print Preview</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="fnPrintpage()">
+        <ion-icon name='print' slot="icon-only" color="primary"></ion-icon>
+      </ion-button>
+      <ion-button (click)="fnSharepage()">
+        <ion-icon name='share' slot="icon-only" color="secondary"></ion-icon>
+      </ion-button>
+      <ion-button (click)="fnClose()">
+        <ion-icon name='close' slot='icon-only' color="danger"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div style="width: 100%; overflow-x: scroll;  overflow-y: scroll;">
+    <div id="printer_content" *ngFor="let item of endCount; let k =index">
+
+        <div style="border: 1px #000000 solid; height: 281mm;
+         max-height: 281mm; min-height: 281mm;
+          outline: 2cm #ffffff solid;  width: 195mm;">
+
+          <div class="HeaderSection" style="border: 0.2px #000000 solid;
+          height: 105px; max-height: 105px; min-height: 105px;
+          border-top: none; border-left: none; border-right: none; 
+           border-bottom: none; width: 100%; overflow: hidden; text-align: center">
+            <span class="subheading"
+              style="float:right;font-weight: bold; font-size: 9pt;width:800px;text-align:right;padding-right:10px;">
+            </span>
+
+            <div><span class="fontheader"></span></div>
+            <div><span class="subheading" style="font-weight: bold; font-size: 9pt;width:100px;text-align:center">
+                {{BranchInfo?.BranchName}}</span></div>
+            <div><span class="subheading"
+                style="font-weight: bold; font-size: 9pt;width:100px;text-align:center">{{BranchInfo?.BranchAdr1}}</span>
+            </div>
+            <div><span class="subheading"
+                style="font-weight: bold; font-size: 9pt;width:100px;text-align:center">{{BranchInfo?.BranchAdr2}}</span>
+            </div>
+            <div><span class="subheading"
+                style="font-weight: bold; font-size: 9pt;width:100px;text-align:center">{{BranchInfo?.BranchAdr3}}</span>
+            </div>
+            <div><span class="subheading" style="font-weight: bold; font-size: 9pt;width:100px;text-align:center">GST
+                INVOICE</span></div>
+          </div>
+          <div class="HeaderBillDetails" style="border: 0.2px #000000 solid;
+          height: 75px; max-height: 75px; min-height: 75px; border-left: none;
+          border-right: none; width: 100%; padding: 0px,0px,0px,0px; overflow: hidden; border-bottom: none;">
+
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:100px;text-align:left">&nbsp;&nbsp;GSTTIN</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">:</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;min-width:340px;
+            max-width:340px;border: 0.2px #000000 solid;border-bottom: none;border-top: none;border-left: none;
+            border-right: solid;border-width: 1px;">&nbsp;{{BranchInfo?.TinNo1}}</span>
+            
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:90px;">&nbsp;REVERSE&nbsp;TAX </span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">:</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:150px;">&nbsp;Yes/No</span>
+
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:100px;text-align:left">&nbsp;&nbsp;DL&nbsp;NO</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">:</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;min-width:340px;max-width:340px;border: 0.2px #000000 solid;
+              border-bottom: none;border-top: none;border-left: none;border-right: solid;border-width: 1px;">
+              &nbsp;{{BranchInfo?.DLNo1}}
+            </span>
+
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:90px;">&nbsp;INVOICE&nbsp;NO </span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">:</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:150px;">&nbsp;{{IssueInfo?.BillSerPrefix }} - {{IssueInfo?.Issue_SlNo}}</span>
+
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:100px;text-align:left">&nbsp;&nbsp;DL&nbsp;NO</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">:</span>
+            <span class="subheading1" style="float: left; font-weight: bold; font-size: 9pt;min-width:340px;max-width:340px;
+              border: 0.2px #000000 solid;border-bottom: none;border-top: none;border-left: none;border-right: solid;
+              border-width: 1px;">&nbsp;{{BranchInfo?.DLNo2}}</span>
+
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:90px;">&nbsp;INVOICE&nbsp;DATE </span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">:</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;
+            width:150px;">&nbsp;{{this.DateRet(IssueInfo?.Issue_BillDate)}}</span>
+
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:100px;text-align:left">&nbsp;&nbsp;FSSAI&nbsp;NO</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">:</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;min-width:340px;max-width:340px;
+              border: 0.2px #000000 solid;border-bottom: none;border-top: none;border-left: none;
+              border-right: solid;border-width: 1px;">&nbsp;{{BranchInfo?.Currency}}</span>
+
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:90px;">&nbsp;PAYTERMS</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">:</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:150px;">&nbsp;{{IssueInfo?.Issue_PayTerms}}</span>
+
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:100px;text-align:left">&nbsp;&nbsp;STATE</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">:</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;min-width:340px;max-width:340px;
+            border: 0.2px #000000 solid;border-bottom: none;border-top: none;border-left: none;border-right: solid;
+            border-width: 1px;">&nbsp;{{BranchInfo?.Branch_StateName}}<label style="Padding-left:150px;">STATE CODE : 32</label></span>
+
+
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:90px;">&nbsp;VEHICLE&nbsp;NO</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">:</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:150px;">&nbsp;{{IssueInfo?.Issue_VechileNo}}</span>
+
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:100px;text-align:left">&nbsp;&nbsp;</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">&nbsp;&nbsp;</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;min-width:340px;max-width:340px;border: 0.2px #000000 solid;
+              border-bottom: none;border-top: none;border-left: none;border-right: solid;border-width: 1px;">
+              &nbsp;</span>
+
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:90px;">&nbsp;</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">&nbsp;</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:150px;">&nbsp;</span>
+
+          </div>
+
+          <div class="CustomerDetails" style="border: 0.2px #000000 solid;
+          height: 85px; max-height: 85px; min-height: 85px; border-left: none;
+          border-right: none; width: 100%; padding: 0px; overflow: hidden;">
+
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:100px;text-align:left">&nbsp;&nbsp;NAME</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">:</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;min-width:340px;max-width:340px;
+              border: 0.2px #000000 solid;border-bottom: none;border-top: none;border-left: none;
+              border-right: solid;border-width: 1px;">&nbsp;{{IssueInfo?.Issue_CustName}}</span>
+
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:90px;">&nbsp;DL&nbsp;No1</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">:</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:150px;">&nbsp;
+              {{IssueInfo?.DLNo1}}</span>
+
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:100px;text-align:left">&nbsp;&nbsp;ADDRESS</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">:</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;min-width:340px;max-width:340px;
+              border: 0.2px #000000 solid;border-bottom: none;border-top: none;border-left: none;
+              border-right: solid;border-width: 1px;">&nbsp;{{IssueInfo?.Addr1}}</span>
+
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:90px;">&nbsp;DL&nbsp;No2</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">:</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:150px;">&nbsp;
+              {{IssueInfo?.DLNo2}}</span>
+
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:100px;text-align:left">&nbsp;&nbsp;</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">:</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;min-width:340px;max-width:340px;
+              border: 0.2px #000000 solid;border-bottom: none;border-top: none;border-left: none;
+            border-right: solid;border-width: 1px;">&nbsp;{{IssueInfo?.Addr2}}</span>
+
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:90px;">&nbsp;SALESMAN</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">:</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:150px;">&nbsp;
+              {{IssueInfo?.SalesManName}}</span>
+
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:100px;text-align:left">&nbsp;&nbsp;GSTIN</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">:</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;min-width:340px;max-width:340px;
+              border: 0.2px #000000 solid;border-bottom: none;border-top: none;border-left: none;
+              border-right: solid;border-width: 1px;">&nbsp;{{IssueInfo?.CstNo1}}</span>
+
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:90px;">&nbsp;Order&nbsp;No </span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">:</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:150px;">&nbsp;
+              {{IssueInfo?.Issue_OrderNo}}</span>
+
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:100px;text-align:left">&nbsp;&nbsp;PHONE</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">:</span>
+            <span class="subheading1" style="float: left; font-weight: bold; font-size: 9pt;min-width:340px;max-width:340px;border: 0.2px #000000 solid;
+              border-bottom: none;border-top: none;border-left: none;border-right: solid;border-width: 1px;">&nbsp;{{IssueInfo?.Phone}}</span>
+
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:90px;">&nbsp;Order&nbsp;Date </span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">:</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:150px;">&nbsp;
+              {{this.DateRet(IssueInfo?.Issue_OrderDate)}}</span>
+
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:100px;text-align:left">&nbsp;&nbsp;STATE</span>
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">:</span>
+            <span class="subheading1" style="float: left; font-weight: bold; font-size: 9pt;min-width:340px;max-width:340px;border: 0.2px #000000 solid;
+              border-bottom: none;border-top: none;border-left: none;border-right: solid;border-width: 1px;">
+              &nbsp;{{IssueInfo?.StateName}} <label style="Padding-left:150px;">STATE CODE : 32</label></span>
+
+            <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:90px;">&nbsp;</span>
+          </div>
+
+          <div class="DetailSection" style="border: 1px #000000 solid;
+          height: 429px; max-height: 429px; min-height: 429px; overflow: hidden;
+          border-top: none; border-left: none; border-right: none; width: 100%;
+          font-family: Arial,Arial,Gadget,sans-serif; font-size: 8pt; padding: 0px">
+
+            <table class="tblSales" style="border-collapse: collapse; width: 100%;">
+              <thead>
+                <tr>
+                  <th class="tblNo" style="text-align: center; border-bottom: 0.2px #000000 solid;font-weight: bold;width: 22px;
+                  min-width: 22px; max-width: 22px; overflow: hidden; text-align: right; border-left: none;
+                  border-top: none; border-right: solid; border-width: 1px; font-size: 8pt; height: auto;">No&nbsp;</th>
+
+                  <th class="tblItemCode" style="text-align: center; border-bottom: 0.2px #000000 solid;font-weight: bold;
+                  width: 56px; font-size: 8pt; height: auto; min-width: 56px; max-width: 56px; overflow: hidden;
+                  text-align: left; border-left: none; border-top: none; border-right: solid; border-width: 1px;
+                  padding: 0px; font-size: 8pt; font-weight: bold; white-space: nowrap;">HSNCode</th>
+
+                  <th class="Mrp" style="text-align: center; border-bottom: 0.2px #000000 solid;font-weight: bold;
+                  font-size: 8pt; height: auto; width: 44px;max-width: 44px; min-width: 44px;overflow: hidden;text-align: right;
+                  border-left: none;border-top: none;border-right: solid;border-width: 1px;
+                  padding: 0px;font-weight: bold;">Mrp&nbsp;</th>
+
+                  <th class="tblProduct" style="text-align: center; border-bottom: 0.2px #000000 solid;font-weight: bold;
+                       font-size: 8pt; height: auto; width: 197px; min-width: 197px; max-width: 197px;
+                       overflow: hidden; text-align: left; border-left: none; border-top: none; border-right: solid;
+                       border-width: 1px; padding: 0px; font-weight: bold;
+                       white-space: nowrap;">&nbsp;Commodity&nbsp;Items</th>
+
+                  <th class="Mfr" style="text-align: center; border-bottom: 0.2px #000000 solid;font-weight: bold;
+                       font-size: 8pt;  height: auto; width: 28px;max-width: 28px; min-width: 28px;overflow: hidden;text-align: right;
+                       border-left: none;border-top: none;border-right: solid;border-width: 1px;
+                       padding: 0px;font-weight: bold;">Mfr&nbsp;</th>
+
+
+                  <th class="Batch" style="text-align: center; border-bottom: 0.2px #000000 solid;font-weight: bold;
+                      font-size: 8pt; width: 74px;max-width: 74px; min-width: 74px;overflow: hidden;
+                       border-left: none;border-top: none;border-right: solid;border-width: 1px;
+                       padding: 0px;font-weight: bold;">Batch&nbsp;</th>
+
+                  <th class="Batch" style="text-align: center; border-bottom: 0.2px #000000 solid;font-weight: bold;
+                      font-size: 8pt; height: auto; width: 40px;max-width: 40px; min-width: 40px;overflow: hidden;
+                       border-left: none;border-top: none;border-right: solid;border-width: 1px;
+                       padding: 0px;font-weight: bold;">EpDate&nbsp;</th>
+
+                  <th class="Qty" style="text-align: center; border-bottom: 0.2px #000000 solid;font-weight: bold;width: 35px;
+                  max-width: 35px;font-size: 8pt; min-width: 35px;overflow: hidden;
+                  text-align: right;border-left: none; border-top: none;border-right: solid;
+                  border-width: 1px;padding: 0px;font-weight: bold;">Qty&nbsp;</th>
+
+                  <th class="Free" style="text-align: center; border-bottom: 0.2px #000000 solid;font-weight: bold;width: 25px;
+                 font-size: 8pt; height: auto; max-width: 25px; min-width: 25px;
+                  overflow: hidden; text-align: right; border-left: none; border-top: none;
+                  border-right: solid; border-width: 1px; padding: 0px; font-weight: bold;">Free&nbsp;</th>
+
+                  <th class="UnitPrice" style="text-align: center; border-bottom: 0.2px #000000 solid;font-weight: bold;width: 44px;
+                  font-size: 8pt; height: auto; max-width: 44px; min-width: 44px; overflow: hidden; text-align: right; border-left: none;
+                  border-top: none; border-right: solid; border-width: 1px; padding: 0px; font-weight: bold;">
+                    Rate&nbsp;</th>
+
+                  <th class="GrossValue" style="text-align: center; border-bottom: 0.2px #000000 solid;font-weight: bold;
+                    font-size: 8pt;  height: auto; width: 46px;    max-width: 46px;    min-width: 46px;    overflow: hidden;
+                    text-align: right; border-left: none;    border-top: none;    border-right: solid;    border-width: 1px; padding: 0px;    font-weight: bold;">
+                    Gs.Value</th>
+
+                  <th class="CashDisc" style="text-align: center; border-bottom: 0.2px #000000 solid;font-weight: bold;
+                    font-size: 8pt; height: auto;width: 33px;    max-width: 33px;    min-width: 33px;    overflow: hidden;    text-align: right;    border-left: none;
+                    border-top: none; border-right: solid;    border-width: 1px;    padding: 0px;    font-weight: bold;">
+                    Disc&nbsp;</th>
+
+                  <th class="RateofTax" style="text-align: center; border-bottom: 0.2px #000000 solid;font-weight: bold;
+                  width: 28px; font-size: 8pt; height: auto; max-width: 28px;
+                  min-width: 28px; overflow: hidden; text-align: right; border-left: none;
+                  border-top: none; border-right: solid; border-width: 1px; padding: 0px; font-weight: bold;">GST</th>
+
+                  <th class="Amount" style="text-align: center; border-bottom: 0.2px #000000 solid;font-weight: bold;width: 62px;
+                  font-size: 8pt; height: auto; max-width: 62px;min-width: 62px; overflow: hidden;text-align: right;border-left: none;border-top: none;                border-right: none;
+                  border-width: 1px;padding: 0px;font-weight: bold;">Amount&nbsp;</th>
+                </tr>
+
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let data of IssueSubDetailsInfo; let i = index">
+                  <tr *ngIf="24 >= i && k == 0 || k > 0 && i > 24 * k">
+
+                    <td class="tblNo" style="border-bottom: 0.2px #000000 solid;width: 22px;
+                              font-size: 8pt;    height: auto;    min-width: 22px;max-width: 22px; overflow: hidden;
+                              text-align: right;border-left: none; border-top: none; border-right: solid;
+                              border-width: 1px;">{{i + 1}}&nbsp;</td>
+                    <td class="tblItemCode" style="border-bottom: 0.2px #000000 solid; width: 56px;    min-width: 56px;    max-width: 56px;
+                              overflow: hidden;    text-align: left;    border-left: none;    border-top: none;    border-right: solid;    border-width: 1px;    padding: 0px;    font-size: 8pt;    font-weight: bold;
+                              white-space: nowrap;">{{data.HSNCode}}&nbsp;</td>
+                    <td class="Mrp" style="border-bottom: 0.2px #000000 solid;font-size: 8pt;
+                               height: auto;width: 44px;max-width: 44px; min-width: 44px;overflow: hidden;text-align: right;
+                               border-left: none;border-top: none;border-right: solid; border-width: 1px;padding: 0px; 
+                               font-weight: bold;">{{data.IssueSub_Mrp | number:'1.1-2'}}&nbsp;</td>
+                    <td class="tblProduct" style="border-bottom: 0.2px #000000 solid;font-size: 8pt;
+                               height: auto;width: 197px;min-width: 197px; max-width: 197px;overflow: hidden;text-align: left;border-left: none;
+                               border-top: none;border-right: solid;border-width: 1px;padding: 0px;                     font-weight: bold;
+                               white-space: nowrap;">{{ data.ItemDesc }}&nbsp;</td>
+
+                    <td class="RateofTax" style="border-bottom: 0.2px #000000 solid;width: 28px;
+                              max-width: 28px; min-width: 28px;overflow: hidden; text-align: right;
+                              border-left: none; font-size: 8pt;height: auto; border-top: none; border-right: solid;
+                              border-width: 1px; padding: 0px; font-weight: bold;">
+                      {{data.MFRNo}}&nbsp;</td>
+
+                    <td class="RateofTax" style="border-bottom: 0.2px #000000 solid;width: 74px;
+                              max-width: 74px; min-width: 74px;overflow: hidden; text-align: right;
+                              border-left: none; font-size: 8pt;height: auto; border-top: none; border-right: solid;
+                              border-width: 1px; padding: 0px; font-weight: bold;">
+                      {{data.IssueSub_Batch}}&nbsp;</td>
+
+                    <td class="RateofTax" style="border-bottom: 0.2px #000000 solid;width: 40px;
+                              max-width: 40px; min-width: 40px;overflow: hidden; text-align: right;
+                              border-left: none; font-size: 8pt;height: auto; border-top: none; border-right: solid;
+                              border-width: 1px; padding: 0px; font-weight: bold;">
+                      {{ DateRetExpiryFormat(data.IssueSub_ExpDate)}}&nbsp;</td>
+
+                    <td class="Qty" style="border-bottom: 0.2px #000000 solid;width: 35px;
+                          font-size: 8pt;    height: auto; max-width: 35px;
+                          min-width: 35px; overflow: hidden; text-align: right; border-left: none; border-top: none; border-right: solid;                border-width: 1px; padding: 0px;
+                          font-weight: bold;">{{data.IssueSub_Qty }}&nbsp;</td>
+
+                    <td class="Free" style="border-bottom: 0.2px #000000 solid;width: 25px;
+                          font-size: 8pt;    height: auto; max-width: 25px; min-width: 25px; overflow: hidden;
+                          text-align: right; border-left: none;border-top: none; border-right: solid;
+                          border-width: 1px; padding: 0px;font-weight: bold;">{{data.IssueSub_FreeQty }}&nbsp;</td>
+
+                    <td class="UnitPrice" style="border-bottom: 0.2px #000000 solid;width: 44px;
+                          font-size: 8pt;    height: auto;    max-width: 44px; min-width: 44px; overflow: hidden; text-align: right; border-left: none;
+                          border-top: none; border-right: solid; border-width: 1px; padding: 0px;
+                          font-weight: bold;">
+                      {{data.IssueSub_ActualRate | number:'1.1-2'}}&nbsp;</td>
+
+                    <td class="GrossValue" style="border-bottom: 0.2px #000000 solid;width: 46px;
+                          font-size: 8pt;    height: auto;    max-width: 46px; min-width: 46px;
+                          overflow: hidden; text-align: right; border-left: none; border-top: none;
+                           border-right: solid; border-width: 1px; padding: 0px; font-weight: bold;">
+                      {{data.IssueSub_Qty * data.IssueSub_ActualRate | number:'1.1-2'}}&nbsp;</td>
+
+                    <td class="CashDisc" style="border-bottom: 0.2px #000000 solid;
+                         font-size: 8pt; height: auto; width: 33px; max-width: 33px; min-width: 33px;
+                         overflow: hidden; text-align: right; border-left: none;    
+                         border-top: none; border-right: solid; border-width: 1px; padding: 0px; font-weight: bold;">
+                      {{data.IssueSub_ProdDisAmt | number:'1.1-2'}}&nbsp;</td>
+
+                    <td class="RateofTax" style="border-bottom: 0.2px #000000 solid;width: 28px;
+                          max-width: 28px; min-width: 28px;overflow: hidden; text-align: right;
+                          border-left: none; font-size: 8pt;height: auto; border-top: none; border-right: solid;
+                          border-width: 1px; padding: 0px; font-weight: bold;">
+                      {{data.IssueSub_TaxPers | number:'1.1-2'}}&nbsp;</td>
+
+                    <td class="NetValue" style="border-bottom: 0.2px #000000 solid;
+                      font-size: 8pt; height: auto; width: 62px; max-width: 62px;
+                      min-width: 62px; overflow: hidden; text-align: right; border-left: none;
+                      border-top: none; border-right: none; border-width: 1px;
+                      padding: 0px; font-weight: bold;">
+                      {{data.IssueSub_Qty * data.IssueSub_ActualRate - data.IssueSub_ProdDisAmt | number:'1.1-2'}}&nbsp;
+                    </td>
+                    
+                  </tr>
+                </ng-container>
+
+
+              </tbody>
+
+              <tfoot>
+                <tr>
+                  <th style="border-right: 1px solid #000;
+                   border-bottom: 1px solid #000;">&nbsp;</th>
+                  <th  style="border-left: 1px solid #000;
+                  border-right: 1px solid #000;
+                  border-bottom: 1px solid #000;">&nbsp;</th>
+                  <th style="border-left: 1px solid #000;
+                  border-right: 1px solid #000;
+                  border-bottom: 1px solid #000;">&nbsp;</th>
+                  <th style="border-left: 1px solid #000;
+                  border-right: 1px solid #000;
+                  border-bottom: 1px solid #000;">Total</th>
+                  <th style="border-left: 1px solid #000;
+                   border-right: 1px solid #000;
+                   border-bottom: 1px solid #000;">&nbsp;</th>
+                  <th style="border-left: 1px solid #000;
+                   border-right: 1px solid #000;
+                   border-bottom: 1px solid #000;">&nbsp;</th>
+                  <th style="border-left: 1px solid #000;
+                   border-right: 1px solid #000;
+                   border-bottom: 1px solid #000;">&nbsp;</th>
+                  <th style="text-align: right; border-left: 1px solid #000;
+                   border-right: 1px solid #000;
+                   border-bottom: 1px solid #000;">{{totalQuantity}}</th>
+                  <th style="text-align: right; border-left: 1px solid #000;
+                   border-right: 1px solid #000;
+                   border-bottom: 1px solid #000;">{{totalFreeQuantity}}</th>
+                  <th style="border-left: 1px solid #000;
+                   border-right: 1px solid #000;
+                   border-bottom: 1px solid #000;">&nbsp;</th>
+                  <th style="border-left: 1px solid #000;
+                   border-right: 1px solid #000;
+                   border-bottom: 1px solid #000;">&nbsp;</th>
+                  <th style="border-left: 1px solid #000;
+                   border-right: 1px solid #000;
+                   border-bottom: 1px solid #000;">&nbsp;</th>
+                  <th style="border-left: 1px solid #000;
+                   border-right: 1px solid #000;
+                   border-bottom: 1px solid #000;">&nbsp;</th >
+                  <th style="text-align: right;border-left: 1px solid #000;
+                   border-bottom: 1px solid #000;">
+                   {{ TotAmtBeforeTax | number:'1.1-2' }}</th >
+                  
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          <div class="FooterSection" style="border: 0.2px #000000 solid;
+          height: 150px;max-height: 190px;overflow: hidden;border-bottom: none;
+          border-top: none; border-left: none;border-right: none; width: 100%;
+          padding: 0px">
+            <div style="float:left;width:100%;border:1px solid;border-left:0px solid;border-right:0px solid;border-top:0px none;">
+              <div style="float:left;width:481px;">
+                <span class="subheading"
+                  style="float: left;text-align: center; font-weight: bold; font-size: 9pt;width:100%;border-bottom: 0.0px #000000 solid;border-top: 0.0px #000000 solid;">
+                  {{strAmtInwords}} </span>
+                <span style="height:15px;margin-left:10px;width:40px;float: left; font-weight: normal; font-size: 8pt;border-bottom: 0.2px #000000 solid;border-left: 0.2px #000000 solid;border-top: 0.2px #000000 solid;border-right:0.2px #000000 solid;text-align:center;">&nbsp;%</span>
+                <span style="height:15px;width:125px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.2px #000000 solid;text-align:center;">TAXABLE</span>
+                <span style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.2px #000000 solid;text-align:center;">SGST</span>
+                <span style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.2px #000000 solid;text-align:center;">CGST</span>
+                <span style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.2px #000000 solid;text-align:center;">IGST</span>
+                <span style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.2px #000000 solid;text-align:center;">KFC</span>
+                <!-- <span class="subheading" style="width:800px;float: right; font-weight: normal; font-size: 9pt;text-align:center;height:0px;">&nbsp;</span> -->
+
+                <ng-container *ngFor="let tax of IssueTaxInfo">
+
+
+                  <ng-container *ngIf="tax.TaxId == 1">
+                    <span style="height:15px;margin-left:10px;width:40px;float: left; font-weight: normal; font-size: 8pt;border-bottom: 0.2px #000000 solid;border-left: 0.2px #000000 solid;border-top: 0.0px #000000 solid;border-right:0.2px #000000 solid;text-align:center;">&nbsp;0
+                    </span>
+                    <span style="height:15px;width:125px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                      {{tax.Amount}}&nbsp;</span>
+                    <span style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">&nbsp;</span>
+                    <span style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">&nbsp;</span>
+                    <span style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">&nbsp;</span>
+                    <span style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">&nbsp;</span>
+                    <span  style="width:800px;float: right; font-weight: normal; font-size: 9pt;text-align:center;height:0px;">&nbsp;
+                    </span>
+                  </ng-container>
+                  <ng-container *ngIf="tax.TaxId == 3">
+                    <span style="height:15px;margin-left:10px;width:40px;float: left; font-weight: normal; font-size: 8pt;border-bottom: 0.2px #000000 solid;border-left: 0.2px #000000 solid;border-top: 0.0px #000000 solid;border-right:0.2px #000000 solid;text-align:center;">&nbsp;5
+                    </span>
+                    <span style="height:15px;width:125px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                      {{tax.Amount}}&nbsp;</span>
+                    <span style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                      {{tax.SGSTTaxAmount}}&nbsp;</span>
+                    <span style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                      {{tax.CGSTTaxAmount}}&nbsp;</span>
+                    <span style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                      {{tax.IGSTTaxAmount}}&nbsp;</span>
+                    <span style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                      {{tax.CessAmt}}&nbsp;
+                    </span>
+                  </ng-container>
+                  <ng-container *ngIf="tax.TaxId == 6">
+                    <span style="height:15px;margin-left:10px;width:40px;float: left; font-weight: normal; font-size: 8pt;border-bottom: 0.2px #000000 solid;border-left: 0.2px #000000 solid;border-top: 0.0px #000000 solid;border-right:0.2px #000000 solid;text-align:center;">&nbsp;12
+                    </span>
+                    <span style="height:15px;width:125px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                      {{tax.Amount}}&nbsp;</span>
+                    <span style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                      {{tax.SGSTTaxAmount}}&nbsp;</span>
+                    <span style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                      {{tax.CGSTTaxAmount}}&nbsp;</span>
+                    <span style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                      {{tax.IGSTTaxAmount}}&nbsp;</span>
+                    <span style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                      {{tax.CessAmt}}&nbsp;</span>
+                  </ng-container>
+                  <ng-container *ngIf="tax.TaxId == 7">
+                    <span style="height:15px;margin-left:10px;width:40px;float: left; font-weight: normal; font-size: 8pt;border-bottom: 0.2px #000000 solid;border-left: 0.2px #000000 solid;border-top: 0.0px #000000 solid;border-right:0.2px #000000 solid;text-align:center;">&nbsp;18
+                    </span>
+                    <span style="height:15px;width:125px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                      {{tax.Amount}}&nbsp;</span>
+                    <span style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                      {{tax.SGSTTaxAmount}}&nbsp;</span>
+                    <span style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                      {{tax.CGSTTaxAmount}}&nbsp;</span>
+                    <span style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                      {{tax.IGSTTaxAmount}}&nbsp;</span>
+                    <span style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                      {{tax.CessAmt}}&nbsp;</span>
+                  </ng-container>
+
+                  <ng-container *ngIf="tax.TaxId == 8">
+                    <span style="height:15px;margin-left:10px;width:40px;float: left; font-weight: normal; font-size: 8pt;border-bottom: 0.2px #000000 solid;border-left: 0.2px #000000 solid;border-top: 0.0px #000000 solid;border-right:0.2px #000000 solid;text-align:center;">&nbsp;28
+                    </span>
+                    <span style="height:15px;width:125px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                      {{tax.Amount}}&nbsp;</span>
+                    <span style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                      {{tax.SGSTTaxAmount}}&nbsp;</span>
+                    <span style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                      {{tax.CGSTTaxAmount}}&nbsp;</span>
+                    <span style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                      {{tax.IGSTTaxAmount}}&nbsp;</span>
+                    <span style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                      {{tax.CessAmt}}&nbsp;</span>
+                  </ng-container>
+
+
+                </ng-container>
+
+                <div style="width:270px;float:left;padding-left:10px; margin-top: 6px;">
+                  <span style="width:70px;float: left; font-weight: bold; font-size: 8pt;border:none;
+                    border-top: 0.2px #000000 solid;border-left: 0.2px #000000 solid;">&nbsp;Bank Name</span>
+                  <span style="width:10px;float: left; font-weight: bold; font-size: 8pt;border:none;border-top: 0.2px #000000 solid;">:</span>
+                  <span style="width:170px;float: left; font-weight: bold; font-size: 8pt;
+                  border:none;border-top: 0.2px #000000 solid;border-right: 0.2px #000000 solid;
+                  overflow:hidden; white-space: nowrap;">&nbsp;{{BranchInfo?.Branch_BankName}}</span>
+    
+                  <span style="width:70px;float: left; font-weight: bold; font-size: 8pt;border:none;
+                  border-left: 0.2px #000000 solid;">&nbsp;Address</span>
+                  <span style="width:10px;float: left; font-weight: bold; font-size: 8pt;border:none;">:</span>
+                  <span style="width:170px;float: left; font-weight: bold; font-size: 8pt;border:none;
+                  border-right: 0.2px #000000 solid;overflow:hidden;
+                  white-space: nowrap;">&nbsp;{{BranchInfo?.Branch_BankAddr1}}</span>
+    
+                  <span style="width:70px;float: left; font-weight: bold; font-size: 8pt;border:none;
+                  border-left: 0.2px #000000 solid;">&nbsp;Account No</span>
+                  <span style="width:10px;float: left; font-weight: bold; font-size: 8pt;border:none;">:</span>
+                  <span style="width:170px;float: left; font-weight: bold; font-size: 8pt;border:none;
+                  border-right: 0.2px #000000 solid;overflow:hidden;
+                   white-space: nowrap;">&nbsp;{{BranchInfo?.Branch_BankAcNo}}</span>
+    
+                  <span style="width:70px;float: left; font-weight: bold; font-size: 8pt;border:none;
+                  border-bottom: 0.2px #000000 solid;border-left: 0.2px #000000 solid;">&nbsp;Bank IFSC</span>
+                  <span style="width:10px;float: left; font-weight: bold; font-size: 8pt;border:none;border-bottom: 0.2px #000000 solid;">:</span>
+                  <span style="width:170px;float: left; font-weight: bold; font-size: 8pt;border:none;
+                  border-bottom: 0.2px #000000 solid;border-right: 0.2px #000000 solid;overflow:hidden;
+                  white-space: nowrap;">&nbsp;{{BranchInfo?.Branch_IFSCCODE}}</span>
+    
+                </div>
+    
+              </div>
+              
+
+              <div style="float:right;width:253px;">
+
+                <span style="width:140px;float: left; font-weight: bold; font-size: 8pt;
+                border-bottom: 0.2px #000000 solid;border-left: 0.2px #000000 solid;
+                border-top: 0.0px #000000 solid;border-right:none;">&nbsp;Total Amt Before Tax</span>
+                <span style="width:10px;float: left; font-weight: bold; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;">:</span>
+                <span style="width:100px;float: left; font-weight: bold; font-size: 8pt;
+                text-align: right;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;
+                border-right:none;border-top: 0.0px #000000 solid;">{{TotAmtBeforeTax | number:'1.1-2' }}</span>
+                
+                <span style="width:140px;float: left; font-weight: bold; font-size: 8pt;border: 0.2px #000000 solid;
+                border-left: 0.2px #000000 solid;border-top: 0.0px #000000 solid;
+                border-right:none;">&nbsp;Dis({{IssueInfo?.Issue_DisPers | number:'1.1-2' }})</span>
+                <span style="width:10px;float: left; font-weight: bold; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;">:</span>
+                <span style="width:100px;float: left; font-weight: bold; font-size: 8pt;text-align: right;border: 0.2px #000000 solid;
+                border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;
+                border-right:none;">{{ (IssueInfo?.Issue_DisAmt) + (TotDisAmt) | number:'1.1-2' }}</span>
+
+                <span style="width:140px;float: left; font-weight: bold; font-size: 8pt;
+                border: 0.2px #000000 solid;border-left: 0.2px #000000 solid;border-top: 0.0px #000000 solid;
+                border-right:none;">&nbsp;Total Amount After Disc</span>
+                <span style="width:10px;float: left; font-weight: bold; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;">:</span>
+                <span style="width:100px;float: left; font-weight: bold; font-size: 8pt;text-align: right;
+                border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;
+                border-right:none;">{{ (TotAmtBeforeTax - IssueInfo?.Issue_DisAmt - TotDisAmt) | number:'1.1-2' }}</span>
+
+                <span style="width:140px;float: left; font-weight: bold; font-size: 8pt;
+                border: 0.2px #000000 solid;border-left: 0.2px #000000 solid;
+                border-top: 0.0px #000000 solid;border-right:none;">&nbsp;Add : SGST</span>
+                <span style="width:10px;float: left; font-weight: bold; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;">:</span>
+                <span style="width:100px;float: left; font-weight: bold; font-size: 8pt;
+                text-align: right;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;
+                border-top: 0.0px #000000 solid;border-right:none;">{{TotSGstTotal | number:'1.1-2'}}</span>
+
+
+                <span style="width:140px;float: left; font-weight: bold; font-size: 8pt;
+                border: 0.2px #000000 solid;border-left: 0.2px #000000 solid;
+                border-top: 0.0px #000000 solid;border-right:none;">&nbsp;Add : CGST</span>
+                <span style="width:10px;float: left; font-weight: bold; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;">:</span>
+                <span style="width:100px;float: left; font-weight: bold; font-size: 8pt;
+                text-align: right;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;
+                border-top: 0.0px #000000 solid;border-right:none;">{{TotCGstTotal | number:'1.1-2'}}</span>
+
+                <span style="width:140px;float: left; font-weight: bold; font-size: 8pt;
+                border: 0.2px #000000 solid;border-left: 0.2px #000000 solid;
+                border-top: 0.0px #000000 solid;border-right:none;">&nbsp;Add : IGST</span>
+                <span style="width:10px;float: left; font-weight: bold; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;">:</span>
+                <span style="width:100px;float: left; font-weight: bold; font-size: 8pt;text-align: right;
+                border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;
+                border-top: 0.0px #000000 solid;border-right:none;">{{TotIGstTotal | number:'1.1-2'}}</span>
+
+                <span style="width:140px;float: left; font-weight: bold; font-size: 8pt;
+                border: 0.2px #000000 solid;border-left: 0.2px #000000 solid;
+                border-top: 0.0px #000000 solid;border-right:none;">&nbsp;Add : KFC</span>
+                <span style="width:10px;float: left; font-weight: bold; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;">:</span>
+                <span style="width:100px;float: left; font-weight: bold; font-size: 8pt;
+                text-align: right;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;
+                border-top: 0.0px #000000 solid;border-right:none;">{{(dTotCessAmt) | number:'1.1-2'}} </span>
+
+               
+                <span style="width:140px;float: left; font-weight: bold; font-size: 8pt;border: 0.2px #000000 solid;
+                border-left: 0.2px #000000 solid;border-top: 0.0px #000000 solid;border-right:none;">&nbsp;Credit&nbsp;Note</span>
+                <span style="width:10px;float: left; font-weight: bold; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;">:</span>
+                <span style="width:100px;float: left; font-weight: bold; font-size: 8pt;text-align: right;
+                border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;
+                border-right:none;">{{ (IssueInfo?.Issue_Freight) | number:'1.1-2' }}</span>
+
+                <span style="width:140px;float: left; font-weight: bold; font-size: 8pt;border: 0.2px #000000 solid;
+                border-left: 0.2px #000000 solid;border-top: 0.0px #000000 solid;border-right:none;">&nbsp;{{ IssueInfo?.Field2 }}</span>
+                <span style="width:10px;float: left; font-weight: bold; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;">:</span>
+                <span style="width:100px;float: left; font-weight: bold; font-size: 8pt;text-align: right;border: 0.2px #000000 solid;
+                border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;
+                border-right:none;">{{ (IssueInfo?.Issue_OtherCharge) | number:'1.1-2' }}</span>
+
+                <span style="width:140px;float: left; font-weight: bold; font-size: 8pt;border: 0.2px #000000 solid;
+                border-left: 0.2px #000000 solid;border-top: 0.0px #000000 solid;border-right:none;">&nbsp;Rof</span>
+                <span style="width:10px;float: left; font-weight: bold; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;">:</span>
+                <span style="width:100px;float: left; font-weight: bold; font-size: 8pt;text-align: right;
+                border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;
+                border-right:none;">{{(IssueInfo?.Issue_ROF) | number:'1.1-2' }}</span>
+             
+
+                <span style="width:140px;float: left; font-weight: bold; font-size: 10pt;border: 0.2px #000000 solid;
+                border-left: 0.2px #000000 solid;border-top: 0.0px #000000 solid;border-right:none;
+                border-bottom: 0.0px #000000 solid;">&nbsp;TOTAL</span>
+                <span style="width:10px;float: left; font-weight: bold; font-size: 10pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;border-bottom: 0.0px #000000 solid;">:</span>
+                <span style="width:100px;float: left; font-weight: bold; font-size: 10pt;text-align: right;border: 0.2px #000000 solid;
+                border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;border-right:none;
+                border-bottom: 0.0px #000000 solid;">{{ (IssueInfo?.Issue_Total) | number:'1.1-2' }}</span>
+
+                <br />
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="DeclareSection" style="border: 0.2px #000000 solid;
+          height: 200px; max-height: 200px; min-height: 200px; overflow: hidden;
+          border-bottom: none; border-top: none; border-left: none; border-right: none; width: 100%;">
+            <br />
+            <div style="margin-left:10px;width:700px;left:30px;padding-left:2px;height:35px;" >
+              <span class="subheading" style="width:90px;float: left; font-weight: bold; font-size: 8pt;text-decoration: underline;">DECLARATION :</span>
+              <span class="subheading" style="width:100%;float: left; font-weight: normal; font-size: 8pt;letter-spacing: 1px;margin: 3px 18px;">
+                    Certified that all the particulars shown in the above Tax Invoice is true and correct and that my/our Registration under 
+              </span>
+              <span class="subheading" style="width:100%;float: left; font-weight: normal; font-size: 8pt;letter-spacing: 1px;margin: 0px 18px;">
+              GST  Act2017 is valid as on the date of this bill. 
+              </span>
+             </div>
+             <div style="font-size: 12px; font-weight: 600;">
+               <ol>
+                 <li *ngIf="BranchInfo?.BranchFtr1">{{BranchInfo?.BranchFtr1}}</li>
+                 <li *ngIf="BranchInfo?.BranchFtr2">{{BranchInfo?.BranchFtr2}}</li>
+               </ol>
+             </div>
+            <div style="width:170px;float:left;padding-left:5px;display:none;">
+
+              <span
+                style="width:60px;float: left; font-weight: bold; font-size: 8pt;border:none;border-top: 0.2px #000000 solid;border-left: 0.2px #000000 solid;">&nbsp;O/S
+                AMT</span>
+              <span
+                style="width:10px;float: left; font-weight: bold; font-size: 8pt;border:none;border-top: 0.2px #000000 solid;">:</span>
+              <span
+                style="width:70px;float: left; font-weight: bold; font-size: 8pt;border:none;border-top: 0.2px #000000 solid;border-right: 0.2px #000000 solid;text-align:right;">
+                {{ (IssueInfo?.OldBalance) | number:'1.1-2' }} + '&nbsp;&nbsp;</span>
+
+              <span
+                style="width:60px;float: left; font-weight: bold; font-size: 8pt;border:none;border-left: 0.2px #000000 solid;">&nbsp;BILL
+                AMT</span>
+              <span style="width:10px;float: left; font-weight: bold; font-size: 8pt;border:none;">:</span>
+              <span
+                style="width:70px;float: left; font-weight: bold; font-size: 8pt;border:none;border-right: 0.2px #000000 solid;text-align:right;">
+                {{ (IssueInfo?.Issue_Total) | number:'1.1-2' }} + '&nbsp;&nbsp;</span>
+
+              <span
+                style="width:60px;float: left; font-weight: bold; font-size: 8pt;border:none;border-left: 0.2px #000000 solid;border-bottom: 0.2px #000000 none;">&nbsp;TOT
+                AMT</span>
+              <span
+                style="width:10px;float: left; font-weight: bold; font-size: 8pt;border:none;border-bottom: 0.2px #000000 none;">:</span>
+              <span
+                style="width:70px;float: left; font-weight: bold; font-size: 8pt;border:none;border-right: 0.2px #000000 solid;border-bottom: 0.2px #000000 none;text-align:right;">
+                {{ ((IssueInfo?.OldBalance) + (IssueInfo?.Issue_Total)) | number:'1.1-2' }} + '&nbsp;&nbsp;</span>
+
+              <span
+                style="width:60px;float: left; font-weight: bold; font-size: 8pt;border:none;border-left: 0.2px #000000 solid;border-bottom: 0.2px #000000 solid;">&nbsp;</span>
+              <span
+                style="width:10px;float: left; font-weight: bold; font-size: 8pt;border:none;border-bottom: 0.2px #000000 solid;">&nbsp;</span>
+              <span
+                style="width:70px;float: left; font-weight: bold; font-size: 8pt;border:none;border-right: 0.2px #000000 solid;border-bottom: 0.2px #000000 solid;text-align:right;">&nbsp;&nbsp;</span>
+
+
+            </div>
+
+            <div style="width:100%;display: flex; justify-content: space-around; align-items: baseline;">
+
+              <div style="display: grid;">
+                <span >&nbsp;</span>
+                <span >&nbsp;</span>
+                <span >&nbsp;</span>
+                <span >&nbsp;</span>
+                <span style="width:320px; font-weight: bold; font-size: 9pt;">Checked By</span>
+              </div>
+
+              <div style="display: grid; text-align: right;">
+              <span style="width:320px; font-weight: bold; font-size: 9pt;">For&nbsp;{{BranchInfo?.BranchName}}</span>
+              <span >&nbsp;</span>
+              <span >&nbsp;</span>
+              <span >&nbsp;</span>
+              <span style="width:320px; font-weight: bold; font-size: 9pt;">Authorised&nbsp;Signatory</span>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+    </div>
+  </div>
+</ion-content>

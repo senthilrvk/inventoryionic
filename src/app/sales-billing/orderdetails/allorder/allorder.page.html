@@ -1,0 +1,244 @@
+<ion-header>
+
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title>
+      Order list
+    </ion-title>
+
+    <ion-buttons slot="end">
+
+      <ion-button class="notification-button" routerLink='/sales/cart'>
+        <ion-icon mode="ios" name="cart"></ion-icon>
+        <ion-badge class="notifications-badge" color="danger">{{cartItems.length}}</ion-badge>
+      </ion-button>
+
+      <ion-button (click)="onBack()">
+        <ion-icon mode="ios" slot="icon-only" name="arrow-back" color="light"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="content-background">
+
+  <!-- <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher> -->
+
+
+  <div *ngIf="!create_page">
+
+    <ion-grid class="inner-border">
+      <ion-row>
+        <ion-col style="padding-inline-start: 0; padding-inline-end: 5px;">
+          <ion-item>
+            <ion-label position="stacked">From</ion-label>
+            <ion-input [(ngModel)]="fromdate" readonly></ion-input>
+            <button (click)="calenderPicker('from')" type="button" slot="end" class="calender">
+              <ion-icon mode="ios" slot="icon-only" name="calendar"></ion-icon>
+            </button>
+          </ion-item>
+
+        </ion-col>
+
+        <ion-col style="padding-inline-start: 5px; padding-inline-end: 0;">
+          <ion-item>
+            <ion-label position="stacked">To</ion-label>
+            <ion-input [(ngModel)]="Todate" readonly></ion-input>
+            <button (click)="calenderPicker('to')" type="button" slot="end" class="calender">
+              <ion-icon mode="ios" slot="icon-only" name="calendar"></ion-icon>
+            </button>
+
+          </ion-item>
+
+        </ion-col>
+      </ion-row>
+
+
+    </ion-grid>
+
+    <ion-progress-bar type="indeterminate" *ngIf="loading" color='light'></ion-progress-bar>
+    <ion-virtual-scroll *ngIf="!loading" [items]="dataGetList" approxItemHeight="320px">
+      <ion-item mode='ios' *virtualItem="let item" lines="full">
+        <ion-label class="ion-text-wrap">
+          <ion-text color="primary">
+            <h3>{{item.AC_Name}}</h3>
+          </ion-text>
+          <p>{{item.Addr1}}</p>
+          <ion-text>{{item.SalesOrderMain_Date | date:'dd/MM/yyyy'}}</ion-text>
+          <ion-text color="dark">
+            <p>{{item.SalesOrder_BillNo}} - <span>{{item.SalesOrder_Flag}}</span></p>
+          </ion-text>
+
+          <ion-text color="secondary">
+            <p> {{item.SalesOrderMain_Total | number:'1.2-2'}}</p>
+          </ion-text>
+
+        </ion-label>
+        <ion-card slot="end">
+
+          <ion-button fill="clear" (click)='anchorClick(item)'
+            [disabled]="item.SalesOrder_Flag === 'Billed' ? true : false">
+            <ion-icon slot="icon-only" color="success" name="create"></ion-icon>
+          </ion-button>
+
+          <ion-button fill="clear" (click)="printExternal(item)">
+            <ion-icon mode="ios" slot="icon-only" mode="ios" color="medium" name="print"></ion-icon>
+          </ion-button>
+
+        </ion-card>
+      </ion-item>
+
+
+    </ion-virtual-scroll>
+
+
+  </div>
+
+  <div *ngIf="create_page" padding >
+
+    <ion-card style="margin: 0 0 10px 0px">
+      <ion-item button lines='none' (click)="onAddCustomer()">
+          <ion-icon slot="icon-only" name='person' color="primary" slot="start"></ion-icon>
+        <ion-label>
+          <h3>{{custName ? custName: 'Add Customer'}}</h3>
+          <p>{{itemEnter.length ? itemEnter[0].Addr1: ''}}</p>
+        </ion-label>
+        
+        <ion-button shape='round' size='large' fill='clear' color="medium" slot="end" >
+          <ion-icon slot="icon-only" name='add'></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-card>
+
+    <div class="select-price inner-border">
+  
+
+
+      <ion-grid>
+        
+        <ion-row responsive-sm>
+          <ion-col size="12" class="ion-no-padding">
+            <ion-item *ngIf="itemEnter && itemEnter.length">
+              <p>
+                Phone:&nbsp;<span>{{itemEnter[0].Phone}}</span>
+              </p>
+
+              <ion-button *ngIf="custName" fill="clear" slot="end" (click)="onView()">
+                <ion-icon name="open"></ion-icon>
+              </ion-button>
+
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row responsive-sm>
+          <ion-col size="12" class="ion-no-padding">
+            <ion-item>
+              <ion-label>
+                Balance: {{ledgerAmount | number:'1.2-2'}}
+              </ion-label>
+
+              <ion-button *ngIf="custName" slot="end" (click)="fnBillwiseOutstandingOnAcId()">
+                O/S
+              </ion-button>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row responsive-sm>
+
+          <ion-col size="12" class="ion-no-padding">
+
+            <ion-item>
+              <ion-label>Price</ion-label>
+              <ion-select mode="ios" [value]="PriceSelected" (ionChange)="fnchangeprice($event)" slot="end">
+                <ion-select-option *ngFor="let price of pricemenu" [value]="price.PriceMenu_Id">{{ price.DisplayName }}
+                </ion-select-option>
+
+              </ion-select>
+
+            </ion-item>
+          </ion-col>
+
+
+        </ion-row>
+
+
+
+        <ion-row responsive-sm>
+          <ion-col size="8" class="ion-no-padding">
+            <ion-item>
+              <ion-label>Remark</ion-label>
+              <ion-input [(ngModel)]="remarks"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="4" class="ion-no-padding">
+            <ion-button color="success" expand="full" (click)="onSave()"
+             style="margin: 0 0 0 5px;" [disabled]="btnSave">
+              Save</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+    <div class="cart-table" *ngIf="products.length !==0">
+      <table>
+        <thead>
+          <tr>
+            <th>Del</th>
+            <th>Product</th>
+            <th>Qty</th>
+            <th>Free</th>
+            <th>Rate</th>
+            <th>Amt</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of cartItems; let i = index" (click)="onEditClick(product, i)">
+            <td (click)="onRemoveCart(product)">
+
+              <ion-icon name="close" color='danger'></ion-icon>
+            </td>
+            <td>{{ product.ItemDesc }}</td>
+            <td>{{ product.SalesOrderSub_Qty | number}}</td>
+            <td>{{ product.SalesOrderSub_FreeQty| number}}</td>
+            <td>{{ product.SalesOrderSub_SelRate | number : '1.2-2'}}</td>
+            <td>{{ product.SalesOrderSub_Amount | number : '1.2-2'}}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th colspan="2">Total</th>
+            <th colspan="2">
+              {{getQtyTotal() | number}} + {{getFreeQtyTotal() | number}} =
+              {{getQtyTotal() + getFreeQtyTotal() | number}}</th>
+            <th colspan="2" style="text-align: right;">{{ getTotal() | number : '1.2-2'}}</th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+  </div>
+
+  <ion-fab *ngIf="!create_page" vertical="bottom" horizontal="start" slot="fixed" class="ion-text-center">
+    <ion-fab-button mode="ios" size="small" (click)="fnCreate()">
+      <ion-icon mode="ios" name="add"></ion-icon>
+    </ion-fab-button>
+    <ion-label color="primary">create</ion-label>
+  </ion-fab>
+
+  <ion-fab *ngIf="create_page" vertical="bottom" horizontal="end" slot="fixed" class="ion-text-center">
+    <ion-fab-button mode="ios" size="small" (click)="openProductMadal()">
+      <ion-icon mode="ios" name="add"></ion-icon>
+    </ion-fab-button>
+    <ion-label color="primary">product</ion-label>
+  </ion-fab>
+
+
+</ion-content>

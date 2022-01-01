@@ -1,0 +1,88 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+ion-auto-complete {
+    width: 100%;
+}
+
+ion-toolbar {
+    --min-height: 35px;
+    ion-menu-button {
+      width: 35px;
+      height: 35px;
+    }
+    ion-title {
+        font-size: 12px;
+    }
+    ion-buttons {
+        padding: 5px !important;
+        ion-icon {
+            font-size: 23px !important;
+        }
+        ion-button {
+            font-size: 12px !important;
+            height: 35px !important;
+        }
+    }
+  }
+
+  .inner-border {
+
+    ion-item {
+        --border-width: 1px 1px 1px 1px;
+        --inner-border-width: 0;
+        font-size: 12px !important;
+        --min-height: 26px !important;
+        --padding-start: 5px !important;
+        margin-bottom: 5px;
+    }
+}
+.back-drop {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+}
+
+.ac-autcomplete {
+    border: 2px solid #999;
+    position: absolute;
+    z-index: 100;
+    left: 5px;
+    right: 5px;
+    overflow: auto;
+    max-height: 65vh;
+}
+
+.loader-new {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

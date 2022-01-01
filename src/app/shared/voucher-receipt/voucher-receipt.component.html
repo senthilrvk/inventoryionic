@@ -1,0 +1,434 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title *ngIf="!searchbar">
+      Receipt
+    </ion-title>
+
+    <ion-searchbar mode="ios" #search placeholder="Search.." *ngIf="searchbar && div_create" color='light'
+      showCancelButton='always' animated (ionCancel)='searchbar = false' (ionInput)="fnsearch($event)"></ion-searchbar>
+
+    <ion-buttons *ngIf="!searchbar && div_create" slot="end" class="ion-padding"
+      (click)="searchbar = !searchbar;fnsearchFocus()">
+      <ion-icon mode="ios" slot="icon-only" name="search"></ion-icon>
+    </ion-buttons>
+
+    <ion-buttons *ngIf="!searchbar && !div_create" slot="end" class="ion-padding" (click)="fnback()">
+
+      <ion-icon mode="ios" slot="icon-only" name="arrow-back"></ion-icon>
+    </ion-buttons>
+
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content class="content-background">
+
+  <div *ngIf="div_create" class='main-form'>
+    <ion-grid class="inner-border">
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked">From</ion-label>
+            <ion-input [(ngModel)]="fromdate" readonly></ion-input>
+
+            <button (click)="calenderPicker('from')" type="button" slot="end" class="calender">
+              <ion-icon mode="ios" slot="icon-only" name="calendar"></ion-icon>
+            </button>
+
+          </ion-item>
+
+        </ion-col>
+        <ion-col>
+
+          <ion-item>
+            <ion-label position="stacked">To</ion-label>
+            <ion-input [(ngModel)]="Todate" readonly></ion-input>
+            <!-- <ion-button (click)="calenderPicker()">date</ion-button> -->
+            <button (click)="calenderPicker('to')" type="button" slot="end" class="calender">
+              <ion-icon mode="ios" slot="icon-only" name="calendar"></ion-icon>
+            </button>
+
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-radio-group (ionChange)='fnchangeBanktype($event)'>
+        <ion-row>
+          <ion-col size='6'>
+            <ion-item>
+              <ion-label>Cash</ion-label>
+              <ion-radio mode="ios" slot="start" value="cash" checked></ion-radio>
+            </ion-item>
+          </ion-col>
+          <ion-col size='6'>
+            <ion-item>
+              <ion-label>Bank</ion-label>
+              <ion-radio mode="ios" slot="start" value="bank"></ion-radio>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-radio-group>
+
+      <ion-row>
+        <ion-col size='12'>
+          <ion-item>
+            <ion-label>Datewise</ion-label>
+            <ion-select mode="ios" placeholder="Select One" (ionChange)="fnSearchCondition($event)">
+              <ion-select-option value="EnterDate" selected>EnterDate</ion-select-option>
+              <ion-select-option value="VoucherDate">VoucherDate</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <div *ngIf="voucherload && !jsonVoucherData.length">
+      <div class="ion-padding custom-skeleton">
+        <ion-skeleton-text animated style="height: 40px;"></ion-skeleton-text>
+        <ion-skeleton-text animated style="height: 60px;"></ion-skeleton-text>
+        <ion-skeleton-text animated style="height: 50px;"></ion-skeleton-text>
+        <ion-skeleton-text animated style="height: 30px;"></ion-skeleton-text>
+        <ion-skeleton-text animated style="height: 40px;"></ion-skeleton-text>
+        <ion-skeleton-text animated style="height: 60px;"></ion-skeleton-text>
+        <ion-skeleton-text animated style="height: 50px;"></ion-skeleton-text>
+        <ion-skeleton-text animated style="height: 30px;"></ion-skeleton-text>
+
+      </div>
+    </div>
+
+    <ion-virtual-scroll *ngIf="!voucherload" [items]="jsonVoucherData" approxItemHeight="320px">
+      <ion-item mode='ios' *virtualItem="let item" lines="full">
+        <ion-label class="ion-text-wrap">
+          <ion-text color="primary">
+            <h3>{{item.AccountName}}</h3>
+          </ion-text>
+          <p>{{item.VoucherDate}}</p>
+          <ion-text color="dark">
+            <p>{{item.VoucherNo}}</p>
+          </ion-text>
+
+          <ion-text color="secondary">
+            <p>{{item.VoucherAmt | number:'1.2-2'}}</p>
+          </ion-text>
+        </ion-label>
+        <ion-card slot="end">
+          <ion-button fill="clear" (click)='fnAnchorClick(item)'>
+            <ion-icon slot="icon-only" name="create"
+              [color]="item.Flag =='Cancelled@#@#@VoucherDetail' ? 'danger': 'success'"></ion-icon>
+          </ion-button>
+
+          <ion-button fill="clear" (click)="fnPrint(item, 'print')">
+            <ion-icon mode="ios" slot="icon-only" mode="ios" color="medium" name="print"></ion-icon>
+          </ion-button>
+
+          <ion-button fill="clear" (click)="fnPrint(item, 'share')">
+            <ion-icon slot="icon-only" color="medium" name="share"></ion-icon>
+          </ion-button>
+
+        </ion-card>
+      </ion-item>
+    </ion-virtual-scroll>
+
+  </div>
+
+  <div *ngIf="!div_create" padding animation>
+    <ion-card style="margin: 0 0 10px 0">
+      <ion-item button lines='none' (click)="onAddCustomer()">
+        <ion-icon slot="icon-only" name='person' color="primary" slot="start"></ion-icon>
+        <ion-label>
+          <h3>{{fromname ? fromname: 'From Customer'}}</h3>
+         <p>{{address}}</p>
+        </ion-label>
+
+        <ion-button shape='round' size='large' fill='clear' color="medium" slot="end" >
+          <ion-icon slot="icon-only" name='add'></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-card>
+
+    <div class='form_control inner-border'>
+
+      <ion-item>
+        <ion-label>RECEIPT TYPE</ion-label>
+        <ion-select mode="ios" placeholder="Select One" (ionChange)="fnreceiptChange($event)" [value]='receiptId'
+          [disabled]='disReceiptType'>
+          <ion-select-option value="bank">Bank</ion-select-option>
+          <ion-select-option value="cash" selected>Cash</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- <ion-item *ngIf="receiptId =='bank'" >
+          <ion-label>Bank:</ion-label>
+          <ion-input type="text" name="Bank" [(ngModel)]='bankName' (ionInput)='fnBankAccountHeadGets($event)'></ion-input>
+        </ion-item> -->
+
+      <div class="div_inline" *ngIf="receiptId =='bank'">
+        <ion-label>Bank:</ion-label>
+        <ion-input type="text" clearOnEdit='true' [(ngModel)]='bankName' (ionInput)='fnBankAccountHeadGets($event)'
+          name="Bank"></ion-input>
+
+        <ion-spinner name="lines-small" color="primary" *ngIf="bank_loding"></ion-spinner>
+      </div>
+
+      <div class="ui-autocomplete" *ngIf="jsonBankgets.length !==0">
+        <ion-item>
+          <ion-label>Bank Name</ion-label>
+        </ion-item>
+
+        <div>
+          <ion-item *ngFor="let item of jsonBankgets" (click)="fnBankClick(item)">
+            <ion-label>{{item.BankName}}</ion-label>
+          </ion-item>
+
+        </div>
+      </div>
+
+      <ion-item>
+        <ion-label position="stacked">Date</ion-label>
+        <ion-input inputmode='text' [(ngModel)]="receiptdate" readonly></ion-input>
+        <button (click)="calenderPicker('receipt')" type="button" slot="end" class="calender">
+          <ion-icon mode="ios" slot="icon-only" name="calendar"></ion-icon>
+        </button>
+
+      </ion-item>
+      <!-- <ion-item>
+        <ion-label>Date</ion-label>
+        <ion-datetime [(ngModel)]="receiptdate" displayFormat="DD MMM YYYY"></ion-datetime>
+      </ion-item> -->
+      <ion-item>
+        <ion-label>View </ion-label>
+        <ion-toggle color="success" (ionChange)='toggleChange($event)'></ion-toggle>
+      </ion-item>
+
+      <!-- <ion-button size='small' color="light" expand="block" shape="round" (click)="showDiv = !showDiv">view</ion-button> -->
+      <div *ngIf="showDiv" animation>
+        <ion-item>
+          <ion-label>Salesman</ion-label>
+          <ion-select mode="ios" placeholder="Select One" (ionChange)="fnsalesman($event)" [value]="salesmanId">
+            <ion-select-option *ngFor="let item of jsonSalesMan" [value]='item.AC_Id' selected>
+              {{item.AC_Name}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Voucher No:</ion-label>
+          <ion-input type="text" name="voucherno" [(ngModel)]='VoucherNo' disabled></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Balance Amt:</ion-label>
+          <ion-input type="number" name="balanceAmt" [(ngModel)]='balanceAmt' disabled></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>RetAmt:</ion-label>
+          <ion-input type="number" name="retAmt" [(ngModel)]='RetAdjAmt' disabled></ion-input>
+        </ion-item>
+
+
+        <ion-item *ngIf="receiptId =='cash'">
+          <ion-label>To:</ion-label>
+          <ion-input type="text" value='CASH ACCOUNTS' [(ngModel)]="toCustomer" name="To" [disabled]='disSelectBank'>
+          </ion-input>
+        </ion-item>
+
+      </div>
+      <ion-item>
+        <ion-label>Outstanding: {{outstanding}}</ion-label>
+        <!-- <ion-input type="number" name="outstanding" [(ngModel)]='outstanding' disabled></ion-input> -->
+      </ion-item>
+
+      <ion-item *ngIf="fromname">
+        <ion-label>Receive Amount:</ion-label>
+        <ion-input type="number" inputmode='numeric' (keyup)="fnReceivedAmt($event)" [(ngModel)]='reciveAmount'
+          name="receiveAmt"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Remarks:</ion-label>
+        <ion-input type="text" name="remarks" [(ngModel)]='remarks'></ion-input>
+      </ion-item>
+
+      <ion-button *ngIf="btnSave" type="button" color="success" [disabled]="saveLoad"
+      (click)="logForm($event)">
+        Save
+      </ion-button>
+      <!-- <ion-buttons expand="block" type="submit" >Save</ion-buttons> -->
+      <!-- </form> -->
+    </div>
+    <div *ngIf="jsonOutstanting.length !==0" class="tbl-list">
+      <table>
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>BillNo</th>
+            <th>BillDate</th>
+            <th>BillAmt</th>
+            <th>OldRecivedAmt</th>
+            <th>BalanceAmt</th>
+            <th>PaidAmt</th>
+            <th>Discount</th>
+            <th>Return</th>
+            <th>Salesman</th>
+            <th>DueDays</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let json of jsonOutstanting; let i = index">
+            <td>&nbsp;{{ i+1 }}</td>
+            <td>&nbsp;{{json.BillNo}}</td>
+            <td>&nbsp;{{json.BillDate}}</td>
+            <td>&nbsp;{{json.BillAmount | number:'1.2-2'}}</td>
+            <td>&nbsp;{{json.ReceiveAmt | number:'1.2-2'}}</td>
+            <td>&nbsp;{{json.BalanceAmt | number:'1.2-2'}}</td>
+            <td>
+              <ion-input type='number' inputmode='numeric' (keyup)="fnPaidAmtCalculation()" [(ngModel)]='json.PaidAmt'>
+              </ion-input>
+            </td>
+            <td>
+              <ion-input type='number' inputmode='numeric' (keyup)="fnPaidAmtCalculation()" [(ngModel)]='json.DisAmt'>
+              </ion-input>
+            </td>
+            <td>
+              <ion-input type='number' inputmode='numeric' (keyup)="fnPaidAmtCalculation()"
+                [(ngModel)]='json.ReturnAmt'></ion-input>
+            </td>
+            <td>&nbsp;{{json.SalesExe_Name}}</td>
+            <td>&nbsp;{{json.DueDays}}</td>
+            <td hidden>&nbsp;{{json.UniqueVoucherId}}</td>
+            <td hidden>&nbsp;{{json.UniqueNo}}</td>
+            <td hidden>&nbsp;{{json.Voucher_VoucherNo}}</td>
+            <td hidden>&nbsp;{{json.VType_SlNo}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <br />
+    <ion-label>Paid Amount Total: <b>{{paidBalanceAmt | number:'1.2-2'}}</b></ion-label>
+
+  </div>
+
+  <ion-fab *ngIf="div_create" vertical="bottom" horizontal="start" slot="fixed" class="ion-text-center">
+    <ion-fab-button mode="ios" size="small" (click)="fncreate()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+    <ion-label color="primary">create</ion-label>
+  </ion-fab>
+
+  <ion-fab *ngIf="!div_create && receiptId =='bank'" vertical="bottom" horizontal="end" slot="fixed"
+    class="ion-text-center">
+    <ion-fab-button mode="ios" size="small" (click)="popbank = true">
+      <ion-icon name="card"></ion-icon>
+    </ion-fab-button>
+    <ion-label color="primary">cheque<br />Details</ion-label>
+  </ion-fab>
+  <ion-backdrop tappable="true" visible="true" (ionBackdropTap)="popbank = false" *ngIf="popbank"></ion-backdrop>
+  <div *ngIf="popbank" class="pop_bank">
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Bank Details</ion-card-title>
+        <!-- <ion-card-subtitle>Card Subtitle</ion-card-subtitle> -->
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="floating">Customer Bank</ion-label>
+          <ion-input type='text' inputmode='text' #txtbank [(ngModel)]='bank_customer' [disabled]='disBank'></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Cheque No</ion-label>
+          <ion-input type='number' inputmode='numeric' [(ngModel)]='bank_ChequeNo' [disabled]='disChequeNo'></ion-input>
+        </ion-item>
+        <ion-item>
+          <!-- <ion-label>Cheque Date</ion-label>
+          
+          <ion-datetime [(ngModel)]='chequeDate' displayFormat="DD MMM YYYY" [disabled]='disChequeDate'></ion-datetime> -->
+
+          <ion-label position="stacked">Cheque Date</ion-label>
+          <ion-input [(ngModel)]="chequeDate" readonly></ion-input>
+          <button (click)="calenderPicker('cheque')" type="button" slot="end" class="calender"
+            [disabled]='disChequeDate'>
+            <ion-icon mode="ios" slot="icon-only" name="calendar"></ion-icon>
+          </button>
+
+        </ion-item>
+        <ion-item>
+          <ion-label>Transfer Type</ion-label>
+          <ion-select mode="ios" (ionChange)="fnBankTransfer($event)" [value]='BankTranferId'
+            [disabled]='disTransferType'>
+            <ion-select-option value="0" selected>--Select--</ion-select-option>
+            <ion-select-option value="NEFT">NEFT</ion-select-option>
+            <ion-select-option value="IMPS">IMPS</ion-select-option>
+            <ion-select-option value="RTGS">RTGS</ion-select-option>
+            <ion-select-option value="CARD">CARD</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-card-content>
+      <div style="padding-left: 12px;">
+        <ion-button (click)="popbank = false">Done</ion-button>
+      </div>
+    </ion-card>
+
+  </div>
+  <div style="display: none; width: 100%;">
+    <div id="rPrintContent">
+      <div
+        style="display: flex; flex-direction: column; place-content: center; align-items: center; border-bottom: 1px solid #000;">
+        <h2>{{voucherData.branchName}}</h2>
+        <h3>{{voucherData.BranchAdr1}}</h3>
+        <h3>{{voucherData.BranchAdr2}}</h3>
+        <h4>{{voucherData.TinNo1}}</h4>
+      </div>
+      <h2 style="text-align: center;">RECEIPT</h2>
+
+      <div style="display: flex; flex-direction: row;">
+        <div style="width: 70%;display: flex; flex-direction: column;">
+          <span>Voucher No&nbsp;:&nbsp;<b>{{voucherData.vouchNo}}</b></span>
+          <span>Recd with thanks from&nbsp;:&nbsp;<b>{{voucherData.fromName}}</b></span>
+          <span>The sum of&nbsp;:&nbsp;<b>{{voucherData.SumOfWord}}</b></span>
+          <span>By&nbsp;:&nbsp;<b>{{voucherData.By}}</b></span>
+          <span>Remarks&nbsp;:&nbsp;<b>{{voucherData.Remarks }}</b></span>
+        </div>
+        <div style="width: 30%;">
+          <span>Date&nbsp;:&nbsp;<b>{{voucherData.Date}}</b></span>
+        </div>
+      </div>
+
+      <div style="float:right;margin-top: 10px">
+        <table>
+          <thead>
+            <tr>
+              <th>OLD BALANCE</th>
+              <th>{{voucherData.oldBal}}</th>
+            </tr>
+
+            <tr>
+              <th>RECEIVED AMT</th>
+              <th>{{voucherData.RcdAmt}}</th>
+            </tr>
+
+            <tr>
+              <th>BALANCE AMT</th>
+              <th>{{voucherData.balAmt}}</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+
+      <div style="width: 100%; border-top: 1px solid #000; text-align: right; clear: both;">
+        <div>
+          <br />
+          <br />
+          <br />
+
+          <span>Authorised Signatory</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

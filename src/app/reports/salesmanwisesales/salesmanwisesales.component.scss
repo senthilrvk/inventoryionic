@@ -1,0 +1,35 @@
+ion-item {
+    --min-height: 35px;
+    --padding-start: 2px;
+    --inner-padding-end: 0px;
+    font-size: 12px;
+    --padding-top: 0;
+    --padding-bottom: 0px;
+}
+.calender {
+    height: 30px;
+    background: #ffffff;
+    font-size: 18px;
+    color: #424242;
+}
+
+.tbl-div {
+    overflow: auto;
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        th {
+            border: 0.1px solid #ccc;
+            font-size: 13px;
+            padding: 3px;
+        }
+        td {
+            font-size: smaller;
+    border: 0.1px solid #999;
+    padding: 3px;
+        }
+        tr:last-child td {
+            background: #ccc;
+        }
+    }
+}

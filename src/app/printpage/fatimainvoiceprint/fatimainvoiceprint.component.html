@@ -1,0 +1,377 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Print Preview</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="fnPrintpage()">
+        <ion-icon name='print' slot="icon-only" color="primary"></ion-icon>
+      </ion-button>
+      <ion-button (click)="fnSharepage()">
+        <ion-icon name='share' slot="icon-only" color="secondary"></ion-icon>
+      </ion-button>
+      <ion-button (click)="fnClose()">
+        <ion-icon name='close' slot='icon-only' color="danger"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div style="width: 100%; overflow-x: scroll;  overflow-y: scroll;">
+    <div id="printer_content" style="width: 195mm; margin: 0 auto;height: 273mm; overflow: hidden;padding: 0px;
+    margin-top: 30px;position: relative; background-color: #FFF;">
+      <div *ngFor="let ArrayList of oArray;let strPageNo=index" class="Page" style="width: 100%; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; 
+      color: #000;    font-size: 12px;    font-weight: bold;">
+        <!-- <div class="corner" *ngIf="strLogoImageName !=''"><img    [src]='strLogoImageName' alt="" class="image" /></div> -->
+        <div class="Header" style="width: 100%; text-align: center; height: 103px; padding-top: 12px;  
+          padding-bottom: 2px; border:1px solid #555; border-bottom: none;">
+          <span class="headerfont" style="font-size: 20px; text-align: center; width: 100%; float: left;">
+            {{JsonBranchInfo?.BranchName}}
+          </span>
+          <span class="addressfont"
+            style="font-size: 16px; text-align: center; width: 100%; float: left;">{{JsonBranchInfo?.BranchAdr1}}</span>
+          <span class="addressfont"
+            style="font-size: 16px; text-align: center; width: 100%; float: left;">{{JsonBranchInfo?.BranchAdr2}}</span>
+          <span class="addressfont"
+            style="font-size: 16px; text-align: center; width: 100%; float: left;">{{JsonBranchInfo?.BranchAdr3}}</span>
+        </div>
+
+        <div class="divbilldatebox" style="height: 24px; width: 100%; padding-top: 1px;    
+            font-size: 14px; border: 1px solid #555; border-bottom: none; background-color: #fff; text-align: center;">
+
+          <span style="text-align: center;padding-left: 3px;width:100%">GST INVOICE</span>
+
+        </div>
+        <div class="customerdetails" style="display: flex; height: 128px;min-height: 128px;
+        max-height: 128px; width: 100%; overflow: hidden; border:1px solid #555">
+
+          <div class="form1" style=" padding-top: 3px; width: 530px; border:1px solid #555; border-left:none; border-top: none;
+            border-bottom: none; height: 100%; overflow: hidden;">
+            <span style="float: left;padding-left: 3px;  width:100%;">Billed To : </span>
+            <span
+              style="float: left;padding-left: 66px;font-size: 16px;  width:100%;">{{JsonIssueInfo?.Issue_CustName}}</span>
+            <span style="float: left;padding-left: 66px;width:100%;">{{JsonIssueInfo?.Addr1}}</span>
+            <span style="float: left;padding-left: 66px;width:100%;">{{JsonIssueInfo?.Addr2}}</span>
+            <span style="float: left;padding-left: 66px;width:100%;">{{JsonIssueInfo?.Addr3}}</span>
+            <!-- <span style="float: left;padding-left: 3px;width:100%;"><span style="float:left;width: 55px;text-align: left;">PHONE</span>: {{JsonIssueInfo?.Phone}}</span> -->
+            <span style="float: left;padding-left: 3px;width:100%;"><span
+                style="float:left;width: 55px;text-align: left;">GSTIN</span>: {{JsonIssueInfo?.Tin1}}</span>
+            <span style="float: right;padding-left: 3px;width:100%;"><span
+                style="float:left;width: 55px;text-align: left;">STATE</span>: {{JsonIssueInfo?.StateName}}
+              ({{JsonIssueInfo?.StateCode}})</span>
+
+          </div>
+
+          <div class="form2" style=" padding-top: 3px;width: 205px;border: 1px solid #555;
+              border-left:none; border-right: none; border-top: none; height: 100%; border-bottom: none;
+              overflow: hidden;">
+
+            <span style="float: left;padding-left: 3px;"></span>
+            <span style="float: left;padding-left: 3px;font-weight: 900;"><span
+                style="float:left;width: 90px;text-align: left;">Invoice No</span>: {{strBillNo}}</span>
+            <span style="float: left;padding-left: 3px;"><span
+                style="float:left;width: 90px;text-align: left;">Date</span>: {{strBillDate}}</span>
+            <span style="float: left;padding-left: 3px;"><span style="float:left;width: 90px;text-align: left;">Sale
+                Type</span>: {{JsonIssueInfo?.Issue_PayTerms}}</span>
+
+          </div>
+
+        </div>
+        <div class="ProductDetails"
+          style="width: 100%;   height: auto;   border: 1px solid #555;   border-top: none;   border-bottom: none;">
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr>
+                <th class="tblNo $primary-color" style="font-weight: bold;height: 20px;
+                   overflow: hidden; text-align: center; border: 1px solid #555;
+                  border-left: none; border-top: none; border-bottom: none;">No</th>
+                <th class="tblItemCode $primary-color" style="text-align: center;background-color: #fff; font-weight: bold; height: auto;
+                    overflow: hidden;border:1px solid #555;border-left: none;
+                    border-top: none;border-bottom: none;">Hsncode</th>
+                <th class="tblProduct $primary-color" style="text-align: center;background-color: #fff; font-weight: bold;height: auto;
+                    overflow: hidden;white-space: nowrap; border:1px solid #555; 
+                    border-bottom: none; border-left: none; border-top: none;">
+                  Commodity&nbsp;Items
+                </th>
+                <th class="Qty $primary-color" style="text-align: center;background-color: #fff; font-weight: bold;height: auto;
+                   overflow: hidden;  border:1px solid #555;
+                   border-bottom: none; border-left: none; border-top: none;">Qty</th>
+                <th class="Mrp $primary-color" style="text-align: center;background-color: #fff; font-weight: bold; height: auto;
+                    overflow: hidden;  border:1px solid #555;
+                    border-bottom: none; border-left: none;border-top: none;">Mrp</th>
+                <th class="UnitPrice $primary-color" style="text-align: center;background-color: #fff; font-weight: bold; height: auto;
+                     overflow: hidden;  border:1px solid #555;border-bottom: none;
+                    border-left: none; border-top: none;">Price +</th>
+                <th class="Rate $primary-color" style="text-align: center;background-color: #fff; font-weight: bold;height: auto;
+                     overflow: hidden;  border:1px solid #555;border-bottom: none;
+                    border-left: none; border-top: none;">Rate</th>
+                <th class="GrossValue $primary-color" style="text-align: center;background-color: #fff; font-weight: bold;height: auto;
+                   overflow: hidden; border:1px solid #555;border-left: none;
+                   border-bottom: none; border-top: none;">Taxable</th>
+                <th class="RateofTax $primary-color" style="text-align: center;background-color: #fff; font-weight: bold;height: auto;
+                    overflow: hidden;border:1px solid #555;border-bottom: none;
+                    border-left: none;border-top: none;">GST</th>
+                <th class="GstAmount $primary-color" style="text-align: center;background-color: #fff; font-weight: bold;height: auto;
+                   overflow: hidden;border:1px solid #555;border-bottom: none;
+                    border-left: none;border-top: none;">GST</th>
+                <th class="Amount $primary-color" style="text-align: center; font-weight: bold;height: auto;
+                   overflow: hidden;border:1px solid #555;border-bottom: none;
+                    border-left: none; border-right: none;border-top: none;">Amount</th>
+              </tr>
+              <tr>
+                <th class="tblNo $primary-color" style="text-align: center; border-bottom: 0.2px  solid; font-weight: bold;height: 20px;
+                   overflow: hidden; border: 1px solid #555;
+                    border-left: none;border-top: none;"></th>
+                <th class="tblItemCode $primary-color" style="text-align: center; border-bottom: 0.2px  solid; background-color: #fff; font-weight: bold;height: auto;
+                    overflow: hidden;border:1px solid #555;
+                    border-left: none;border-top: none;">SAC</th>
+                <th class="tblProduct $primary-color" style="text-align: center; border-bottom: 0.2px  solid; background-color: #fff; font-weight: bold;height: auto;
+                    overflow: hidden;white-space: nowrap;
+                    border:1px solid #555;border-left: none;border-top: none;">&nbsp;</th>
+                <th class="Qty $primary-color" style="text-align: center; border-bottom: 0.2px  solid; background-color: #fff; font-weight: bold;height: auto;
+                    overflow: hidden;border:1px solid #555;
+                    border-left: none; border-top: none;">&nbsp;</th>
+                <th class="Mrp $primary-color" style="text-align: center; border-bottom: 0.2px  solid;background-color: #fff; font-weight: bold;height: auto;
+                    overflow: hidden;border:1px solid #555;
+                    border-left: none;border-top: none;">&nbsp;</th>
+                <th class="UnitPrice $primary-color" style="text-align: center; border-bottom: 0.2px  solid;background-color: #fff; font-weight: bold; height: auto;
+                    overflow: hidden;border:1px solid #555; 
+                    border-left: none;border-top: none;">Tax</th>
+                <th class="Rate $primary-color" style="text-align: center; border-bottom: 0.2px  solid;background-color: #fff; font-weight: bold;height: auto;
+                    overflow: hidden;border:1px solid #555;
+                    border-left: none;border-top: none;">&nbsp;</th>
+                <th class="GrossValue $primary-color" style="text-align: center; border-bottom: 0.2px  solid;background-color: #fff; 
+                    font-weight: bold; height: auto;overflow: hidden;
+                    border:1px solid #555;border-left: none;border-top: none;">
+                  Value</th>
+                <th class="RateofTax $primary-color" style="text-align: center; border-bottom: 0.2px  solid;background-color: #fff; font-weight: bold; height: auto;
+                     overflow: hidden;border:1px solid #555;
+                    border-left: none;border-top: none;">%</th>
+                <th class="GstAmount $primary-color" style="text-align: center;border-bottom: 0.2px  solid;background-color: #fff;
+                    font-weight: bold;height: auto;overflow: hidden; 
+                    border:1px solid #555;    border-left: none; border-top: none;">Amount
+                </th>
+                <th class="Amount $primary-color" style="text-align: center; border-bottom: 0.2px  solid;font-weight: bold;height: auto;
+                   overflow: hidden;border:1px solid #555;
+                    border-left: none;border-top: none;">&nbsp;</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of ArrayList">
+                <td class="tblNo" style="height: 20px;overflow: hidden;
+          text-align: right;border: 1px solid #555;border-left: none;border-bottom: none;border-top: none;">
+                  {{item.SlNo}}&nbsp;</td>
+                <td class="tblItemCode" style="height: auto;
+          overflow: hidden;text-align: left;border:1px solid #555;border-left: none;border-bottom: none;
+          border-top: none;">&nbsp;{{item.HSNCode}}</td>
+                <td class="tblProduct" style="height: auto; overflow: hidden;
+          text-align: left; white-space: nowrap; border:1px solid #555; border-left: none;
+          border-bottom: none; border-top: none;">&nbsp;{{item.ItemDesc}}</td>
+                <td class="Qty" style="height: auto; overflow: hidden; text-align: right;
+          border:1px solid #555; border-left: none; border-bottom: none; border-top: none;">{{item.IssueSub_Qty}}&nbsp;
+                </td>
+                <td class="Mrp" style="height: auto; overflow: hidden; text-align: right; border:1px solid #555; border-left: none;
+          border-bottom: none; border-top: none;">{{item.IssueSub_Mrp}}&nbsp;</td>
+                <td class="UnitPrice" style=" height: auto;
+          overflow: hidden;text-align: right;border:1px solid #555;border-left: none;
+          border-bottom: none;border-top: none;">{{item.IssueSub_OriginalRate}}&nbsp;</td>
+                <td class="Rate" style="height: auto;
+          overflow: hidden; text-align: right; border:1px solid #555; border-left: none;
+          border-bottom: none; border-top: none;">{{item.Rate}}&nbsp;</td>
+                <td class="GrossValue" style="height: auto; 
+          overflow: hidden; text-align: right; border:1px solid #555; border-left: none;
+          border-bottom: none; border-top: none;">{{item.GrossValue}}&nbsp;</td>
+                <td class="RateofTax" style=" height: auto; 
+          overflow: hidden; text-align: right; border:1px solid #555; border-left: none;
+          border-bottom: none; border-top: none;">{{item.IssueSub_TaxPers}}&nbsp;</td>
+                <td class="GstAmount" style="height: auto;
+          overflow: hidden; text-align: right; border:1px solid #555; border-left: none;
+          border-bottom: none; border-top: none;">{{item.IssueSub_TaxAmt}}&nbsp;</td>
+                <td class="Amount" style="height: auto; 
+          overflow: hidden; text-align: right; border:1px solid #555; border-left: none;
+          border-bottom: none; border-top: none; border-right: none;">{{item.RowTotal}}&nbsp;</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td class="tblNo $primary-color" style="border-top: 0.2px  solid;font-weight: bold;height: 20px;
+                   overflow: hidden; text-align: right; border: 1px solid #555;
+                  border-left: none; border-bottom: none; ">&nbsp;</td>
+                <td class="tblItemCode $primary-color" style="border-top: 0.2px  solid;font-weight: bold;height: auto;
+                     overflow: hidden; text-align: left; border:1px solid #555;
+                     border-left: none; border-bottom: none;">&nbsp;</td>
+                <td class="tblProduct $primary-color" style="border-top: 0.2px  solid;font-weight: bold;height: auto;
+                    overflow: hidden; text-align: left; white-space: nowrap;
+                    border:1px solid #555; border-left: none; border-bottom: none;">&nbsp;TOTAL</td>
+                <td class="Qty $primary-color" style="border-top: 0.2px  solid;font-weight: bold;height: auto;
+                     overflow: hidden; text-align: right; border:1px solid #555;
+                    border-left: none; border-bottom: none;">
+                  <ng-container *ngIf="(oArray.length-1) == strPageNo">
+                    {{TotQty}}&nbsp;
+                  </ng-container> 
+                  &nbsp;
+                </td>
+                <td class="Mrp $primary-color" style="border-top: 0.2px  solid;font-weight: bold;height: auto;
+                    overflow: hidden; text-align: right; border:1px solid #555;
+                    border-left: none; border-bottom: none; ">&nbsp;</td>
+                <td class="UnitPrice $primary-color" style="border-top: 0.2px  solid;font-weight: bold; height: auto;
+                    overflow: hidden;text-align: right; border:1px solid #555;
+                    border-left: none; border-bottom: none; ">&nbsp;</td>
+                <td class="Rate $primary-color" style="border-top: 0.2px  solid;font-weight: bold;height: auto;
+                    overflow: hidden; text-align: right; border:1px solid #555;
+                    border-left: none; border-bottom: none; ">&nbsp;&nbsp;</td>
+                <td class="GrossValue $primary-color" style="border-top: 0.2px  solid;font-weight: bold; height: auto;
+                      overflow: hidden; text-align: right;white-space: nowrap;
+                        border:1px solid #555; border-left: none; border-bottom: none;">
+                  <ng-container *ngIf="(oArray.length-1) == strPageNo">
+                    {{TotGrossValue  | number : '1.2-2'  }}&nbsp;
+                  </ng-container>
+                </td>
+                <td class="RateofTax $primary-color" style="border-top: 0.2px  solid;font-weight: bold; height: auto;
+                        overflow: hidden; text-align: right; border:1px solid #555;
+                        border-left: none; border-bottom: none; ">&nbsp;</td>
+                <td class="GstAmount $primary-color" style="border-top: 0.2px  solid;font-weight: bold;height: auto;
+                    overflow: hidden; text-align: right; border:1px solid #555; white-space: nowrap;
+                    border-left: none; border-bottom: none; ">
+                  <ng-container *ngIf="(oArray.length-1) == strPageNo">
+                    {{TotTaxAmt  | number : '1.2-2'  }}&nbsp;
+                  </ng-container>
+                </td>
+                <td class="Amount $primary-color" style="border-top: 0.2px  solid;font-weight: bold; height: auto;
+                    overflow: hidden; text-align: right; border:1px solid #555; white-space: nowrap;
+                      border-left: none; border-bottom: none; border-right: none;">
+                  <ng-container *ngIf="(oArray.length-1) == strPageNo">
+                    {{dTotBillRowTotal  | number : '1.2-2'  }}
+                  </ng-container>
+                  &nbsp;
+                </td>
+              </tr>
+            </tfoot>
+
+          </table>
+        </div>
+
+        <div style="width: 100%; height: auto;  overflow: hidden; text-align: right;
+                border: 1px solid #555; display: flex; flex-direction: column;">
+        <div style="display: flex; flex-direction: row;">
+          <div style="padding-top: 3px; width: 477px; border: 1px solid #555; border-left: none;
+              border-top: none; border-bottom: none; height: 141px; overflow: hidden; display: flex;
+              place-content: center center; align-items: center;">
+            <table *ngIf="(oArray.length-1) == strPageNo" class="tblTaxDetails" style="border-collapse: collapse; border: 1px solid #555;">
+              <thead>
+                <th style="padding: 2px;border: 1px solid #555;width: 68px;">&nbsp;%</th>
+                <th style="padding: 2px;border: 1px solid #555;width: 68px;">TAXABLE</th>
+                <th style="padding: 2px;border: 1px solid #555;width: 68px;">SGST</th>
+                <th style="padding: 2px;border: 1px solid #555;width: 68px;">CGST</th>
+                <th style="padding: 2px;border: 1px solid #555;width: 68px;">IGST</th>
+                <th style="padding: 2px;border: 1px solid #555;width: 68px;">KFC</th>
+              </thead>
+              <tbody *ngFor="let taxinfo of JsonIssueTaxInfo">
+                <tr>
+                  <td style="padding: 2px;border: 1px solid #555;width: 68px;">{{taxinfo.TaxPercent}}</td>
+                  <td style="padding: 2px;border: 1px solid #555;width: 68px;">{{taxinfo.Amount}}</td>
+                  <td style="padding: 2px;border: 1px solid #555;width: 68px;">{{taxinfo.SGSTTaxAmount}}</td>
+                  <td style="padding: 2px;border: 1px solid #555;width: 68px;">{{taxinfo.CGSTTaxAmount}}</td>
+                  <td style="padding: 2px;border: 1px solid #555;width: 68px;">{{taxinfo.IGSTTaxAmount}}</td>
+                  <td style="padding: 2px;border: 1px solid #555;width: 68px;">{{taxinfo.CessAmt}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div style="width: 257px; border: 1px solid #555; border-left: none; border-right: none;
+          border-top: none; height: 141px; border-bottom: none;">
+            <table class="tblAmountDetails" style="border-collapse: collapse; width: 100%; ">
+
+              <tr>
+                <td style="width: 140px;padding: 1px; white-space: nowrap;">Amount Before Tax</td>
+                <td style="width: 140px;padding: 1px; white-space: nowrap;">
+                  <ng-container *ngIf="(oArray.length-1) == strPageNo">{{ TotAmtBeforeTax | number : '1.2-2'  }}
+                  </ng-container>&nbsp;
+                </td>
+              </tr>
+              <!-- <tr>
+              <td>Dis({{JsonIssueInfo?.Issue_DisPers}})</td>
+              <td> <ng-container *ngIf="(oArray.length-1) == strPageNo">{{ TotDisAmt | number : '1.2-2'  }}</ng-container> &nbsp;</td>
+          </tr> -->
+              <tr>
+                <td style="padding: 1px; white-space: nowrap;">{{JsonIssueInfo?.Field2}}</td>
+                <td style="padding: 1px; white-space: nowrap;">
+                  <ng-container *ngIf="(oArray.length-1) == strPageNo">
+                    {{ JsonIssueInfo?.Issue_OtherCharge | number : '1.2-2'  }}</ng-container> &nbsp;
+                </td>
+              </tr>
+              <tr>
+                <td style="padding: 1px; white-space: nowrap;">Add : SGST</td>
+                <td style="padding: 1px; white-space: nowrap;">
+                  <ng-container *ngIf="(oArray.length-1) == strPageNo">{{ TotSGstTotal | number : '1.2-2'  }}
+                  </ng-container> &nbsp;
+                </td>
+              </tr>
+              <tr>
+                <td style="padding: 1px; white-space: nowrap;">Add : CGST</td>
+                <td style="padding: 1px; white-space: nowrap;">
+                  <ng-container *ngIf="(oArray.length-1) == strPageNo">{{ TotCGstTotal | number : '1.2-2'  }}
+                  </ng-container> &nbsp;
+                </td>
+              </tr>
+              <tr>
+                <td style="padding: 1px; white-space: nowrap;">Add : KFC</td>
+                <td style="padding: 1px; white-space: nowrap;">
+                  <ng-container *ngIf="(oArray.length-1) == strPageNo">{{ TotCessAmt | number : '1.2-2'  }}
+                  </ng-container> &nbsp;
+                </td>
+              </tr>
+              <tr>
+                <td style="padding: 1px; white-space: nowrap;">Rof</td>
+                <td style="padding: 1px; white-space: nowrap;">
+                  <ng-container *ngIf="(oArray.length-1) == strPageNo">
+                    {{ JsonIssueInfo?.Issue_ROF | number : '1.2-2'  }}</ng-container> &nbsp;
+                </td>
+              </tr>
+              <!-- <tr><td>TOTAL</td><td>{{ JsonIssueInfo?.Issue_Total | number : '1.2-2' }}</td></tr> -->
+            </table>
+
+          </div>
+        </div>
+        </div>
+
+        <div style="width:100%; border:1px solid #555; display: flex; background-color:#fff;">
+            
+          <span style="width: 477px; border-right: 1px solid #555;">
+              <ng-container *ngIf="(oArray.length-1) == strPageNo">Rupees : {{ JsonIssueInfo?.AmtInWords  }}
+              </ng-container> &nbsp;
+            </span>
+
+            <div style="display: flex;width: 257px; place-content: space-between;">
+            <span >Bill Total</span>
+            <span>
+              <ng-container *ngIf="(oArray.length-1) == strPageNo"><i class="fa fa-rupee" style="font-size:16px"></i>
+                {{ JsonIssueInfo?.Issue_Total | number : '1.2-2' }}</ng-container> &nbsp;
+            </span>
+            </div>
+          </div>
+        <div style="display: flex; flex-direction: row; border-bottom: 1px solid #555;">
+          <div style="display: flex; flex-direction: column;width: 100%;">
+            <span style="text-decoration: underline;font-size: 16px;font-weight:bold;width: 100%;">DECLARATION</span>
+
+            <span style="font-weight: bold;width:100%;">We declare that this invoice shows the actual price
+              of the </span>
+            <span style="font-weight: bold;width:100%;">Goods described and that all particulars are true
+              and correct. </span>
+          </div>
+
+          <div style="display: flex; flex-direction: column; place-content: center center; align-items: center; width: 100%;">
+            <span>&nbsp;{{JsonBranchInfo?.BranchName}}</span>
+            <br/>
+            <br/>
+            <span>Authorised&nbsp;Signatory</span>
+          </div>
+        </div>
+       <div style="display: flex; flex-direction: column; place-content: start;">
+        <span style=" width:100%;  padding-top: 0px;">&nbsp;{{JsonBranchInfo?.BranchFtr1}}</span>
+       <span  style=" width:100%;  padding-top: 0px;">&nbsp;{{JsonBranchInfo?.BranchFtr2}}</span>
+       </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

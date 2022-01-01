@@ -1,0 +1,107 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <!-- <ion-menu-button></ion-menu-button> -->
+        <ion-button (click)="onBack()">
+            <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title >
+        Salesmanwise
+      </ion-title>
+
+      <ion-buttons slot="end">
+          <ion-button (click)="searchbar = !searchbar"> 
+            <ion-icon  mode="ios" slot="icon-only" name="search"></ion-icon>
+          </ion-button>
+
+          <ion-button *ngIf="content" (click)="share.fnSharepage('tblSaleReport', 'salereport')"> 
+           <ion-icon  mode="ios" slot="icon-only" name="share"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+
+    <ion-toolbar *ngIf="searchbar">
+        <ion-searchbar  mode="ios" #search placeholder="Filter Report"
+        showCancelButton="focus" animated (ionInput)='fnSearch($event)' 
+        (ionCancel)='fnClose($event)'></ion-searchbar>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+      <ion-grid *ngIf="!content" class="inner-border">
+          <ion-row>
+            <ion-col >
+              <ion-item>
+                <ion-label position="stacked">From</ion-label>
+                <ion-input [(ngModel)]="fromdate" readonly></ion-input>
+                <button (click)="calenderPicker('from')" type="button" slot="end" class="calender">
+                  <ion-icon  mode="ios" slot="icon-only" name="calendar"></ion-icon>
+                </button>
+    
+              </ion-item> 
+    
+            </ion-col>
+            <ion-col >
+              <ion-item>
+                <ion-label position="stacked">To</ion-label>
+                <ion-input [(ngModel)]="Todate" readonly></ion-input>
+                <button (click)="calenderPicker('to')" type="button" slot="end" class="calender">
+                  <ion-icon  mode="ios" slot="icon-only" name="calendar"></ion-icon>
+                </button>
+    
+              </ion-item>
+    
+            </ion-col>
+          </ion-row>
+
+    <ion-row>
+      <ion-col>
+          <ion-button expand="full" color="success" (click)="onSubmit('Summery')">Summery</ion-button>
+      </ion-col>
+
+      <ion-col>
+          <ion-button expand="full" color="success" (click)="onSubmit('Detailed')">Detailed</ion-button>
+        </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="showCategory">
+        <ion-col size='12'> 
+          <ion-list>
+              <ion-item >
+                  <ion-label>Select All</ion-label>
+                  <ion-checkbox slot="start" (ionChange)='selectAll($event)' [(ngModel)]="checked"></ion-checkbox>
+                </ion-item>
+
+              <ion-item *ngFor="let entry of salesList ">
+                <ion-label>{{entry.AC_Name}}</ion-label>
+                <ion-checkbox  mode="ios" slot="start" [(ngModel)]="entry.isChecked" (click)='change($event)'></ion-checkbox>
+              </ion-item>
+            </ion-list>
+          </ion-col>
+      </ion-row>
+        </ion-grid>
+
+        <div id="tblSaleReport" class="tbl-div" *ngIf="content">
+          <table >
+            <thead>
+              <tr>
+                <th *ngFor="let col of tblHeader">{{col}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let d of tblReport">
+                <td *ngFor="let col of tblHeader">{{d[col]}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- <ion-grid *ngIf="content">
+            <ion-row>
+                <ion-col *ngFor="let col of tblHeader">{{col}}</ion-col>
+            </ion-row>
+          <ion-row *ngFor="let d of tblReport">
+              <ion-col *ngFor="let col of tblHeader">{{d[col]}}</ion-col>
+          </ion-row>
+        </ion-grid> -->
+  </ion-content>

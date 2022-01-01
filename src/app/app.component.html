@@ -1,0 +1,134 @@
+<ion-app  >
+  <ion-split-pane contentId="main">
+
+    <ion-menu side="start" #customMenu type="overlay" swipeGesture='false' contentId="main">
+
+      <ion-content class="menu_content" >
+
+        <button (click)="customMenu.close()" class="btn-close">
+          <ion-icon name="close"></ion-icon>
+        </button>
+        <div class="sidebar_image">
+          <svg xmlns="http://www.w3.org/2000/svg" width="311.959" height="138.906" viewBox="0 0 311.959 138.906">
+            <path id="Path_4" data-name="Path 4" d="M3909,7887s101.55,8.546,142.19,50.95,169.769,13.673,169.769,13.673v74.283H3909Z" transform="translate(-3909 -7887)" fill="#3966ad"/>
+          </svg>
+
+          <div class="header-logo">
+            <img width='60' height="60" src="assets/images/avator/Logo.png" />
+            <div class="tittle-log">
+              <h1>Codeapps Technology</h1>
+              <p>{{inventryActive ? "Inventory": "Order"}} Login</p>
+            </div>
+          </div>
+        </div>
+        <ion-list lines="full">
+
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of pages">
+            <ion-item [routerLink]="[p.url]" >
+              <ion-icon  slot="start" [name]="p.icon" color='light'></ion-icon>
+              <ion-label color='light'>
+                {{p.title}}
+              </ion-label>
+            </ion-item>
+
+          </ion-menu-toggle>
+
+          <ion-menu-toggle *ngIf="inventryActive" auto-hide="false" >
+            <ion-item routerLink="/purchase/purchaseBill" >
+              <ion-icon slot="start" name="cart" color='light'></ion-icon>
+              <ion-label color='light'>
+                Purchase Bill
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle *ngIf="inventryActive" auto-hide="false" >
+            <ion-item routerLink="/sales/inventrypos" >
+              <ion-icon slot="start" name="phone-portrait" color='light'></ion-icon>
+              <ion-label color='light'>
+                Inventry POS
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle *ngIf="!inventryActive" auto-hide="false" >
+            <ion-item routerLink="delivery" >
+              <ion-icon  slot="start" name="cube" color='light'></ion-icon>
+              <ion-label color='light'>
+                Delivery Box
+              </ion-label>
+            </ion-item>
+
+          </ion-menu-toggle>
+
+          <ion-menu-toggle auto-hide="false" >
+            <ion-item (click)="helpCustomer()">
+              <ion-icon slot="start" name="information-circle" color='light'></ion-icon>
+              <ion-label color='light'>
+                Customer&nbsp;<small>(DSR)</small>
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle auto-hide="false" >
+            <ion-item routerLink='products'>
+              <ion-icon slot="start" name="star-outline" color='light'></ion-icon>
+              <ion-label color='light'>
+                Products
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+
+          <ion-menu-toggle auto-hide="false" >
+            <ion-item (click)="fnClearData()" >
+              <ion-icon slot="start" name="refresh" color='light'></ion-icon>
+              <ion-label color='light'>
+                 Reset App
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle auto-hide="false" >
+            <ion-item routerLink='printsettings'>
+              <ion-icon slot="start" name="print" color='light'></ion-icon>
+              <ion-label color='light'>
+                 Invoice Print
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle auto-hide="false" >
+          <ion-item (click)="appService.fnLogOut()" >
+            <ion-icon slot="start" name="power" color='light'></ion-icon>
+            <ion-label color='light'>
+              Logout
+            </ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+
+        <ion-menu-toggle auto-hide="false" >
+          <ion-item (click)="fnExitApp()">
+            <ion-icon slot="start" name="exit" color='light'></ion-icon>
+            <ion-label color='light'>
+              Exit
+            </ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+
+
+        </ion-list>
+
+      </ion-content>
+
+      <ion-footer >
+         <div class="footer-title">
+           <span>{{branchName}}</span>
+           <sub>v 2.4.6&nbsp;</sub>
+         </div>
+      </ion-footer>
+    </ion-menu>
+
+    <ion-router-outlet id="main"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

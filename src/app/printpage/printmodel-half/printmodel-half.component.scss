@@ -1,0 +1,961 @@
+$font-stack: Arial;
+$primary-color: #635e5e; //#635e5e;
+$border: 1px solid $primary-color;
+$backgroundcolor: #c1bfbf78 !important;
+
+
+
+%bordernoneitemdetails {
+  border-left: none;
+  border-bottom: none;
+  border-top: none;
+}
+
+%myfont {
+  font-family: Arial;
+  color: $primary-color;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+::ng-deep app-printmodel-half {
+  .water_mark {
+    position: absolute;
+    width: 100%;
+    height: 34%;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: 200px;
+    opacity: 0.12;
+    margin-top: 10px;
+    z-index: 1;
+  }
+
+  .ClsPrintHeader {
+    position: absolute;
+    top: 25px;
+    right: 16px;
+    font-size: 12px;
+  }
+
+  .Page {
+    overflow: hidden;
+    position: relative;
+    background-color: #fff;
+    @extend %myfont;
+    width: 195mm;
+    min-height: 133mm;
+    max-height: 133mm;
+    margin: 0cm auto;
+    page-break-after: always;
+  }
+
+  .subpage {
+    overflow: hidden;
+    position: relative;
+    background-color: #fff;
+    @extend %myfont;
+    width: 195mm;
+    min-height: 133mm;
+    max-height: 133mm;
+    margin: 0cm auto;
+    padding-top: 18px;
+  }
+
+  .corner {
+    position: absolute;
+    margin-top: 3px;
+    margin-left: 3px;
+    margin-bottom: 5px;
+    margin-right: 9px;
+    width: 80px;
+    height: 83px;
+    left: 15px;
+  }
+
+  .image {
+    background: #ccc;
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  span {
+    white-space: nowrap;
+    color: $primary-color;
+  }
+
+  .Header {
+    text-align: center;
+    height: 100px;
+    padding-bottom: 2px;
+    border: $border;
+    border-bottom: none;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    color: $primary-color;
+    .clsCompanyDetails {
+      width: 100%;
+      height: 85px;
+      float: left;
+      white-space: nowrap;
+      overflow: hidden;
+      img {
+        height: 94%;
+        width: 98%;
+        padding-top: 3px;
+      }
+
+      .headerfont {
+        @extend %myfont;
+        font-size: 20px;
+        text-align: center;
+        width: 100%;
+        float: left;
+        white-space: nowrap;
+        overflow: hidden;
+        color: $primary-color;
+      }
+
+      .addressfont {
+        @extend %myfont;
+        font-size: 12px;
+        text-align: center;
+        width: 100%;
+        float: left;
+        white-space: nowrap;
+        overflow: hidden;
+        color: $primary-color;
+      }
+    }
+    .clsTinDetails {
+      height: 100%;
+      border: $border;
+      border-right: none;
+      border-top: none;
+      border-bottom: none;
+      float: left;
+      width: 300px;
+      white-space: nowrap;
+      overflow: hidden;
+      padding-top: 9px;
+      color: $primary-color;
+      .spanleft {
+        float: left;
+        width: 74px;
+        text-align: left;
+        padding-left: 3px;
+        white-space: nowrap;
+        overflow: hidden;
+        color: $primary-color;
+      }
+      .spanright {
+        float: left;
+        width: 200px;
+        text-align: left;
+        padding-left: 3px;
+        white-space: nowrap;
+        overflow: hidden;
+        color: $primary-color;
+      }
+    }
+  }
+
+  .headerfont {
+    @extend %myfont;
+    font-size: 20px;
+    text-align: center;
+    width: 100%;
+    float: left;
+    white-space: nowrap;
+    overflow: hidden;
+    color: $primary-color;
+  }
+
+  .addressfont {
+    @extend %myfont;
+    font-size: 16px;
+    text-align: center;
+    width: 100%;
+    float: left;
+    white-space: nowrap;
+    overflow: hidden;
+    color: $primary-color;
+  }
+
+  .divcomgstdetails {
+    @extend %myfont;
+    height: 20px;
+    width: 100%;
+    padding-top: 3px;
+    border: $border;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    white-space: nowrap;
+    overflow: hidden;
+    color: $primary-color;
+  }
+
+  .divbilldatebox {
+    @extend %myfont;
+    height: 24px;
+    width: 100%;
+    padding-top: 1px;
+    font-size: 14px;
+    border: $border;
+    border-bottom: none;
+    background-color: $backgroundcolor;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    color: $primary-color;
+  }
+
+  .customerdetails {
+    @extend %myfont;
+    height: 89px;
+    width: 100%;
+    overflow: hidden;
+    border: $border;
+    color: $primary-color;
+    span {
+      text-align: left;
+      white-space: nowrap;
+      overflow: hidden;
+      color: $primary-color;
+    }
+
+    .form1 {
+      padding-top: 0px;
+      // width: 344px;
+      float: left;
+      border: $border;
+      border-left: none;
+      border-top: none;
+      border-bottom: none;
+      border-right: none;
+      height: 100%;
+      overflow: hidden;
+      color: $primary-color;
+      //  resize: horizontal;
+      .clsCustomer1divspan {
+        float: left;
+        padding-left: 3px;
+        white-space: nowrap;
+        overflow: hidden;
+        height: 15px;
+        color: $primary-color;
+        width: 100%;
+      }
+    }
+
+    .form2 {
+      padding-top: 3px;
+      width: 205px;
+      float: left;
+      border: $border;
+      border-left: none;
+      border-top: none;
+      height: 100%;
+      border-bottom: none;
+      overflow: hidden;
+      color: $primary-color;
+      //  resize: horizontal;
+      .clsCustomer2divspan {
+        float: left;
+        padding-left: 3px;
+        white-space: nowrap;
+        overflow: hidden;
+        color: $primary-color;
+        width: 100%;
+      }
+    }
+
+    .form3 {
+      padding-top: 0px;
+      width: 180px;
+      float: left;
+      border: $border;
+      border-left: none;
+      border-right: none;
+      border-top: none;
+      height: 100%;
+      border-bottom: none;
+      overflow: hidden;
+      color: $primary-color;
+      //  resize: horizontal;
+    }
+  }
+
+  .ProductDetails {
+    @extend %myfont;
+    width: 100%;
+
+    border: $border;
+    border-top: none;
+    border-bottom: none;
+    color: $primary-color;
+    th {
+      background-color: $backgroundcolor;
+      font-weight: bold;
+      color: $primary-color;
+    }
+  }
+
+  .FotterSection {
+    @extend %myfont;
+    width: 100%;
+    height: 107px;
+    overflow: hidden;
+    text-align: right;
+    border: $border;
+    //   position: absolute;
+    color: $primary-color;
+    .taxdetails {
+      padding-top: 3px;
+      width: 493px;
+      float: left;
+      border: $border;
+      border-left: none;
+      border-top: none;
+      height: 80px;
+      overflow: hidden;
+      font-size: 11px;
+      color: $primary-color;
+      border-bottom: none;
+      border-right: none;
+      // resize: horizontal;
+    }
+    .divOutstanding {
+      width: 492px;
+      height: 19px;
+      padding-top: 2px;
+      padding-bottom: 2px;
+      border: 1px solid #555;
+      border-left: none;
+      border-bottom: none;
+      border-right: none;
+      bottom: -10px;
+      margin-bottom: 172px;
+      position: absolute;
+      bottom: 0;
+      text-align: left;
+      color: $primary-color;
+      width: 100%;
+    }
+
+    .BankDetails {
+      border: $border;
+      border-left: none;
+      border-right: none;
+      height: 40px;
+      padding-top: 0px;
+      color: $primary-color;
+      float: left;
+      text-align: left;
+
+      width: 100%;
+      border-bottom: none;
+
+      .in-bottom {
+        border-top: 1px solid;
+        padding-left: 14px;
+      }
+    }
+
+    .worddeclartion {
+      width: 376px;
+      float: left;
+      border: $border;
+      border-left: none;
+      border-top: none;
+      height: 80px;
+      border-bottom: none;
+      color: $primary-color;
+      .clsDeclaration {
+        border: $border;
+        border-left: none;
+        border-top: none;
+        border-right: none;
+        height: 40px;
+        color: $primary-color;
+      }
+
+      span {
+        text-align: left;
+        padding-left: 3px;
+        font-size: 9px;
+        width: 100%;
+        color: $primary-color;
+      }
+    }
+
+    .clsAmtWordSection {
+      // resize: horizontal;
+      float: left;
+      border: $border;
+      border-top: none;
+      border-left: none;
+      height: 85px;
+      overflow: hidden;
+      font-size: 10px;
+      color: $primary-color;
+      border-bottom: none;
+      border-right: none;
+      table {
+        width: 100%;
+        td,
+        th {
+          padding: 1px;
+          // border: $border;
+          white-space: nowrap;
+          border: $border;
+          color: $primary-color;
+        }
+        tr {
+          height: 16px;
+        }
+      }
+    }
+
+    .clsAmtSection {
+      // resize: horizontal;
+      border: $border;
+      border-left: none;
+      border-top: none;
+      height: 85px;
+      overflow: hidden;
+      font-size: 10px;
+      color: $primary-color;
+      border-bottom: none;
+      border-right: none;
+      table {
+        width: 100%;
+        td,th {
+          padding: 1px;
+          white-space: nowrap;
+          border: $border;
+          color: $primary-color;
+        }
+
+        tr {
+          height: 16px;
+        }
+      }
+
+    }
+
+    .FooterTotalSection {
+      width: 100%;
+      border: $border;
+      border-left: none;
+      border-bottom: none;
+      border-right: none;
+      float: left;
+      background-color: $backgroundcolor;
+      color: $primary-color;
+      .AmtInWords {
+        width: 493px;
+        text-align: left;
+        overflow: hidden;
+        padding-left: 4px;
+        float: left;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        border: $border;
+        border-left: none;
+        border-top: none;
+        border-bottom: none;
+        color: $primary-color;
+      }
+      .GrandTotalLabel {
+        width: 112px;
+        text-align: left;
+        overflow: hidden;
+        padding-left: 4px;
+        float: left;
+        font-size: 16px;
+        color: $primary-color;
+      }
+
+      .GrandTotalAmount {
+        width: 130px;
+        text-align: right;
+        overflow: hidden;
+        padding-left: 4px;
+        float: right;
+        font-size: 16px;
+        color: $primary-color;
+      }
+    }
+  }
+
+  .DeclareSection {
+    height: 200px;
+    width: 100%;
+    float: left;
+    padding-top: 4px;
+    color: $primary-color;
+
+    .DeclareDetails {
+      width: 348px;
+      float: left;
+      text-align: center;
+      color: $primary-color;
+    }
+    .SignatureSection {
+      width: 348px;
+      float: left;
+      text-align: center;
+      color: $primary-color;
+    }
+
+    .MessageSection {
+      width: 100%;
+      float: left;
+      padding-top: 0px;
+      color: $primary-color;
+    }
+  }
+
+  hr {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-width: 1px;
+    border-color: $primary-color;
+    float: left;
+    width: 100%;
+  }
+
+  #pre-loader {
+    display: none;
+  }
+
+  .tblNo {
+    // height: 17px;
+    min-width: 33px;
+    max-width: 33px;
+    @extend %myfont;
+    overflow: hidden;
+    text-align: right;
+    border: $border;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    white-space: nowrap;
+    color: $primary-color;
+  }
+
+  .tblItemCode {
+    width: 74px;
+    min-width: 74px;
+    max-width: 74px;
+    @extend %myfont;
+    overflow: hidden;
+    text-align: right;
+    border: $border;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    white-space: nowrap;
+    color: $primary-color;
+  }
+
+  .tblProduct {
+    width: 306px;
+    min-width: 306px;
+    max-width: 306px;
+    @extend %myfont;
+    overflow: hidden;
+    text-align: left;
+    border: $border;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    white-space: nowrap;
+  }
+
+  .HSNCode {
+    width: 30px;
+    max-width: 30px;
+    min-width: 30px;
+    @extend %myfont;
+    overflow: hidden;
+    text-align: left;
+    border: $border;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    white-space: nowrap;
+  }
+
+  .MFRNo {
+    width: 30px;
+    max-width: 30px;
+    min-width: 30px;
+    @extend %myfont;
+    overflow: hidden;
+    text-align: left;
+    border: $border;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    white-space: nowrap;
+  }
+
+  .RateofTax {
+    width: 40px;
+    max-width: 40px;
+    min-width: 40px;
+    @extend %myfont;
+    overflow: hidden;
+    text-align: right;
+    border: $border;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    white-space: nowrap;
+  }
+
+  .Unit {
+    width: 65px;
+    max-width: 65px;
+    min-width: 65px;
+    @extend %myfont;
+    overflow: hidden;
+    text-align: right;
+    border: $border;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    white-space: nowrap;
+  }
+  .ExpDate {
+    width: 55px;
+    max-width: 55px;
+    min-width: 55px;
+    @extend %myfont;
+    overflow: hidden;
+    text-align: center;
+    border: $border;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    white-space: nowrap;
+  }
+  .Batch {
+    width: 70px;
+    max-width: 70px;
+    min-width: 70px;
+    @extend %myfont;
+    overflow: hidden;
+    text-align: right;
+    border: $border;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    white-space: nowrap;
+  }
+  .UnitPrice {
+    width: 60px;
+    max-width: 60px;
+    min-width: 60px;
+    @extend %myfont;
+    overflow: hidden;
+    text-align: right;
+    border: $border;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    white-space: nowrap;
+  }
+
+  .PTR {
+    width: 60px;
+    max-width: 60px;
+    min-width: 60px;
+    @extend %myfont;
+    overflow: hidden;
+    text-align: right;
+    border: $border;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    white-space: nowrap;
+  }
+
+  .PTW {
+    width: 60px;
+    max-width: 60px;
+    min-width: 60px;
+    @extend %myfont;
+    overflow: hidden;
+    text-align: right;
+    border: $border;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    white-space: nowrap;
+  }
+
+  .PricePlusTax {
+    width: 60px;
+    max-width: 60px;
+    min-width: 60px;
+    @extend %myfont;
+    overflow: hidden;
+    text-align: right;
+    border: $border;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    white-space: nowrap;
+  }
+
+  .Mrp {
+    width: 60px;
+    max-width: 60px;
+    min-width: 60px;
+    @extend %myfont;
+    overflow: hidden;
+    text-align: right;
+    border: $border;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    white-space: nowrap;
+  }
+
+  .Qty {
+    width: 48px;
+    max-width: 48px;
+    min-width: 48px;
+    @extend %myfont;
+    overflow: hidden;
+    text-align: right;
+    border: $border;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    white-space: nowrap;
+  }
+
+  .Free {
+    width: 35px;
+    max-width: 35px;
+    min-width: 35px;
+    @extend %myfont;
+    overflow: hidden;
+    text-align: right;
+    border: $border;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    white-space: nowrap;
+  }
+
+  .GrossValue {
+    width: 60px;
+    max-width: 60px;
+    min-width: 60px;
+    @extend %myfont;
+    overflow: hidden;
+    text-align: right;
+    border: $border;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    white-space: nowrap;
+  }
+
+  .GstAmount {
+    width: 55px;
+    max-width: 55px;
+    min-width: 55px;
+    @extend %myfont;
+    overflow: hidden;
+    text-align: right;
+    border: $border;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    white-space: nowrap;
+  }
+
+  .CashDisc {
+    width: 55px;
+    max-width: 55px;
+    min-width: 55px;
+    @extend %myfont;
+    overflow: hidden;
+    text-align: right;
+    border: $border;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    white-space: nowrap;
+  }
+
+  .Tax {
+    width: 35px;
+    max-width: 35px;
+    min-width: 35px;
+    @extend %myfont;
+    overflow: hidden;
+    text-align: right;
+    border: $border;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    white-space: nowrap;
+  }
+  .SchemAmt {
+    width: 50px;
+    max-width: 50px;
+    min-width: 50px;
+    @extend %myfont;
+    overflow: hidden;
+    text-align: right;
+    border: $border;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    white-space: nowrap;
+  }
+  .Amount {
+    width: 75px;
+    max-width: 75px;
+    min-width: 75px;
+    @extend %myfont;
+    overflow: hidden;
+    text-align: right;
+    border: $border;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    border-top: none;
+    white-space: nowrap;
+    color: $primary-color;
+  }
+
+  .CessPers {
+    width: 75px;
+    max-width: 75px;
+    min-width: 75px;
+    @extend %myfont;
+    overflow: hidden;
+    text-align: right;
+    border: $border;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    white-space: nowrap;
+    color: $primary-color;
+  }
+
+  .CessAmt {
+    width: 75px;
+    max-width: 75px;
+    min-width: 75px;
+    @extend %myfont;
+    overflow: hidden;
+    text-align: right;
+    border: $border;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    white-space: nowrap;
+    color: $primary-color;
+  }
+
+  .AmtBeforeTotDis {
+    width: 75px;
+    max-width: 75px;
+    min-width: 75px;
+    @extend %myfont;
+    overflow: hidden;
+    text-align: right;
+    border: $border;
+    border-left: none;
+    border-bottom: none;
+    border-right: none;
+    border-top: none;
+    white-space: nowrap;
+    color: $primary-color;
+  }
+
+  .DiscAmt {
+    width: 55px;
+    max-width: 55px;
+    min-width: 55px;
+    @extend %myfont;
+    overflow: hidden;
+    text-align: right;
+    border: $border;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    white-space: nowrap;
+  }
+
+  .tblTaxDetails {
+
+    margin-left: 10px;
+    margin-right: 3px;
+    margin-top: 1px;
+    @extend %myfont;
+    margin-bottom: 3px;
+    border: $border;
+
+    td,
+    th {
+      padding: 1px;
+      border: $border;
+      width: 68px;
+      text-align: center;
+      color: $primary-color;
+      font-size: 9px;
+    }
+  }
+
+  .tblAmountDetails {
+    @extend %myfont;
+    // border: $border;
+    border-left: $border;
+    td,
+    th {
+      padding: 1px;
+      // border: $border;
+      white-space: nowrap;
+      border: $border;
+      color: $primary-color;
+    }
+
+    tr {
+      height: 23px;
+    }
+
+  }
+
+  .clsQrDetails {
+
+    height: 80px;
+    float: left;
+    border-left: 1px solid #635e5e;
+    overflow: hidden;
+    // resize: horizontal;
+    img {
+      height: 90%;
+      width: 90%;
+      margin-top: -8px;
+    }
+
+  }
+
+}

@@ -1,0 +1,163 @@
+<ion-header>
+
+  <ion-toolbar color="primary">
+    <ion-buttons  slot="start">
+      <ion-menu-button ></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Home
+    </ion-title>
+
+    <ion-buttons slot="end">
+
+      <ion-button >
+        <ion-icon name="notifications"></ion-icon>
+        
+      </ion-button>
+
+      <ion-button (click)="appService.fnLogOut()">
+        <ion-icon name="power"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid class="grid-card">
+
+    <ion-row *ngIf="inventryActive">
+      <ion-col *ngIf="showMenu.sales" [size]="showMenu.Godown ? '6': '12'" >
+        <ion-card button='true' routerLink="/sales/orderinventory" color="light">
+          <ion-card-content>
+            <img cache="true" src="assets/images/avator/Invoice.png" />
+          </ion-card-content>
+         <p class="ion-text-center">Invoice Bill</p>
+        </ion-card>
+      </ion-col>
+
+      <ion-col *ngIf="showMenu.Godown" [size]="showMenu.sales ? '6': '12'">
+        <ion-card button='true' routerLink="/sales/vansales"  color="light">
+            <ion-card-content>
+            <img cache="true" src="assets/images/avator/van-sale.png"/>
+          </ion-card-content>
+         <p class="ion-text-center">Van Sale</p>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="!inventryActive">
+      <ion-col size='12'>
+        <ion-card button='true' routerLink="/sales/allorder" color="light">
+          <ion-card-content>
+            <img cache="true" src="assets/images/homeimages/inventorynew.jpg"/>
+          </ion-card-content>
+          <p class="ion-text-center">Order Processing</p>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+   
+    <ion-row>
+
+      <ion-col size='6'>
+        <ion-card button='true' routerLink="/locationlist" color="light">
+
+          <ion-card-content>
+            <img cache="true" src="assets/images/avator/Customr-Location.png"/>
+          </ion-card-content>
+          <p class="ion-text-center">Customer Location</p>
+        </ion-card>
+        
+      </ion-col>      
+
+      <ion-col size='6' >
+        <ion-card button='true' routerLink="/location" color="light">
+          <ion-card-content>
+            <img cache="true" src="assets/images/avator/TrackingLocation.png"/>
+          </ion-card-content>
+          <p class="ion-text-center">Tracking Location</p>
+        </ion-card>
+        
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col *ngIf="showMenu.AccountHead" size='12'>
+        <ion-card button='true' routerLink='/master' color="light">
+        
+          <ion-card-content>
+            <img cache="true" src="assets/images/avator/Customer-Creatino.png">
+          </ion-card-content>
+          <p class="ion-text-center">Customer Creation</p>
+        </ion-card>
+       
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row>
+     
+      <ion-col *ngIf="showMenu.Receipt" size='6' >
+        <ion-card  button='true' routerLink='/voucherreceipt' color="light">
+         
+          <ion-card-content>
+            <img cache="true" src="assets/images/avator/ReceiptVoucher.png"/>
+          </ion-card-content>
+          <p class="ion-text-center">Receipt Voucher</p>
+        </ion-card>
+        
+      </ion-col>
+
+      <ion-col [size]="showMenu.Receipt ? '6': '12'" >
+        <ion-card  button='true' (click)="helpCustomer()" color="light">
+          
+          <ion-card-content>
+            <img cache="true" src="assets/images/avator/Feedback.png"/>
+          </ion-card-content>
+          <p class="ion-text-center">DSR(Feedback)</p>
+        </ion-card>
+        
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      
+      <ion-col *ngIf="!inventryActive" size='6'>
+        <ion-card  button='true' routerLink='/delivery' color="light">
+
+          <ion-card-content>
+            <img cache="true" src="assets/images/homeimages/delivery-man-riding-red-scooter-illustration_9845-14.jpg"/>
+          </ion-card-content>
+          <p class="ion-text-center">Delivery Box</p>
+        </ion-card>
+        
+      </ion-col>
+
+      <ion-col size='6'>
+        <ion-card  button='true' routerLink='/salesreturn' color="light">
+         
+          <ion-card-content>
+            <img cache="true" src="assets/images/avator/SalesReturn.png"/>
+          </ion-card-content>
+          <p class="ion-text-center">Sales Return</p>
+        </ion-card>
+       
+      </ion-col>
+
+      <ion-col [size]="!inventryActive ? '12': '6'" >
+        <ion-card  button='true' routerLink='/reports/report' color="light">
+          
+          <ion-card-content>
+            <img cache="true" src="assets/images/avator/Reports.png"/>
+          </ion-card-content>
+          <p class="ion-text-center">Reports</p>
+        </ion-card>
+        
+      </ion-col>
+    </ion-row>
+
+    
+  </ion-grid>
+
+</ion-content>

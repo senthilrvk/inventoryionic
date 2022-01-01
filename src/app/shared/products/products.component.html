@@ -1,0 +1,191 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Products</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button *ngIf="productlist"></ion-back-button>
+
+      <ion-button *ngIf="!productlist" (click)="productlist = true;onProductGet()">
+        <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar *ngIf="productlist">
+    <ion-searchbar debounce="500" animated placeholder="Filter Product" [(ngModel)]="search"
+      (ionChange)="onProductGet()"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-virtual-scroll [items]="productSource" *ngIf="productlist">
+    <ion-card *virtualItem="let item">
+      <ion-item button lines="none" (click)="onProductGets(item.ProductId)">
+        <ion-label class="ion-text-wrap">
+          <ion-text color="dark">
+            <h3>{{item.ItemDesc}}</h3>
+          </ion-text>
+          <p>{{item.Manufacture_Name}}</p>
+          <ion-text color="primary">
+            <p>Code: {{item.ItemCode}}</p>
+          </ion-text>
+        </ion-label>
+
+      </ion-item>
+    </ion-card>
+  </ion-virtual-scroll>
+
+  <ion-list *ngIf="!productlist">
+
+    <ion-item>
+      <ion-label position="floating">Product Code</ion-label>
+      <ion-input [(ngModel)]="product.ItemCode"></ion-input>
+    </ion-item>
+    <ion-button color="medium" expand="full" size="small" (click)="barScan()">Barcode Scan</ion-button>
+
+
+    <ion-item>
+      <ion-label position="floating">Product Name</ion-label>
+      <ion-input [(ngModel)]="product.ItemDesc"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">HSN Code</ion-label>
+      <ion-input [(ngModel)]="product.SkuCode" (input)="onHsnCodeSearch($event.target.value)"></ion-input>
+    </ion-item>
+
+
+    <div class="auto-complete" *ngIf="hsnautocomplete">
+      <ion-list>
+        <ion-item button *ngFor="let item of hsnSource" (click)="selectHsnCode(item)">
+          <ion-label class="ion-text-wrap">
+            <ion-text color="primary">
+              <h3>{{item.Hsn_Code}}</h3>
+            </ion-text>
+            <p>{{item.TaxName}}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <!-- <div *ngIf="" class="backdrop"
+    (click)="hsnautocomplete = false">
+  </div> -->
+
+    <ion-item>
+      <ion-label position="floating">ManuFacture</ion-label>
+      <ion-input [(ngModel)]="manufactureName" (input)="fnManufactureGets($event.target.value)"></ion-input>
+    </ion-item>
+
+    <div class="auto-complete" *ngIf="autocomplete">
+      <ion-list>
+        <ion-item button *ngFor="let item of manufactureData" (click)="selectManufacture(item)">
+          <ion-label class="ion-text-wrap">
+            <ion-text color="primary">
+              <h3>{{item.Manufacture_Name}}</h3>
+            </ion-text>
+            <p>{{item.CategoryDesc}}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <div *ngIf="(manufactureData.length && autocomplete) || (hsnSource.length && hsnautocomplete)" class="backdrop"
+    (click)="autocomplete = false;hsnautocomplete = false"></div>
+
+    <ion-item>
+      <ion-label position="floating">Pack</ion-label>
+      <ion-input [(ngModel)]="product.PackQty"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Location</ion-label>
+      <ion-input [(ngModel)]="product.Location"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Schedule</ion-label>
+      <ion-select placeholder="Select One" [(ngModel)]="product.GroupId">
+        <ion-select-option *ngFor="let schedule of scheduleSource" [value]="schedule.CategoryID">
+          {{schedule.CategoryDesc}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-label position="floating">Category Main</ion-label>
+      <ion-select placeholder="Select One">
+        <ion-select-option *ngFor='let cat of categoryHeadSource' [value]="cat.CategoryHead_Id">
+          {{cat.CategoryHead_Name}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Category Sub</ion-label>
+      <ion-select placeholder="Select One" [(ngModel)]="product.CategoryCode">
+        <ion-select-option *ngFor="let c of categorySource" [value]='c.CategoryID'>
+          {{c.CategoryDesc}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">GST %</ion-label>
+      <ion-select placeholder="Select One" [(ngModel)]="product.TaxGroupId">
+        <ion-select-option *ngFor="let tax of textSource" [value]='tax.TaxGroupId'>
+          {{tax.TaxName}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Unit Type</ion-label>
+      <ion-select placeholder="Select One" [(ngModel)]="product.PackType">
+        <ion-select-option *ngFor="let type of prodTypeSource" [value]='type.CategoryID'>
+          {{type.CategoryDesc}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-label position="floating">Color</ion-label>
+      <ion-input [(ngModel)]="product.Color"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Weight</ion-label>
+      <ion-input [(ngModel)]="product.ProdWeight"></ion-input>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-label position="floating">ROL</ion-label>
+      <ion-input [(ngModel)]="product.UOM"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Active</ion-label>
+      <ion-checkbox slot="end" color="primary" [(ngModel)]="product.bActive"></ion-checkbox>
+    </ion-item>
+
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="productlist">
+    <ion-fab-button (click)="fnCreate()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+
+
+  </ion-fab>
+
+</ion-content>
+
+<ion-footer *ngIf="!productlist">
+  <ion-toolbar>
+    <ion-button color="success" expand="full" size="small" (click)="fnInsert()">Save</ion-button>
+  </ion-toolbar>
+</ion-footer>

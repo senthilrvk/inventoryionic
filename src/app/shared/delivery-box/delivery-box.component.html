@@ -1,0 +1,215 @@
+<ion-header>
+
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Delivery Box</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="fngetDelivery()">
+        <ion-icon slot="icon-only" name="refresh"></ion-icon>
+      </ion-button>
+     
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar color="tertiary">
+    <ion-item slot="start" color="tertiary">
+      <ion-label>From Date:</ion-label>
+      <ion-datetime displayFormat="DD/MM/YYYY" [max]='toDay' [(ngModel)]="fromDate" (ionChange)='fngetDelivery()'></ion-datetime>
+    </ion-item>
+    
+    <ion-item slot="end" color="tertiary">
+      <ion-label>To Date:</ion-label>
+      <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="toDate" (ionChange)='fngetDelivery()'></ion-datetime>
+    </ion-item>
+    
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-segment color="tertiary" [(ngModel)]="statusbar" (ionChange)="fngetDelivery()">
+      <ion-segment-button value="Take">
+        <ion-label>Active</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="Pending">
+        <ion-label>Pending</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="Completed">
+        <ion-label>Complete</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+  
+  
+</ion-header>
+
+<ion-content [ngSwitch]="statusbar">
+ 
+  <!-- *ngIf="loading" -->
+  <div *ngIf="loading" class="loading ion-text-center">
+    <ion-spinner name="crescent" color="tertiary" ></ion-spinner>
+  </div>
+
+  <div class="ion-padding custom-skeleton" style="height: 100%;" *ngIf="pLoading">
+  <ion-skeleton-text animated style="height: 25%;"></ion-skeleton-text>
+  <ion-skeleton-text animated style="height: 25%;"></ion-skeleton-text>
+  <ion-skeleton-text animated style="height: 25%;"></ion-skeleton-text>
+  <ion-skeleton-text animated style="height: 25%;"></ion-skeleton-text>
+  </div> 
+
+  <ion-virtual-scroll *ngSwitchCase="'Pending'" [items]="dataItems" >
+    <ion-card *virtualItem="let item" class="delivery-card" color="primary">
+      <!-- <ion-card-header>
+        <ion-card-title>{{ item.BillAmount }}</ion-card-title>
+      </ion-card-header> -->
+      <ion-card-content style="display: flow-root;">
+        <div class="drop-status ion-float-left ion-align-items-center">
+         <span>&nbsp;</span>
+         <span>&nbsp;</span>
+         <span>&nbsp;</span>
+         <span>&nbsp;</span>
+         <span>&nbsp;</span>
+        </div>
+        <div class="drop-pin ion-float-left">
+          
+          <span class="cls-pick">
+            <ion-text color="medium">Pick up</ion-text>
+            <h3 *ngIf="item.BranchAdr1">
+              {{item.BranchAdr1}}
+              <span *ngIf="item.BranchAdr2" style="display: initial;">, {{item.BranchAdr2}}</span>
+             </h3> 
+         </span>
+         <span class="cls-drop">
+           <ion-text color="medium">Dropoff</ion-text>
+           <h3>{{item.Addr1}}&nbsp;{{item.Addr2}}</h3>
+         </span>
+         <ion-text color="success">{{item.BranchName}}</ion-text>
+        </div>
+        <div class="ion-float-right">
+          <div>
+          <p>{{item.IssueDelivery_AssignTime}}</p>
+          <p>{{item.AssignDate}}</p>
+        </div>
+        <div style="margin-top: 21px">
+          <p>#{{item.BillNo}}</p>
+          <p>Amount:&nbsp;<b>{{ item.BillAmount | number:'1.2-2' }}</b></p>
+        </div>
+        </div>
+        
+      </ion-card-content>
+      
+      <ion-item style="clear: both;" color="light">
+        <ion-button fill="clear" slot="start" color="secondary" (click)="viewDetailsModal(item)">View Details</ion-button>
+        <ion-button fill="clear" slot="end" color="danger">Cancel</ion-button>
+        <ion-button fill="clear" slot="end" (click)="fnDeliveryPicked(item)"
+         [disabled]='loading'>Pick up</ion-button>
+      </ion-item>
+    
+    </ion-card>
+  </ion-virtual-scroll>
+ 
+  <ion-virtual-scroll *ngSwitchCase="'Take'" [items]="dataItems">
+    <ion-card *virtualItem="let item" class="delivery-card" color="primary">
+      <!-- <ion-card-header>
+        <ion-card-title>{{ item.BillAmount }}</ion-card-title>
+      </ion-card-header> -->
+      <ion-card-content style="display: flow-root;">
+        <div class="drop-status ion-float-left ion-align-items-center">
+         <span>&nbsp;</span>
+         <span>&nbsp;</span>
+         <span>&nbsp;</span>
+         <span>&nbsp;</span>
+         <span>&nbsp;</span>
+        </div>
+        <div class="drop-pin ion-float-left">
+          
+          <span class="cls-pick">
+           <ion-text color="medium">Pick up</ion-text>
+           <h3 *ngIf="item.BranchAdr1">
+            {{item.BranchAdr1}}
+            <span *ngIf="item.BranchAdr2" style="display: initial;">, {{item.BranchAdr2}}</span>
+           </h3>
+        </span>
+        <span class="cls-drop">
+          <ion-text color="medium">Dropoff</ion-text>
+          <h3>{{item.Addr1}}&nbsp;{{item.Addr2}}</h3>
+        </span>
+        <ion-text color="success">{{item.BranchName}}</ion-text>
+        </div>
+        <div class="ion-float-right">
+          <div>
+          <p>{{item.IssueDelivery_TakeTime}}</p>
+          <p>{{item.TakeDate}}</p>
+          
+        </div>
+        <div style="margin-top: 21px">
+          <p>#{{item.BillNo}}</p>
+          <p>Amount:&nbsp;<b>{{ item.BillAmount | number:'1.2-2' }}</b></p>
+         
+        </div>
+        </div>
+        
+      </ion-card-content>
+      
+      <ion-item style="clear: both;" color="light">
+        <ion-button fill="clear" slot="start" color="secondary" (click)="viewDetailsModal(item)">View Details</ion-button>
+        <ion-button fill="clear" slot="end" color="danger">Cancel</ion-button>
+        <ion-button fill="clear" slot="end" (click)="presentAlertConfirm(item)"
+         [disabled]='loading'>Accept Order</ion-button>
+      </ion-item>
+    
+    </ion-card>
+  </ion-virtual-scroll>
+
+  <ion-virtual-scroll *ngSwitchCase="'Completed'" [items]="dataItems">
+    <ion-card *virtualItem="let item" class="delivery-card" color="primary">
+      <!-- <ion-card-header>
+        <ion-card-title>{{ item.BillAmount }}</ion-card-title>
+      </ion-card-header> -->
+      <ion-card-content style="display: flow-root;">
+        <div class="drop-status ion-float-left ion-align-items-center">
+         <span>&nbsp;</span>
+         <span>&nbsp;</span>
+         <span>&nbsp;</span>
+         <span>&nbsp;</span>
+         <span>&nbsp;</span>
+        </div>
+        <div class="drop-pin ion-float-left">
+          
+          <span class="cls-pick">
+            <ion-text color="medium">Pick up</ion-text>
+           <h3 *ngIf="item.BranchAdr1">
+             {{item.BranchAdr1}}
+             <span *ngIf="item.BranchAdr2" style="display: initial;">, {{item.BranchAdr2}}</span>
+            </h3>
+           
+         </span>
+         <span class="cls-drop">
+           <ion-text color="medium">Dropoff</ion-text>
+           <h3>{{item.Addr1}}&nbsp;{{item.Addr2}}</h3>
+         </span>
+         <ion-text color="success">{{item.BranchName}}</ion-text>
+        </div>
+        <div class="ion-float-right">
+          <div>
+          <p>{{item.IssueDelivery_ReceiveTime}}</p>
+          <p>{{item.ReceiveDate}}</p>
+        </div>
+        <div style="margin-top: 21px">
+          <p>#{{item.BillNo}}</p>
+          <p>Amount:&nbsp;<b>{{ item.BillAmount | number:'1.2-2' }}</b></p>
+        </div>
+        </div>
+        
+      </ion-card-content>
+      
+      <ion-item style="clear: both;" color="light">
+        <ion-button fill="clear" slot="start" color="secondary" (click)="viewDetailsModal(item)"> View Details</ion-button>
+        <!-- <ion-button fill="clear" slot="end" color="danger">Cancel</ion-button> -->
+        <!-- <ion-button fill="clear" slot="end" 
+         [disabled]='loading'>Pick up</ion-button> -->
+      </ion-item>
+    
+    </ion-card>
+  </ion-virtual-scroll>
+  </ion-content>

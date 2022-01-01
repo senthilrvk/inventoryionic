@@ -1,0 +1,1127 @@
+body {
+  font-family: Arial;
+}
+table {
+  border-collapse: collapse;
+}
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
+@media print {
+  .page {
+    margin: 0;
+    border: initial;
+    border-radius: initial;
+    width: initial;
+    box-shadow: initial;
+    background: initial;
+    height: initial;
+    page-break-after: always;
+    -webkit-print-color-adjust: exact;
+    color: #635e5e;
+  }
+}
+
+.water_mark {
+  position: absolute;
+  width: 100%;
+  height: 46%;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  top: 300px;
+  opacity: 0.12;
+  margin-top: 10px;
+  z-index: 1;
+}
+.clsComState {
+  top: 79px;
+  position: absolute;
+  margin-left: 540px;
+  display: table;
+  font-size: 12px;
+}
+.clComGstTin {
+
+  top: 96px;
+  position: absolute;
+  margin-left: 540px;
+  display: table;
+  font-size: 12px;
+  font-weight: bold;
+}
+.clFssai {
+
+  top: 62px;
+  position: absolute;
+  margin-left: 540px;
+  display: table;
+  font-size: 12px;
+}
+.clsComStateCode {
+  top: 110px;
+  position: absolute;
+  margin-left: 560px;
+  display: table;
+}
+.ClsPrintHeader {
+  position: absolute;
+  top: 25px;
+  right: 16px;
+  font-size: 12px;
+}
+
+.Page {
+  /* overflow: hidden; */
+  position: relative;
+  background-color: #fff;
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 11px;
+  font-weight: bold;
+  width: 195mm;
+  min-height: 28.2cm;
+  max-height: 28.2cm;
+  margin: 0cm auto;
+  page-break-after: always;
+}
+
+.subpage {
+  overflow: hidden;
+  position: relative;
+  background-color: #fff;
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 11px;
+  font-weight: bold;
+  width: 195mm;
+  min-height: 28cm;
+  max-height: 28cm;
+  margin: 0cm auto;
+  padding-top: 18px;
+}
+
+.corner {
+  position: absolute;
+    width: 92px;
+    height: 100px;
+    left: 8px;
+    margin: 3px 9px 5px 1px;
+}
+label {
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 5px;
+}
+.image {
+  background: #ccc;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+span {
+  white-space: nowrap;
+  color: #635e5e;
+}
+
+.Header {
+  text-align: center;
+  border: 1px solid #302d2d;
+  height: 107px;
+  padding-bottom: 1px;
+  border-bottom: none;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+
+  color: #635e5e;
+}
+
+.Header .clsCompanyDetails {
+  width: 100%;
+  height: 100%;
+  float: left;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.Header .clsCompanyDetails img {
+  height: 99%;
+  width: 99%;
+  padding: 1px;
+}
+
+.Header .clsCompanyDetails .headerfont {
+  font-size: 20px;
+        text-align: left;
+        width: 100%;
+        float: left;
+        white-space: nowrap;
+        overflow: hidden;
+        font-weight: 600;
+        color: #635e5e;
+
+
+}
+
+.Header .clsCompanyDetails .addressfont {
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 11px;
+  font-weight: bold;
+  font-size: 12px;
+  text-align: left;
+  width: 100%;
+  float: left;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #635e5e;
+}
+
+.Header .clsTinDetails {
+  height: 100%;
+  border: 1px solid #635e5e;
+  border-right: none;
+      border-top: none;
+      border-bottom: none;
+      float: left;
+      width: 300px;
+      white-space: nowrap;
+      overflow: hidden;
+      padding-top: 9px;
+  color: #635e5e;
+}
+
+.Header .clsTinDetails .spanleft {
+  float: left;
+  width: 74px;
+  text-align: left;
+  padding-left: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #635e5e;
+}
+
+.Header .clsTinDetails .spanright {
+  float: left;
+        width: 200px;
+        text-align: left;
+        padding-left: 3px;
+        white-space: nowrap;
+        overflow: hidden;
+  color: #635e5e;
+}
+
+.headerfont {
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 20px;
+        text-align: left;
+        width: 100%;
+        float: left;
+        white-space: nowrap;
+        overflow: hidden;
+        font-weight: 600;
+}
+
+.addressfont {
+  font-family: Arial;
+
+  color: #635e5e;
+
+  font-size: 12px;
+  text-align: left;
+  width: 100%;
+  float: left;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.divcomgstdetails {
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 11px;
+  font-weight: bold;
+  height: 20px;
+  width: 100%;
+  padding-top: 3px;
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #635e5e;
+}
+
+.divbilldatebox {
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 11px;
+  font-weight: bold;
+  height: 24px;
+  width: 100%;
+  padding-top: 1px;
+  font-size: 14px;
+  border: 1px solid #635e5e;
+  border-bottom: none;
+  background-color: #c1bfbf78 !important;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #635e5e;
+}
+
+.customerdetails {
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 11px;
+  font-weight: bold;
+  height: 125px;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #635e5e;
+  color: #635e5e;
+}
+
+.customerdetails span {
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #302d2d;
+}
+
+.customerdetails .form1 {
+  padding-top: 3px;
+  float: left;
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-top: none;
+  border-bottom: none;
+  border-right: none;
+  height: 100%;
+  overflow: hidden;
+  color: #635e5e;
+}
+
+.customerdetails .form1 .clsCustomer1divspan {
+  float: left;
+    padding-left: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    height: 16px;
+    color: #302d2d;
+    width: 100%;
+}
+.customerdetails .form2 {
+  padding-top: 3px;
+  width: 205px;
+  float: left;
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-top: none;
+  border-bottom: none;
+  border-right: none;
+  height: 100%;
+  overflow: hidden;
+  color: #635e5e;
+}
+
+.customerdetails .form2 .clsCustomer2divspan {
+  float: left;
+  padding-left: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #635e5e;
+  width: 100%;
+}
+
+.customerdetails .form3 {
+  padding-top: 3px;
+  width: 180px;
+  float: left;
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-top: none;
+  border-bottom: none;
+  border-right: none;
+  height: 100%;
+  overflow: hidden;
+  color: #635e5e;
+}
+
+.ProductDetails {
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 11px;
+  font-weight: bold;
+  width: 100%;
+  height: auto;
+  border: 1px solid #635e5e;
+  border-top: none;
+  border-bottom: none;
+  color: #635e5e;
+}
+
+.ProductDetails th {
+  background-color: #c1bfbf78 !important;
+  font-weight: bold;
+  color: #635e5e;
+}
+
+.FotterSection {
+  width: 100%;
+  height: 166px;
+  overflow: hidden;
+  text-align: right;
+  border: 1px solid #635e5e;
+  color: #635e5e;
+}
+
+.taxdetails {
+  padding-top: 3px;
+  width: 493px;
+  float: left;
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-top: none;
+  height: 144px;
+  overflow: hidden;
+  font-size: 11px;
+  color: #635e5e;
+  border-bottom: none;
+  border-right: none;
+}
+
+.MessageDiv {
+  color: #302d2d;
+  border: 1px solid #302d2d;
+  border-top: none;
+  border-bottom: none;
+  width: 100%;
+  float: left;
+  text-align: left;
+}
+
+.divOutstanding {
+  padding-top: 2px;
+  padding-left: 3px;
+  width: 30%;
+  float: left;
+  font-size: 9px;
+  font-weight: bold;
+  overflow: hidden;
+}
+.divOutstanding span {
+  width: 100%;
+  float: left;
+}
+.BankDetails {
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-right: none;
+  height: 40px;
+  padding-top: 0px;
+  color: #635e5e;
+  float: left;
+  text-align: left;
+
+  width: 100%;
+  border-bottom: none;
+}
+.banksection {
+  width: 68%;
+  padding-left: 14px;
+  padding-top: 2px;
+  float: left;
+  font-weight: bold;
+  font-size: 9px;
+  overflow: hidden;
+}
+.BankDetails .in-bottom {
+  border-top: 1px solid;
+  padding-left: 14px;
+}
+.worddeclartion {
+  width: 376px;
+  float: left;
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-top: none;
+  height: 137px;
+  border-bottom: none;
+  color: #635e5e;
+}
+
+.worddeclartion .clsDeclaration {
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-top: none;
+  border-right: none;
+  height: 40px;
+  color: #635e5e;
+}
+
+.worddeclartion span {
+  text-align: left;
+  padding-left: 3px;
+  font-size: 9px;
+  width: 100%;
+  color: #635e5e;
+}
+.clsAmtWordSection {
+  float: left;
+  border: 1px solid #302d2d;
+  border-top: none;
+  height: 144px;
+  overflow: hidden;
+  color: #302d2d;
+  border-bottom: none;
+  border-right: none;
+}
+.clsAmtWordSection table {
+  width: 100%;
+}
+
+.clsAmtWordSection td,
+th {
+  padding: 1px;
+
+  white-space: nowrap;
+  border: 1px solid #635e5e;
+  color: #635e5e;
+}
+.clsAmtWordSection tr {
+  height: 20px;
+}
+
+.clsAmtSection {
+  border: 1px solid #302d2d;
+  border-top: none;
+  height: 144px;
+  overflow: hidden;
+  color: #302d2d;
+  border-bottom: none;
+  border-right: none;
+}
+
+.clsAmtSection table {
+  width: 100%;
+}
+.clsAmtSection td,
+th {
+  padding: 1px;
+  white-space: nowrap;
+  border: 1px solid #302d2d;
+  color: #302d2d;
+  border-left: none;
+}
+
+.clsAmtSection tr {
+  height: 20px;
+}
+
+.FooterTotalSection {
+  width: 100%;
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-bottom: none;
+  border-right: none;
+  float: left;
+  background-color: #c1bfbf78 !important;
+  color: #635e5e;
+}
+
+.FooterTotalSection .AmtInWords {
+  width: 493px;
+  text-align: left;
+  overflow: hidden;
+  padding-left: 4px;
+  float: left;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-top: none;
+  border-bottom: none;
+  border-right: none;
+  color: #635e5e;
+}
+.FooterTotalSection .GrandTotalLabel {
+  text-align: left;
+  overflow: hidden;
+  padding-left: 4px;
+  float: left;
+  font-size: 16px;
+  color: #635e5e;
+  font-weight: 600;
+  /*
+  width: 112px;
+  text-align: left;
+  overflow: hidden;
+  padding-left: 4px;
+  float: left;
+  font-size: 16px;
+  color: #635e5e; */
+}
+
+.FooterTotalSection .GrandTotalAmount {
+  width: 100%;
+  text-align: right;
+  overflow: hidden;
+  padding-left: 4px;
+  float: left;
+  font-size: 16px;
+  color: #635e5e;
+  /*
+  width: 130px;
+  text-align: right;
+  overflow: hidden;
+  padding-left: 4px;
+  font-size: 16px;
+  color: #635e5e; */
+}
+
+.DeclareSection {
+  height: 78px;
+  width: 100%;
+  float: left;
+  padding-top: 4px;
+  color: #635e5e;
+  border: 1px solid #635e5e;
+  border-top: none;
+}
+
+.DeclareSection .DeclareDetails {
+  float: left;
+    text-align: left;
+    color: #302d2d;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 10px;
+    padding-left: 4px;
+}
+.DeclareSection .SignatureSection {
+  float: left;
+  text-align: center;
+  color: #302d2d;
+  overflow: hidden;
+}
+
+.DeclareSection .MessageSection {
+  width: 100%;
+    float: left;
+    padding-top: 0;
+    color: #302d2d;
+}
+
+hr {
+  display: block;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  border-width: 1px;
+  border-color: #635e5e;
+  float: left;
+  width: 100%;
+}
+
+#pre-loader {
+  display: none;
+}
+
+.tblNo {
+  min-width: 33px;
+  max-width: 33px;
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 11px;
+  font-weight: bold;
+  overflow: hidden;
+  text-align: right;
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-bottom: none;
+  border-top: none;
+  white-space: nowrap;
+  color: #635e5e;
+}
+
+.tblItemCode {
+  width: 74px;
+  min-width: 74px;
+  max-width: 74px;
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 11px;
+  font-weight: bold;
+  overflow: hidden;
+  text-align: right;
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-bottom: none;
+  border-top: none;
+  white-space: nowrap;
+  color: #635e5e;
+}
+
+.tblProduct {
+  width: 306px;
+  min-width: 306px;
+  max-width: 306px;
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 11px;
+  font-weight: bold;
+  overflow: hidden;
+  text-align: left;
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-bottom: none;
+  border-top: none;
+  white-space: nowrap;
+}
+
+.HSNCode {
+  width: 30px;
+  max-width: 30px;
+  min-width: 30px;
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 11px;
+  font-weight: bold;
+  overflow: hidden;
+  text-align: left;
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-bottom: none;
+  border-top: none;
+  white-space: nowrap;
+}
+
+.MFRNo {
+  width: 30px;
+  max-width: 30px;
+  min-width: 30px;
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 11px;
+  font-weight: bold;
+  overflow: hidden;
+  text-align: left;
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-bottom: none;
+  border-top: none;
+  white-space: nowrap;
+}
+
+.RateofTax {
+  width: 40px;
+  max-width: 40px;
+  min-width: 40px;
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 11px;
+  font-weight: bold;
+  overflow: hidden;
+  text-align: right;
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-bottom: none;
+  border-top: none;
+  white-space: nowrap;
+}
+
+.Unit {
+  width: 65px;
+  max-width: 65px;
+  min-width: 65px;
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 11px;
+  font-weight: bold;
+  overflow: hidden;
+  text-align: right;
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-bottom: none;
+  border-top: none;
+  white-space: nowrap;
+}
+.ExpDate {
+  width: 55px;
+  max-width: 55px;
+  min-width: 55px;
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 11px;
+  font-weight: bold;
+  overflow: hidden;
+  text-align: center;
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-bottom: none;
+  border-top: none;
+  white-space: nowrap;
+}
+.Batch {
+  width: 70px;
+  max-width: 70px;
+  min-width: 70px;
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 11px;
+  font-weight: bold;
+  overflow: hidden;
+  text-align: right;
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-bottom: none;
+  border-top: none;
+  white-space: nowrap;
+}
+
+.UnitPrice {
+  width: 60px;
+  max-width: 60px;
+  min-width: 60px;
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 11px;
+  font-weight: bold;
+  overflow: hidden;
+  text-align: right;
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-bottom: none;
+  border-top: none;
+  white-space: nowrap;
+}
+
+.PTR {
+  width: 60px;
+  max-width: 60px;
+  min-width: 60px;
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 11px;
+  font-weight: bold;
+  overflow: hidden;
+  text-align: right;
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-bottom: none;
+  border-top: none;
+  white-space: nowrap;
+}
+
+.PTW {
+  width: 60px;
+  max-width: 60px;
+  min-width: 60px;
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 11px;
+  font-weight: bold;
+  overflow: hidden;
+  text-align: right;
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-bottom: none;
+  border-top: none;
+  white-space: nowrap;
+}
+
+.PricePlusTax {
+  width: 60px;
+  max-width: 60px;
+  min-width: 60px;
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 11px;
+  font-weight: bold;
+  overflow: hidden;
+  text-align: right;
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-bottom: none;
+  border-top: none;
+  white-space: nowrap;
+}
+
+.Mrp {
+  width: 60px;
+  max-width: 60px;
+  min-width: 60px;
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 11px;
+  font-weight: bold;
+  overflow: hidden;
+  text-align: right;
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-bottom: none;
+  border-top: none;
+  white-space: nowrap;
+}
+
+.Qty {
+  width: 48px;
+  max-width: 48px;
+  min-width: 48px;
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 11px;
+  font-weight: bold;
+  overflow: hidden;
+  text-align: right;
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-bottom: none;
+  border-top: none;
+  white-space: nowrap;
+}
+
+.Free {
+  width: 35px;
+  max-width: 35px;
+  min-width: 35px;
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 11px;
+  font-weight: bold;
+  overflow: hidden;
+  text-align: right;
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-bottom: none;
+  border-top: none;
+  white-space: nowrap;
+}
+
+.GrossValue {
+  width: 60px;
+  max-width: 60px;
+  min-width: 60px;
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 11px;
+  font-weight: bold;
+  overflow: hidden;
+  text-align: right;
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-bottom: none;
+  border-top: none;
+  white-space: nowrap;
+}
+
+.GstAmount {
+  width: 55px;
+  max-width: 55px;
+  min-width: 55px;
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 11px;
+  font-weight: bold;
+  overflow: hidden;
+  text-align: right;
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-bottom: none;
+  border-top: none;
+  white-space: nowrap;
+}
+
+.CashDisc {
+  width: 55px;
+  max-width: 55px;
+  min-width: 55px;
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 11px;
+  font-weight: bold;
+  overflow: hidden;
+  text-align: right;
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-bottom: none;
+  border-top: none;
+  white-space: nowrap;
+}
+
+.Tax {
+  width: 35px;
+  max-width: 35px;
+  min-width: 35px;
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 11px;
+  font-weight: bold;
+  overflow: hidden;
+  text-align: right;
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-bottom: none;
+  border-top: none;
+  white-space: nowrap;
+}
+
+.SchemAmt {
+  width: 50px;
+  max-width: 50px;
+  min-width: 50px;
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 11px;
+  font-weight: bold;
+  overflow: hidden;
+  text-align: right;
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-bottom: none;
+  border-top: none;
+  white-space: nowrap;
+}
+.Amount {
+  width: 75px;
+  max-width: 75px;
+  min-width: 75px;
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 11px;
+  font-weight: bold;
+  overflow: hidden;
+  text-align: right;
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  border-top: none;
+  white-space: nowrap;
+  color: #635e5e;
+}
+
+.CessPers {
+  width: 75px;
+  max-width: 75px;
+  min-width: 75px;
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 11px;
+  font-weight: bold;
+  overflow: hidden;
+  text-align: right;
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-bottom: none;
+  border-top: none;
+  white-space: nowrap;
+  color: #635e5e;
+}
+
+.CessAmt {
+  width: 75px;
+  max-width: 75px;
+  min-width: 75px;
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 11px;
+  font-weight: bold;
+  overflow: hidden;
+  text-align: right;
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-bottom: none;
+  border-top: none;
+  white-space: nowrap;
+  color: #635e5e;
+}
+
+.AmtBeforeTotDis {
+  width: 75px;
+  max-width: 75px;
+  min-width: 75px;
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 11px;
+  font-weight: bold;
+  overflow: hidden;
+  text-align: right;
+  border: 1px solid #635e5e;
+  border-left: none;
+  border-bottom: none;
+  border-right: none;
+  border-top: none;
+  white-space: nowrap;
+  color: #635e5e;
+}
+
+.tblTaxDetails {
+  border: 1px solid #302d2d;
+    margin: 1px 3px 3px 10px;
+    font-family: Arial;
+    font-style: normal;
+    font-variant: normal;
+    font-size: 8pt;
+    color: #302d2d;
+}
+
+.tblTaxDetails td,
+th {
+  padding: 3px;
+  border: 1px solid #635e5e;
+  width: 68px;
+  text-align: center;
+  color: #635e5e;
+  font-size: 9px;
+}
+
+.tblAmountDetails {
+  font-family: Arial;
+  color: #635e5e;
+  font-size: 11px;
+  font-weight: bold;
+  border-left: 1px solid #635e5e;
+}
+
+.tblAmountDetails td,
+th {
+  padding: 1px;
+
+  white-space: nowrap;
+  border: 1px solid #635e5e;
+  color: #635e5e;
+}
+
+.tblAmountDetails tr {
+  height: 23px;
+}
+
+.clsQrDetails {
+  height: 144px;
+  float: left;
+  border-left: 1px solid #302d2d !important;
+  overflow: hidden;
+}
+.clsQrDetails span {
+  width: 100%;
+  float: left;
+  text-align: center;
+  padding: 2px;
+  font-weight: 600;
+}
+.clsQrDetails img {
+  height: 90%;
+  width: 98%;
+  padding: 2px;
+}
+.clsProductBottom {
+  border-bottom: 1px solid #302d2d !important;
+}

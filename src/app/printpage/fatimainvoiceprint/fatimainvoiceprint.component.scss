@@ -1,0 +1,470 @@
+
+$font-stack:    'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; 
+$primary-color: #555;//#635e5e;
+
+$backgroundcolor:#c1bfbf78 !important;
+
+%bordernoneitemdetails {
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+}
+
+%myfont {
+
+    font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; 
+    color: $primary-color;
+    font-size: 12px;
+    font-weight: bold;
+}
+  
+::ng-deep app-fatimainvoiceprint {
+
+.Page {
+    width: 195mm;
+    margin: 0 auto;
+    height: 273mm;
+    overflow: hidden;
+    padding: 0px;
+   // border: 1px solid #555;
+    margin-top: 30px;
+    position: relative;
+    background-color: #FFF;
+    // font: 100% $font-stack;
+    // color: $primary-color;
+    @extend %myfont;
+}
+
+
+.corner {
+    position: absolute;
+    margin-top: -3px;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    margin-right: 15px;
+    width: 100px;
+    height: 105px;
+}
+
+.image {
+    background: #ccc;
+    max-width: 100%;
+    max-height: 100%;
+    position: relative;
+}
+
+span {
+    white-space: nowrap;
+}
+
+.Header{
+
+    text-align: center;
+    height: 103px; 
+    padding-top: 12px;  
+    padding-bottom: 2px;
+    border:1px solid #555;
+    border-bottom: none;
+    img {
+        height: 89%;
+        width: 98%;
+    }
+}
+
+.headerfont{
+    @extend %myfont;
+    font-size: 20px;
+    text-align: center;
+    width: 100%;
+    float: left;
+    
+}
+
+.addressfont{
+    @extend %myfont;
+    font-size: 16px;
+    text-align: center;
+    width: 100%;
+    float: left;
+}
+
+.divcomgstdetails{
+    @extend %myfont;
+    height: 20px;
+    width: 100%;
+    padding-top: 3px; 
+    border:1px solid #555;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+}
+
+.divbilldatebox{
+    @extend %myfont;
+    height: 24px;
+    width: 100%;
+    padding-top: 1px;    
+    font-size: 14px;
+    border:1px solid #555;
+    border-bottom: none;
+    background-color: #fff;
+    text-align: center;
+}
+
+.customerdetails {
+
+    @extend %myfont;
+    height: 128px;
+    width: 100%;
+    overflow: hidden;
+     border:1px solid #555;
+    span {
+        width:100%;
+    }
+
+    .form1 {
+      padding-top: 3px;
+      width: 530px;
+      float: left;
+      border:1px solid #555;
+      border-left:none;
+      border-top: none;
+      border-bottom: none;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .form2 {
+       padding-top: 3px; 
+       width: 205px;
+       float: left;
+       border:1px solid #555;
+       border-left:none;
+       border-right: none;
+       border-top: none;
+       height: 100%;
+       border-bottom: none;
+       overflow: hidden;
+    }
+
+}
+
+.ProductDetails {
+    @extend %myfont;
+    width: 100%;
+    height: 480px;
+    border:1px solid #555;
+    border-top: none;
+    border-bottom: none;
+    th{
+        background-color: #fff;
+        font-weight: bold;
+    }
+}
+
+.FotterSection {
+
+  @extend %myfont;
+  width: 100%;
+  height: 166px;
+  overflow: hidden;
+  text-align: right;
+  border:1px solid #555;
+
+  .taxdetails {
+    padding-top: 3px;
+    width: 476px;
+    float: left;
+    border:1px solid #555;
+    border-left:none;
+    border-top: none;
+    border-bottom: none;
+    height: 141px;
+    overflow: hidden;
+  }
+
+  .amountdetails {
+    width: 257px;
+    float: left;
+    border:1px solid #555;
+    border-left:none;
+    border-right: none;
+    border-top: none;
+    height: 141px;
+    border-bottom: none;
+  }
+
+  .FooterTotalSection  {
+
+    width:100%;
+    border:1px solid #555;
+    border-left: none;
+    border-bottom: none;
+    border-right: none;
+    float: left;
+    background-color:#fff;
+    .AmtInWords {
+        width: 476px;
+        text-align: left;
+        overflow: hidden;
+        padding-left: 4px;
+        float: left;        
+        padding-top: 3px;
+        padding-bottom: 3px;
+        border:1px solid #555;
+        border-left:none;
+        border-top: none;
+        border-bottom: none;
+    }
+    .GrandTotalLabel {
+        width: 129px;
+        text-align: left;
+        overflow: hidden;
+        padding-left: 4px;
+        float: left;
+        font-size: 16px;  
+      }
+
+    .GrandTotalAmount {
+        width: 130px;
+        text-align: right;
+        overflow: hidden;
+        padding-left: 4px;
+        float: left;
+        font-size: 16px;
+    }
+
+  }
+
+}
+
+.DeclareSection {
+    height: 200px;
+    width: 100%;
+    float: left;
+    padding-top:12px;
+
+    .BankDetails {
+        padding-left: 4px;
+        width:389px;
+        float: left;
+        td, th {
+            padding: 1px;
+           white-space: nowrap;
+       }
+    }
+     
+    .SignatureSection {
+      width:348px;
+      float: left;
+      text-align: center;
+    }
+
+    .MessageSection {
+        width:100%;
+        float: left;
+        padding-top: 0px;
+    }
+}
+
+hr {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-width: 1px;
+    border-color: $primary-color;
+    float: left;
+    width: 100%;
+}
+
+.tblNo {
+
+    height: 20px;
+    min-width: 33px;
+    max-width: 33px;
+    overflow: hidden;
+    text-align: right;
+    border:1px solid #555;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+}
+
+.tblProduct {
+    @extend %myfont;
+    height: auto;
+    min-width: 221px;
+    max-width: 221px;
+    overflow: hidden;
+    text-align: left;
+    white-space: nowrap;
+    border:1px solid #555;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+
+}
+
+.tblItemCode {
+    @extend %myfont;
+    height: auto;
+    min-width: 72px;
+    max-width: 72px;
+    overflow: hidden;
+    text-align: left;
+    border:1px solid #555;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+
+}
+
+.RateofTax {
+    @extend %myfont;
+    height: auto;
+    max-width:28px;
+    min-width:28px;;
+    overflow: hidden;
+    text-align: right;
+    border:1px solid #555;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+
+}
+
+.Mrp {
+    @extend %myfont;
+    height: auto;
+    max-width: 50px;
+    min-width: 50px;
+    overflow: hidden;
+    text-align: right;
+    border:1px solid #555;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+
+}
+
+.Qty { 
+    @extend %myfont;
+    height: auto;
+    max-width: 50px;
+    min-width: 50px;
+    overflow: hidden;
+    text-align: right;
+    border:1px solid #555;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+}
+
+.UnitPrice {
+    @extend %myfont;
+    height: auto;
+    max-width: 54px;
+    min-width: 54px;
+    overflow: hidden;
+    text-align: right;
+    border:1px solid #555;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+}
+
+.Rate {
+    @extend %myfont;
+    height: auto;
+    max-width: 54px;
+    min-width: 54px;
+    overflow: hidden;
+    text-align: right;
+    border:1px solid #555;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+}
+
+.CashDisc {
+    @extend %myfont;
+    height: auto;
+    max-width: 45px;
+    min-width: 45px;
+    overflow: hidden;
+    text-align: right;
+    border:1px solid #555;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+
+}
+
+.GrossValue {
+    @extend %myfont;
+    height: auto;
+    max-width: 62px;
+    min-width: 62px;
+    overflow: hidden;
+    text-align: right;
+    border:1px solid #555;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+
+}
+
+
+.GstAmount {
+    @extend %myfont;
+    height: auto;
+    max-width: 53px;
+    min-width: 53px;
+    overflow: hidden;
+    text-align: right;
+    border:1px solid #555;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+
+}
+
+.Amount {
+    @extend %myfont;
+    height: auto;
+    max-width: 63px;
+    min-width: 63px;
+    overflow: hidden;
+    text-align: right;   
+    border:1px solid #555;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    border-right: none;
+}
+.tblTaxDetails {
+
+    margin-left: 13px;
+    margin-top: 13px;    
+    @extend %myfont;
+    border: 1px solid #555;
+    td, th {
+        padding: 2px;
+        border: 1px solid #555;
+        width: 68px;
+    }
+}
+
+.tblAmountDetails {   
+    @extend %myfont;
+   // border: 1px solid #555;
+    td, th {
+         padding: 1px;
+        white-space: nowrap;
+    }
+}
+
+
+}

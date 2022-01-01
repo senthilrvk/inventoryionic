@@ -1,0 +1,123 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Print Preview</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="fnPrintpage()">
+        <ion-icon name='print' slot="icon-only" color="primary"></ion-icon>
+      </ion-button>
+      <ion-button (click)="fnClose()">
+        <ion-icon name='close' slot='icon-only' color="danger"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div id="printer_content">
+    <div style="display:block; height: 50px">
+
+    </div>
+    <div style="display: grid; text-align: center; border-bottom: 2px solid #000; font-size: 33px">
+      <br/>
+      <span>{{BranchInfo?.BranchName}}</span>
+      <span>{{BranchInfo?.BranchAdr1}}</span>
+      <span>{{BranchInfo?.BranchAdr2}}</span>
+      <span>{{BranchInfo?.BranchAdr3}}</span>
+    </div>
+
+    <div style="width:100%; border-bottom: 2px solid #000; font-size: 33px">
+      <span style="width: 50%;display: inline-block">NAME</span> <span
+        style="width: 50%;display: inline-block">:&nbsp;{{IssueInfo?.AC_Name}}</span>
+      <span style="width: 50%;display: inline-block">ADDRESS</span> <span
+        style="width: 50%;display: inline-block">:&nbsp;{{IssueInfo?.Addr1}}</span>
+      <span style="width: 50%;display: inline-block">GSTINN</span> <span
+        style="width: 50%;display: inline-block">:&nbsp;{{IssueInfo?.Tin1}}</span>
+      <span style="width: 50%;display: inline-block">PAYTERMS</span> <span
+        style="width: 50%;display: inline-block">:&nbsp;{{IssueInfo?.Issue_PayTerms}}</span>
+      <span style="width: 50%;display: inline-block">INVOICE&nbsp;NO</span> <span
+        style="width: 50%;display: inline-block">:&nbsp;{{ IssueInfo?.BillSerPrefix }} -
+        {{ IssueInfo?.Issue_SlNo}}</span>
+      <span style="width: 50%;display: inline-block">DATE</span> <span
+        style="width: 50%;display: inline-block">:&nbsp;{{IssueInfo?.Issue_BillDate}}</span>
+    </div>
+
+    <div style="border-bottom: 2px solid #000">
+      <table style="width: 100%; border-collapse: collapse; font-size: 35px; font-weight: 600">
+        <tr>
+          <td>ITEM NAME</td>
+          <td>QTY</td>
+          <td>PRICE</td>
+          <td>MRP</td>
+          <td>AMT</td>
+        </tr>
+
+        <ng-container *ngFor="let data of IssueSubDetailsInfo">
+          <tr *ngIf="data.ItemDesc.length >= 14 ">
+            <td>{{data.ItemDesc}}</td>
+          </tr>
+          <tr>
+            <td>{{data.ItemDesc.length < 14 ? data.ItemDesc : ''}}</td>
+            <td>{{data.IssueSub_Qty}}</td>
+            <td>{{data.IssueSub_ActualRate | number:'1.1-2'}}</td>
+            <td>{{data.IssueSub_Mrp | number:'1.1-2'}}</td>
+            <td>{{data.IssueSub_Qty * data.IssueSub_ActualRate | number:'1.1-2'}}</td>
+          </tr>
+        </ng-container>
+
+
+        <tr>
+          <td>Total</td>
+          <td>{{TotQty | number:'1.0-0'}}</td>
+          <td colspan="2"></td>
+          <td>{{TotGrossValue | number:'1.1-2'}}</td>
+        </tr>
+      </table>
+    </div>
+
+    <div style="border-bottom: 2px solid #000">
+      <span style="font-size: 35px">{{strAmtInwords}}</span>
+    </div>
+
+    <div style="width: 100%; border-bottom: 2px solid #000; font-size: 35px">
+      <span style="width: 50%;display: inline-block">Dis({{IssueInfo?.Issue_DisPers}})</span>
+      <span style="width: 50%;display: inline-block">:&nbsp;{{IssueInfo?.Issue_DisAmt + (TotDisAmt) | number:'1.1-2'}}</span>
+      
+      <span style="width: 50%;display: inline-block">Total Amt Before Tax</span>
+      <span style="width: 50%;display: inline-block">:&nbsp;{{TotAmtBeforeTax | number:'1.1-2'}}</span>
+     
+      <span style="width: 50%;display: inline-block">Add : SGST</span>
+      <span style="width: 50%;display: inline-block">:&nbsp;{{TotSGstTotal | number:'1.1-2'}}</span>
+      
+      <span style="width: 50%;display: inline-block">Add : CGST</span>
+      <span style="width: 50%;display: inline-block">:&nbsp;{{TotCGstTotal | number:'1.1-2'}}</span>
+      
+      <span style="width: 50%;display: inline-block">Add : KFC</span>
+      <span style="width: 50%;display: inline-block">:&nbsp;{{dTotCessAmt | number:'1.1-2'}}</span>
+      
+      <span style="width: 50%;display: inline-block">Total Amt After Tax</span>
+      <span style="width: 50%;display: inline-block">:&nbsp;{{dTotCessAmt+TotAmtBeforeTax + TotSGstTotal + TotCGstTotal + TotIGstTotal | number:'1.1-2'}}</span>
+      
+      <span style="width: 50%;display: inline-block">{{IssueInfo?.Field2}}</span>
+      <span style="width: 50%;display: inline-block">:&nbsp;{{IssueInfo?.Issue_OtherCharge | number:'1.1-2'}}</span>
+      
+      <span style="width: 50%;display: inline-block">Rof</span>
+      <span style="width: 50%;display: inline-block">:&nbsp;{{IssueInfo?.Issue_ROF | number:'1.1-2'}}</span>
+    </div>
+
+    <div style="width: 100%; border-bottom: 2px solid #000; font-size: 35px">
+      <span style="width: 50%;display: inline-block;">TOTAL</span> <span
+        style="width: 50%;display: inline-block">{{IssueInfo?.Issue_Total | number:'1.1-2'}}</span>
+    </div>
+
+    <div style="display: block; height: 200px;text-align: center; font-size: 35px">
+      <span></span> <br />
+      <span></span> <br />
+      <span></span> <br />
+      <span>***********</span>
+      <span></span> <br />
+      <span></span> <br />
+      <span></span> <br />
+      <span></span> <br />
+    </div>
+  </div>
+</ion-content>

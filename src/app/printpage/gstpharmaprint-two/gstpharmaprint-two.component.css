@@ -1,0 +1,673 @@
+@import  '../../../assets/css/PageSizeSettings.css'; 
+
+        .page {  
+            width: 195mm;
+            margin: 0 auto;
+            height: 281mm;
+            max-height: 281mm;
+            min-height: 281mm;
+            overflow: hidden;
+            padding: 0px;
+            border: 1px solid;
+            margin-top: 30px;
+        }
+
+        .HeaderSection {
+            border: 1px #000000 solid;
+            height: 105px;
+            max-height: 105px;
+            min-height: 105px;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            width: 100%;
+            overflow: hidden;
+            padding-top: 6px;
+        }
+        .HeaderBill{
+            width: 100%;
+             height: 72px;
+            max-height: 72px;
+            min-height: 72px;
+            overflow: hidden;
+        }
+        .CustomerHead{
+            border: 1px #000000 solid;
+            width: 100%;
+            height: 100px;
+            max-height: 100px;
+            min-height: 100px;
+            border-left: none;
+            border-right: none;
+            border-bottom: none;
+            overflow: hidden;
+        }
+        .HeaderBillDetailsOne {
+            border: 1px #000000 solid;
+            border-left: none;
+            border-right: none;
+            width: 454px;
+            max-width: 454px;
+            min-width: 454px;
+            border-top: none;
+            padding: 0px,0px,0px,0px;
+            overflow: hidden;
+        }
+        .HeaderBillGroup{
+            border: 1px #000000 solid;
+            width: 50%;
+            overflow: hidden;
+            border-left: none;
+            border-right: none;
+            border-top: none;
+        }
+        .CustomerDetails {
+            border-right: 1px #000000 solid;
+            border-left: none;
+            border-right: none;
+            width: 100%;
+            max-width: 454px;
+            min-width: 454px;
+            padding: 0px,0px,0px,0px;
+            overflow: hidden;
+        }
+        .CustomerGroup{
+               border-right: 1px #000000 solid;
+            border-left: none;
+            border-right: none;
+            width: 50%;
+            border-width: 1px;
+            padding: 0px,0px,0px,0px;
+            overflow: hidden;
+        }
+        .InvoiceDetails {
+            border: 1px #000000 solid;
+            border-bottom: none;
+            border-top: none;
+            border-right: none;
+            padding: 0px,0px,0px,0px;
+            float: right;
+            width: 100%;
+        }
+
+        .DetailSection {
+            border: 1px #000000 solid;
+            height: 467px;
+            max-height: 467px;
+            min-height: 467px;
+            overflow: hidden;
+            border-left: none;
+            border-right: none;
+            border-bottom: none;
+            width: 100%;
+            font-family: Arial,Arial,Gadget,sans-serif;
+            font-size: 8pt;
+            padding: 0px,0px,0px,0px;
+        }
+
+        .FooterSection {
+            border: 1px #000000 solid;
+            height: 175px;
+            max-height: 175px;
+            overflow: hidden;
+            border-bottom: none;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            width: 100%;
+            border-width: 1px;
+            padding: 0px,0px,0px,0px;
+        }
+
+        .DeclareSection {
+            border: 1px #000000 solid;
+            height: 200px;
+            max-height: 200px;
+            min-height: 200px;
+            overflow: hidden;
+            border-bottom: none;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            width: 100%;
+            border-width: 1px;
+        }
+
+        .fontheader {
+            font-family: Arial Black,Arial Bold,Gadget,sans-serif;
+            font-size: 18px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: 500;
+            line-height: 19.4px;
+            white-space:nowrap;
+            overflow:hidden;
+        }
+
+        subheading {
+            font-family: Arial Black,Arial Bold,Gadget,sans-serif;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: 400;
+            line-height: 20.5667px;
+            font-size: 10pt;
+            white-space:nowrap;
+            overflow:hidden;
+        }
+
+        subheadingunderline {
+            font-family: Arial Black,Arial Bold,Gadget,sans-serif;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: 400;
+            line-height: 25.5667px;
+            text-decoration: underline;
+            font-size: 9pt;
+            white-space:nowrap;
+            overflow:hidden;
+        }
+
+        subheading1 {
+            font-family: Arial Black,Arial Bold,Gadget,sans-serif;
+            font-size: 10px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: 400;
+            line-height: 20.5667px;
+            font-size: 10pt;
+            white-space:nowrap;
+            overflow:hidden;
+        }
+
+        tblSales {
+            font-family: Arial Black,Arial,Gadget,sans-serif;
+            font-style: normal;
+            font-variant: normal;
+            font-size: 8pt;
+            height: auto;
+            padding: 0px,0px,0px,0px;
+            width: 100%;
+        }
+
+        .tblNo {
+            font-family: Arial,Arial,Gadget,sans-serif;
+            font-style: normal;
+            font-variant: normal;
+            height: auto;
+            width: 22px;
+            min-width: 22px;
+            max-width: 22px;
+            overflow: hidden;
+            text-align: right;
+            border-left: none;
+            border-bottom: none;
+            border-top: none;
+            border-right: solid;
+            border-width: 1px;
+            padding: 0px,0px,0px,0px;
+            font-size: 8pt;
+            font-weight: normal;
+        }
+
+        .tblItemCode {
+            font-family: Arial,Arial,Gadget,sans-serif;
+            font-style: normal;
+            font-variant: normal;
+            height: auto;
+            width: 56px;
+            min-width: 56px;
+            max-width: 56px;
+            overflow: hidden;
+            text-align: left;
+            border-left: none;
+            border-bottom: none;
+            border-top: none;
+            border-right: solid;
+            border-width: 1px;
+            padding: 0px,0px,0px,0px;
+            font-size: 8pt;
+            font-weight: normal;
+            white-space: nowrap;
+        }
+
+        .tblProduct {
+            font-family: Arial,Arial,Gadget,sans-serif;
+            font-style: normal;
+            font-variant: normal;
+            font-size: 8pt;
+            height: auto;
+            width: 197px;
+            min-width: 197px;
+            max-width: 197px;
+            overflow: hidden;
+            text-align: left;
+            border-left: none;
+            border-bottom: none;
+            border-top: none;
+            border-right: solid;
+            border-width: 1px;
+            padding: 0px,0px,0px,0px;
+            font-weight: normal;
+            white-space: nowrap;
+        }
+
+        .HSNCode {
+            font-family: Arial,Arial,Gadget,sans-serif;
+            font-style: normal;
+            font-variant: normal;
+            font-size: 8pt;
+            height: auto;
+            width: 28px;
+            max-width: 28px;
+            min-width: 28px;
+            overflow: hidden;
+            text-align: left;
+            border-left: none;
+            border-bottom: none;
+            border-top: none;
+            border-right: solid;
+            border-width: 1px;
+            padding: 0px,0px,0px,0px;
+                white-space: nowrap;
+        }
+
+        .RateofTax {
+            font-family: Arial,Arial,Gadget,sans-serif;
+            font-style: normal;
+            font-variant: normal;
+            font-size: 8pt;
+            height: auto;
+            width: 28px;
+            max-width: 28px;
+            min-width: 28px;
+            overflow: hidden;
+            text-align: center;
+            border-left: none;
+            border-bottom: none;
+            border-top: none;
+            border-right: solid;
+            border-width: 1px;
+            padding: 0px,0px,0px,0px;
+            white-space: nowrap;
+        }
+
+        .TaxAmt {
+            font-family: Arial,Arial,Gadget,sans-serif;
+            font-style: normal;
+            font-variant: normal;
+            font-size: 8pt;
+            height: auto;
+            width: 44px;
+            max-width: 44px;
+            min-width: 44px;
+            overflow: hidden;
+            text-align: right;
+            border-left: none;
+            border-bottom: none;
+            border-top: none;
+            border-right: solid;
+            border-width: 1px;
+            padding: 0px,0px,0px,0px;
+                white-space: nowrap;
+        }
+
+        .UnitPrice {
+            font-family: Arial,Arial,Gadget,sans-serif;
+            font-style: normal;
+            font-variant: normal;
+            font-size: 8pt;
+            height: auto;
+            width: 44px;
+            max-width: 44px;
+            min-width: 44px;
+            overflow: hidden;
+            text-align: right;
+            border-left: none;
+            border-bottom: none;
+            border-top: none;
+            border-right: solid;
+            border-width: 1px;
+            padding: 0px,0px,0px,0px;
+            white-space: nowrap;
+        }
+
+        .Qty {
+            font-family: Arial,Arial,Gadget,sans-serif;
+            font-style: normal;
+            font-variant: normal;
+            font-size: 8pt;
+            height: auto;
+            width: 35px;
+            max-width: 35px;
+            min-width: 35px;
+            overflow: hidden;
+            text-align: right;
+            border-left: none;
+            border-bottom: none;
+            border-top: none;
+            border-right: solid;
+            border-width: 1px;
+            padding: 0px,0px,0px,0px;
+            white-space: nowrap;
+        }
+
+        .Free {
+            font-family: Arial,Arial,Gadget,sans-serif;
+            font-style: normal;
+            font-variant: normal;
+            font-size: 8pt;
+            height: auto;
+            width: 25px;
+            max-width: 25px;
+            min-width: 25px;
+            overflow: hidden;
+            text-align: right;
+            border-left: none;
+            border-bottom: none;
+            border-top: none;
+            border-right: solid;
+            border-width: 1px;
+            padding: 0px,0px,0px,0px;
+                white-space: nowrap;
+        }
+
+
+        .Mfr {
+            font-family: Arial,Arial,Gadget,sans-serif;
+            font-style: normal;
+            font-variant: normal;
+            font-size: 8pt;
+            height: auto;
+            width: 28px;
+            max-width: 28px;
+            min-width: 28px;
+            overflow: hidden;
+            text-align: left;
+            border-left: none;
+            border-bottom: none;
+            border-top: none;
+            border-right: solid;
+            border-width: 1px;
+            padding: 0px,0px,0px,0px;
+            white-space: nowrap;
+        }
+
+        .GrossValue {
+            font-family: Arial,Arial,Gadget,sans-serif;
+            font-style: normal;
+            font-variant: normal;
+            font-size: 8pt;
+            height: auto;
+            width: 46px;
+            max-width: 46px;
+            min-width: 46px;
+            overflow: hidden;
+            text-align: right;
+            border-left: none;
+            border-bottom: none;
+            border-top: none;
+            border-right: solid;
+            border-width: 1px;
+            padding: 0px,0px,0px,0px;
+                white-space: nowrap;
+        }
+
+        .Mrp {
+            font-family: Arial,Arial,Gadget,sans-serif;
+            font-style: normal;
+            font-variant: normal;
+            font-size: 8pt;
+            height: auto;
+            width: 44px;
+            max-width: 44px;
+            min-width: 44px;
+            overflow: hidden;
+            text-align: right;
+            border-left: none;
+            border-bottom: none;
+            border-top: none;
+            border-right: solid;
+            border-width: 1px;
+            padding: 0px,0px,0px,0px;
+                white-space: nowrap;
+        }
+
+        .NetValue {
+            font-family: Arial,Arial,Gadget,sans-serif;
+            font-style: normal;
+            font-variant: normal;
+            font-size: 8pt;
+            height: auto;
+            width: 56px;
+            max-width: 56px;
+            min-width: 56px;
+            overflow: hidden;
+            text-align: right;
+            border-left: none;
+            border-bottom: none;
+            border-top: none;
+            border-right: solid;
+            border-width: 1px;
+            padding: 0px,0px,0px,0px;
+                white-space: nowrap;
+        }
+
+
+        .ExpDate {
+            font-family: Arial,Arial,Gadget,sans-serif;
+            font-style: normal;
+            font-variant: normal;
+            font-size: 8pt;
+            height: auto;
+            width: 40px;
+            max-width: 40px;
+            min-width: 40px;
+            overflow: hidden;
+            text-align: center;
+            border-left: none;
+            border-bottom: none;
+            border-top: none;
+            border-right: solid;
+            border-width: 1px;
+            padding: 0px,0px,0px,0px;
+                white-space: nowrap;
+        }
+
+        .CashDisc {
+            font-family: Arial,Arial,Gadget,sans-serif;
+            font-style: normal;
+            font-variant: normal;
+            font-size: 8pt;
+            height: auto;
+            width: 33px;
+            max-width: 33px;
+            min-width: 33px;
+            overflow: hidden;
+            text-align: center;
+            border-left: none;
+            border-bottom: none;
+            border-top: none;
+            border-right: solid;
+            border-width: 1px;
+            padding: 0px,0px,0px,0px;
+            white-space: nowrap;
+        }
+
+        .Batch {
+            font-family: Arial,Arial,Gadget,sans-serif;
+            font-style: normal;
+            font-variant: normal;
+            font-size: 8pt;
+            height: auto;
+            width: 74px;
+            max-width: 74px;
+            min-width: 74px;
+            overflow: hidden;
+            text-align: left;
+            border-left: none;
+            border-bottom: none;
+            border-top: none;
+            border-right: solid;
+            border-width: 1px;
+            padding: 0px,0px,0px,0px;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .Tax {
+            font-family: Arial,Arial,Gadget,sans-serif;
+            font-style: normal;
+            font-variant: normal;
+            font-size: 8pt;
+            height: auto;
+            width: 35px;
+            max-width: 35px;
+            min-width: 35px;
+            overflow: hidden;
+            text-align: right;
+            border-left: none;
+            border-bottom: none;
+            border-top: none;
+            border-right: solid;
+            border-width: 1px;
+            padding: 0px,0px,0px,0px;
+                white-space: nowrap;
+        }
+
+        .Amount {
+            font-family: Arial,Arial,Gadget,sans-serif;
+            font-style: normal;
+            font-variant: normal;
+            font-size: 8pt;
+            height: auto;
+            width: 62px;
+            max-width: 62px;
+            min-width: 62px;
+            overflow: hidden;
+            text-align: right;
+            border-left: none;
+            border-bottom: none;
+            border-top: none;
+            border-right: none;
+            border-width: 1px;
+            padding: 0px,0px,0px,0px;
+                white-space: nowrap;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 0;
+        }
+
+        hr {
+            height: 1px;
+            color: #123455;
+            background-color: #123455;
+            border: none;
+            padding: 0px,0px,0px,0px;
+        }
+
+        .imagecls {
+            background: #ccc;
+            max-width: 100%;
+            max-height: 100%;
+            position: relative;
+        }
+
+        .SGST {
+            font-family: Arial,Arial,Gadget,sans-serif;
+            font-style: normal;
+            font-variant: normal;
+            font-size: 8pt;
+            height: auto;
+            width: 42px;
+            max-width: 42px;
+            min-width: 42px;
+            overflow: hidden;
+            text-align: right;
+            border-left: none;
+            border-bottom: none;
+            border-top: none;
+            border-right: solid;
+            border-width: 1px;
+            padding: 0px,0px,0px,0px;
+        }
+
+        .CGST {
+            font-family: Arial,Arial,Gadget,sans-serif;
+            font-style: normal;
+            font-variant: normal;
+            font-size: 8pt;
+            height: auto;
+            width: 43px;
+            max-width: 43px;
+            min-width: 43px;
+            overflow: hidden;
+            text-align: right;
+            border-left: none;
+            border-bottom: none;
+            border-top: none;
+            border-right: solid;
+            border-width: 1px;
+            padding: 0px,0px,0px,0px;
+        }
+
+
+        .IGST {
+            font-family: Arial,Arial,Gadget,sans-serif;
+            font-style: normal;
+            font-variant: normal;
+            font-size: 8pt;
+            height: auto;
+            width: 54px;
+            max-width: 54px;
+            min-width: 54px;
+            overflow: hidden;
+            text-align: right;
+            border-left: none;
+            border-bottom: none;
+            border-top: none;
+            border-right: solid;
+            border-width: 1px;
+            padding: 0px,0px,0px,0px;
+        }
+         .PageContinue {
+            bottom: 0;
+            right: 0;
+            text-align: right;
+            float: right;
+            padding-right: 10px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+         .MessageInfo{
+                margin-left: 10px;
+                width: 700px;
+                float: left;
+                padding-left: 2px;
+                height: 26px;
+                margin-top:5px;
+         }
+       .image {
+           background: #ccc;
+           max-width: 100%;
+           max-height: 90%;
+           position: relative;
+       }
+       .corner {
+               position: absolute;  
+               margin-top:-5px;
+               margin-left:10px;
+               margin-bottom:5px;
+               margin-right:15px;
+               width:100px;
+               height:100px;   
+   
+       }
+        .tblSales td{
+            padding-top:3px;
+        }
+    

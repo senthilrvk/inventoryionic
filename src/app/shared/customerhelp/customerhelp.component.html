@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Customer Feedback</ion-title>
+    <ion-buttons slot="end">
+        <ion-button (click)="refresh()">
+            <ion-icon name='refresh' slot="icon-only" color="dark"></ion-icon>
+        </ion-button>
+      <ion-button (click)="Onsubmit()">
+        <ion-icon name='send' slot="icon-only" color="success"></ion-icon>
+      </ion-button>
+ 
+      <ion-button (click)="fnClose()"> 
+        <ion-icon name='close' slot='icon-only' color="danger"></ion-icon>
+      </ion-button>
+
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="loading" text-center> 
+      <ion-spinner name="dots" color='primary'></ion-spinner>
+  </div>
+  <ion-item>
+      <ion-label position="floating">Customer Name</ion-label>
+    <ion-input clearOnEdit="true"  [(ngModel)]="txtCusname"
+    (keyup)="onKey_customer($event)"></ion-input>
+  </ion-item>
+
+  <div class="ui-autocomplete" *ngIf="filteredNames.length !==0 && txtCusname !==''"> 
+    <ion-item> 
+      <ion-label style="text-align: center;">Customer Name</ion-label>
+    </ion-item>
+
+    <div class="inner-div">
+      <ion-item *ngFor="let res of filteredNames" 
+        (click)="fncustomerClick(res); txtCusname = res.AC_Name">
+        <div class="txtname">
+          <span>{{res.AC_Name}}</span>
+          <span>{{res.Addr1}} {{res.Addr2}}</span>
+        </div>
+      </ion-item>
+    </div> 
+  </div>
+
+  <ion-list>
+  <ion-item>
+    <ion-label position="floating">Remarks</ion-label>
+    <ion-input [(ngModel)]="txtremerks" (keyup)="onKey_remark($event)"></ion-input>
+  </ion-item>
+
+<div *ngIf="filteredRemark && filteredRemark.length">
+  <ion-virtual-scroll [items]="filteredRemark">
+      <ion-item *virtualItem="let item" lines="none" 
+      (click)="txtremerks = item.CustomerBillRemarks;filteredRemark = [] ">
+        <ion-label color="primary">
+            {{ item.CustomerBillRemarks }}
+          </ion-label>
+      </ion-item>
+    </ion-virtual-scroll>
+  </div>
+</ion-list>
+<!-- <ion-button (click)="sendsms()"> send sms</ion-button> -->
+</ion-content>

@@ -1,0 +1,23 @@
+.div-table {
+    width: 100%;
+    overflow: auto;
+    table {
+        width: 100%;
+        th {
+            font-size: 11px;
+            background: #0bb8cc;
+            color: #fff;
+            padding: 5px;
+            white-space: nowrap;
+            border-right: 1px solid;
+        }
+        td {
+            font-size: 11px;
+            white-space: nowrap;
+            border-bottom: 1px solid #ccc;
+            border-right: 1px solid #ccc;
+            padding: 3px;
+        }
+    }
+
+}

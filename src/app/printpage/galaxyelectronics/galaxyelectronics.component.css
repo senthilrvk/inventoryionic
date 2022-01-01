@@ -1,0 +1,561 @@
+
+.printer_content {
+    overflow: auto;
+}
+.invoicebox {
+
+    border: 1px #000000 solid;
+    height: 265mm;
+    max-height: 265mm;
+    min-height: 265mm;
+    outline: 2cm #ffffff solid;
+    overflow: hidden;
+    width: 19.3cm;
+
+}
+
+.HeaderSection {
+    border: 0.2px #000000 solid;
+    height: 105px;
+    max-height: 105px;
+    min-height: 105px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    width: 100%;
+    overflow: hidden;
+    text-align: center
+}
+
+.HeaderBillDetails {
+    border: 0.2px #000000 solid;
+    height: 60px;
+    max-height: 60px;
+    min-height: 60px;
+    border-left: none;
+    border-right: none;
+    width: 100%;
+    padding: 0px,0px,0px,0px;
+    overflow: hidden;
+    border-bottom: none;
+}
+
+.CustomerDetails {
+    border: 0.2px #000000 solid;
+    height: 123px;
+    max-height: 123px;
+    min-height: 123px;
+    border-left: none;
+    border-right: none;
+    width: 100%;
+    padding: 0px,0px,0px,0px;
+    overflow: hidden;
+}
+
+.InvoiceDetails {
+    border: 0.2px #000000 solid;
+    /*height: 100px;
+    max-height: 100px;*/
+    border-bottom: none;
+    border-top: none;
+    border-right: none;
+    padding: 0px,0px,0px,0px;
+    float: right;
+    width: 100%;
+}
+
+.DetailSection {
+    border: 1px #000000 solid;
+    height: 429px;
+    max-height: 429px;
+    min-height: 429px;
+    overflow: hidden;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    width: 100%;
+    font-family: Arial,Arial,Gadget,sans-serif;
+    font-size: 8pt;
+    padding: 0px,0px,0px,0px;
+}
+
+.FooterSection {
+    border: 0.2px #000000 solid;
+    height: 190px;
+    max-height: 190px;
+    overflow: hidden;
+    border-bottom: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    width: 100%;
+    padding: 0px,0px,0px,0px;
+}
+
+.DeclareSection {
+    border: 0.2px #000000 solid;
+    height: 200px;
+    max-height: 200px;
+    min-height: 200px;
+    overflow: hidden;
+    border-bottom: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    width: 100%;
+}
+
+.fontheader {
+    font-family: Arial Black,Arial Bold,Gadget,sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    line-height: 19.4px;
+}
+
+subheading {
+    font-family: Arial,Arial,Gadget,sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 20.5667px;
+    font-size: 10pt;
+    font-weight: bold;
+}
+
+subheadingunderline {
+    font-family: Arial Black,Arial Bold,Gadget,sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 25.5667px;
+    text-decoration: underline;
+    font-size: 9pt;
+}
+
+subheading1 {
+    font-family: Arial Black,Arial Bold,Gadget,sans-serif;
+    font-size: 10px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 20.5667px;
+    font-size: 10pt;
+}
+
+tblSales {
+    font-family: Arial Black,Arial,Gadget,sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    font-size: 8pt;
+    height: auto;
+    padding: 0px,0px,0px,0px;
+    width: 100%;
+}
+
+.tblNo {
+    font-family: Arial,Arial,Gadget,sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    height: auto;
+    width: 22px;
+    min-width: 22px;
+    max-width: 22px;
+    overflow: hidden;
+    text-align: right;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    border-right: solid;
+    border-width: 1px;
+    padding: 0px,0px,0px,0px;
+    font-size: 8pt;
+    font-weight: bold;
+}
+
+.tblItemCode {
+    font-family: Arial,Arial,Gadget,sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    height: auto;
+    width: 52px;
+    min-width: 52px;
+    max-width: 52px;
+    overflow: hidden;
+    text-align: left;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    border-right: solid;
+    border-width: 1px;
+    padding: 0px,0px,0px,0px;
+    font-size: 8pt;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.tblProduct {
+    font-family: Arial,Arial,Gadget,sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    font-size: 8pt;
+    height: auto;
+    width: 213px;
+    min-width: 213px;
+    max-width: 213px;
+    overflow: hidden;
+    text-align: left;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    border-right: solid;
+    border-width: 1px;
+    padding: 0px,0px,0px,0px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.HSNCode {
+    font-family: Arial,Arial,Gadget,sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    font-size: 8pt;
+    height: auto;
+    width: 30px;
+    max-width: 30px;
+    min-width: 30px;
+    overflow: hidden;
+    text-align: left;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    border-right: solid;
+    border-width: 1px;
+    padding: 0px,0px,0px,0px;
+    font-weight: bold;
+}
+
+.RateofTax {
+    font-family: Arial,Arial,Gadget,sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    font-size: 8pt;
+    height: auto;
+    width: 26px;
+    max-width: 26px;
+    min-width: 26px;
+    overflow: hidden;
+    text-align: right;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    border-right: solid;
+    border-width: 1px;
+    padding: 0px,0px,0px,0px;
+    font-weight: bold;
+}
+
+.Unit {
+    font-family: Arial,Arial,Gadget,sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    font-size: 8pt;
+    height: auto;
+    width: 40px;
+    max-width: 40px;
+    min-width: 40px;
+    overflow: hidden;
+    text-align: left;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    border-right: solid;
+    border-width: 1px;
+    padding: 0px,0px,0px,0px;
+    font-weight: bold;
+}
+
+.UnitPrice {
+    font-family: Arial,Arial,Gadget,sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    font-size: 8pt;
+    height: auto;
+    width: 42px;
+    max-width: 42px;
+    min-width: 42px;
+    overflow: hidden;
+    text-align: right;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    border-right: solid;
+    border-width: 1px;
+    padding: 0px,0px,0px,0px;
+    font-weight: bold;
+}
+
+
+.Mrp {
+    font-family: Arial,Arial,Gadget,sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    font-size: 8pt;
+    height: auto;
+    width: 46px;
+    max-width: 46px;
+    min-width: 46px;
+    overflow: hidden;
+    text-align: right;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    border-right: solid;
+    border-width: 1px;
+    padding: 0px,0px,0px,0px;
+    font-weight: bold;
+}
+
+.Qty {
+    font-family: Arial,Arial,Gadget,sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    font-size: 8pt;
+    height: auto;
+    width: 27px;
+    max-width: 27px;
+    min-width: 27px;
+    overflow: hidden;
+    text-align: right;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    border-right: solid;
+    border-width: 1px;
+    padding: 0px,0px,0px,0px;
+    font-weight: bold;
+}
+
+.Free {
+    font-family: Arial,Arial,Gadget,sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    font-size: 8pt;
+    height: auto;
+    width: 26px;
+    max-width: 26px;
+    min-width: 26px;
+    overflow: hidden;
+    text-align: right;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    border-right: solid;
+    border-width: 1px;
+    padding: 0px,0px,0px,0px;
+    font-weight: bold;
+}
+
+.GrossValue {
+    font-family: Arial,Arial,Gadget,sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    font-size: 8pt;
+    height: auto;
+    width: 48px;
+    max-width: 48px;
+    min-width: 48px;
+    overflow: hidden;
+    text-align: right;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    border-right: solid;
+    border-width: 1px;
+    padding: 0px,0px,0px,0px;
+    font-weight: bold;
+}
+
+.NetValue {
+    font-family: Arial,Arial,Gadget,sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    font-size: 8pt;
+    height: auto;
+    width: 51px;
+    max-width: 51px;
+    min-width: 51px;
+    overflow: hidden;
+    text-align: right;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    border-right: solid;
+    border-width: 1px;
+    padding: 0px,0px,0px,0px;
+    font-weight: bold;
+}
+
+.CashDisc {
+    font-family: Arial,Arial,Gadget,sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    font-size: 8pt;
+    height: auto;
+    width: 38px;
+    max-width: 38px;
+    min-width: 38px;
+    overflow: hidden;
+    text-align: right;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    border-right: solid;
+    border-width: 1px;
+    padding: 0px,0px,0px,0px;
+    font-weight: bold;
+}
+
+.Tax {
+    font-family: Arial,Arial,Gadget,sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    font-size: 8pt;
+    height: auto;
+    width: 35px;
+    max-width: 35px;
+    min-width: 35px;
+    overflow: hidden;
+    text-align: right;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    border-right: solid;
+    border-width: 1px;
+    padding: 0px,0px,0px,0px;
+    font-weight: bold;
+}
+
+.Amount {
+    font-family: Arial,Arial,Gadget,sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    font-size: 8pt;
+    height: auto;
+    width: 58px;
+    max-width: 58px;
+    min-width: 58px;
+    overflow: hidden;
+    text-align: right;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    border-right: none;
+    border-width: 1px;
+    padding: 0px,0px,0px,0px;
+    font-weight: bold;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 0;
+}
+
+hr {
+    height: 1px;
+    color: #123455;
+    background-color: #123455;
+    border: none;
+    padding: 0px,0px,0px,0px;
+}
+
+.imagecls {
+    background: #ccc;
+    max-width: 100%;
+    max-height: 100%;
+    position: relative;
+}
+
+
+.GST {
+    font-family: Arial,Arial,Gadget,sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    font-size: 8pt;
+    height: auto;
+    width: 35px;
+    max-width: 35px;
+    min-width: 35px;
+    overflow: hidden;
+    text-align: right;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    border-right: solid;
+    border-width: 1px;
+    padding: 0px,0px,0px,0px;
+}
+
+.SGST {
+    font-family: Arial,Arial,Gadget,sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    font-size: 8pt;
+    height: auto;
+    width: 39px;
+    max-width: 39px;
+    min-width: 39px;
+    overflow: hidden;
+    text-align: right;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    border-right: solid;
+    border-width: 1px;
+    padding: 0px,0px,0px,0px;
+    font-weight:bold;
+}
+
+.CGST {
+    font-family: Arial,Arial,Gadget,sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    font-size: 8pt;
+    height: auto;
+    width: 39px;
+    max-width: 39px;
+    min-width: 39px;
+    overflow: hidden;
+    text-align: right;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    border-right: solid;
+    border-width: 1px;
+    padding: 0px,0px,0px,0px;
+    font-weight:bold;
+}
+.IGST {
+    font-family: Arial,Arial,Gadget,sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    font-size: 8pt;
+    height: auto;
+    width: 22px;
+    max-width: 22px;
+    min-width: 22px;
+    overflow: hidden;
+    text-align: right;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    border-right: solid;
+    border-width: 1px;
+    padding: 0px,0px,0px,0px;
+}
+

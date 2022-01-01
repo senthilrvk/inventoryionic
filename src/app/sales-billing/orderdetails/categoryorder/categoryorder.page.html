@@ -1,0 +1,20 @@
+
+    <ion-header> 
+    <ion-toolbar >
+        <ion-searchbar debounce="500" [(ngModel)]="keyword"  animated (ionChange)="fnCategorys()" placeholder="Filter Category" color='light'>
+        </ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content style="position: absolute;">
+  <div class="loader-new" *ngIf="loading">
+    <ion-spinner name="dots" color='primary'></ion-spinner>
+  </div>
+    <ion-virtual-scroll [items]="categoryData" approxItemHeight="320px">
+        <ion-item mode="ios" button lines="full" *virtualItem="let item" (click)="storedId(item.CategoryID)">
+          <ion-label> {{ item.CategoryDesc }}</ion-label>
+          <!-- CategoryID -->
+        </ion-item>
+      
+      </ion-virtual-scroll>
+</ion-content>

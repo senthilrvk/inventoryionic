@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>Product</ion-title>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-searchbar debounce="500" [(ngModel)]="search" (ionChange)="onGetProducts()"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-virtual-scroll [items]="productData">
+    <ion-card *virtualItem="let item;" class="ion-activatable">
+      <ion-item button (click)="presentForm(item)">
+        <ion-label [color]="item.StockQty === 0? 'danger': 'primary'" style="min-width: 60px; flex: 0;">
+          <p>Stock</p>
+          <h3>{{item.StockQty}}</h3>
+        </ion-label>
+        <ion-label class="ion-text-wrap">
+          <h4>{{item.ItemDesc}}</h4>
+          <p>{{item.ManufactureName}}</p>
+        </ion-label>
+
+
+        <span slot="end" style="margin: 0;font-size: 12px;">
+          Rate: {{item.SelRate | number:'1.2-2'}}<br/>
+          MRP: {{item.MRP | number:'1.2-2'}}
+        </span>
+      </ion-item>
+
+    </ion-card>
+  </ion-virtual-scroll>
+
+</ion-content>
+

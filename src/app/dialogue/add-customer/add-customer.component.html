@@ -1,0 +1,33 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-searchbar #search type='search' [(ngModel)]="searchkey" debounce="300" (ionChange)='onSearch()' 
+    (ionCancel)='onCancel()' placeholder="Search" showCancelButton="always"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item  button (click)="onAddCustomer()">
+    <ion-icon slot="start" name="person" color="primary" ></ion-icon>
+  
+  <ion-label>Add "{{search.value}}" as customer</ion-label>
+  <ion-icon slot="end" name="add"></ion-icon>
+</ion-item>
+
+  <ion-virtual-scroll [items]="accSource" >
+   
+    <ion-item *virtualItem="let acc" (click)="onAccClick(acc)">
+      <ion-avatar slot="start">
+        <img style="background: cornflowerblue;" />
+      </ion-avatar>
+
+      <ion-label>{{acc.AC_Name}}
+        <p *ngIf="acc.Addr1">{{acc.Addr1}}</p>
+        <p *ngIf="acc.Phone">{{acc.Phone}}</p>
+      </ion-label>
+      
+      <ion-icon mode="ios" slot="end" name="information-circle" color="medium"></ion-icon>
+    </ion-item>
+
+  </ion-virtual-scroll>
+ 
+</ion-content>

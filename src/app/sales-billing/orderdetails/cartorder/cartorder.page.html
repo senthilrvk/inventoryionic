@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title>
+      Cart List
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink='/sales/allorder'>
+        <ion-icon mode="ios" slot="icon-only" name="arrow-back" color="light"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar *ngIf="cartItems.length > 0">
+    <ion-button expand="block" color="success" 
+    fill="outline" (click)="fnSaveCart()">
+    Proceed to cart
+    <ion-icon mode="ios" slot="end" name='cart'></ion-icon>
+  </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+  <div>
+
+    <ion-card *ngIf="cartItems.length == 0">
+      <ion-card-header>
+        <ion-card-title>Cart</ion-card-title>
+        <ion-card-subtitle>Empty !</ion-card-subtitle>
+      </ion-card-header>
+      <ion-img src="assets/images/empty-cart.jpg"></ion-img>
+      <ion-card-content>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-grid>
+      <ion-row *ngFor="let product of cartItems;">
+        <ion-col>
+          <div class="box">
+          <div class="main-box">
+              <div class="close-btn">
+                  <button (click)="onRemoveCart(product)">
+                    <ion-icon mode="ios" name='close' slot='icon-only' color='danger'></ion-icon>
+                  </button>
+                </div>
+
+            <div class="left-box">
+              <div class="inner-image">
+                <ion-img [src]="fnImageGet(product)" alt='' style="object-fit: contain;">
+                </ion-img>
+              </div>
+            </div>
+            <div class="right-box">
+              <div class="inner-text">
+              <label><p>{{product.ItemDesc}}</p></label>
+              <label>MRP&nbsp;:<span>&nbsp;{{product.MRP}}</span> </label>
+              <label>RS&nbsp;:<span>&nbsp;{{product.SelRate}}</span></label>
+              <label>Quantity&nbsp;:<span>&nbsp;{{product.SalesOrderSub_Qty}}</span></label>
+            </div>
+            </div>
+          </div>
+          
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    
+  </div>
+</ion-content>

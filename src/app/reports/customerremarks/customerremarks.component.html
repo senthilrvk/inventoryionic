@@ -1,0 +1,97 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <!-- <ion-menu-button></ion-menu-button> -->
+      <ion-button (click)="onBack()">
+          <ion-icon mode="ios" slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title > 
+      Remarks 
+    </ion-title>
+
+    <ion-buttons slot="end" *ngIf="content">
+        <ion-button (click)="searchbar = !searchbar"> 
+          <ion-icon mode="ios"slot="icon-only" name="search"></ion-icon>
+        </ion-button>
+
+        <ion-button (click)="fnExport()">
+            <ion-icon  mode="ios" slot="icon-only" name="more"></ion-icon>
+          </ion-button>
+
+      </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar *ngIf="searchbar">
+      <ion-searchbar  mode="ios" #search placeholder="Filter Report"
+      showCancelButton="focus" animated (ionInput)='fnSearch($event)' 
+      (ionCancel)='fnClose($event)'></ion-searchbar>
+  </ion-toolbar> 
+</ion-header>
+
+
+<ion-content>
+  <ion-grid *ngIf="!content" class="inner-border">
+      <ion-row>
+        <ion-col >
+          <ion-item>
+            <ion-label position="stacked">From</ion-label>
+            <ion-input [(ngModel)]="fromdate" readonly></ion-input>
+            <button (click)="calenderPicker('from')" type="button" slot="end" class="calender">
+              <ion-icon mode="ios" slot="icon-only" name="calendar"></ion-icon>
+            </button>
+
+          </ion-item> 
+
+        </ion-col>
+        <ion-col >
+          <ion-item> 
+            <ion-label position="stacked">To</ion-label>
+            <ion-input [(ngModel)]="Todate" readonly></ion-input>
+            <button (click)="calenderPicker('to')" type="button" slot="end" class="calender">
+              <ion-icon mode="ios" slot="icon-only" name="calendar"></ion-icon>
+            </button>
+
+          </ion-item>
+
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col> 
+          <ion-button expand="full" (click)="fnUserLoginReport()" type="button" >
+            Report
+          </ion-button>
+        </ion-col>
+      </ion-row>
+</ion-grid> 
+<div style='text-align: center;' *ngIf="loading">
+    <ion-spinner name="lines" ></ion-spinner>
+</div>
+<div id="tblPrint" class="tbl-div" *ngIf="content">
+  <table>
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>Area</th>
+        <th>Customer Name</th>
+        <th>Enter Date</th>
+        <th>Phone</th>
+        <th>Remarks</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let r of tblReport; let i = index">
+          <td>{{ i+1 }}</td>
+          <td>{{r.Area}}</td>
+          <td>{{r.CustomerName}}</td>
+          <td>{{r.EnterDate}}</td>
+          <td>{{r.Phone}}</td>
+          <td>{{r.CustomerBillRemarks}}</td>
+          <td>{{r.Time}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</ion-content>

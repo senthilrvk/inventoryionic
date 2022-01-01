@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Located Person</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <form [formGroup]="directionForm" (ngSubmit)="fngetlocation()">
+    <ion-item>
+      <ion-label position="floating">Salesman Name</ion-label>
+      <ion-input formControlName="destination"></ion-input>
+    </ion-item>
+    <ion-button expand="full" type="submit" [disabled]="!directionForm.valid">
+      <ion-icon slot="start" name="locate"></ion-icon>Track Location</ion-button>
+  </form>
+  <!-- <ion-button expand="full" type="submit" (click)='startTracking()'>
+    <ion-icon slot="start" name="locate"></ion-icon>
+    Location
+  </ion-button> -->
+  <div #mapElement class="map"></div>
+</ion-content>

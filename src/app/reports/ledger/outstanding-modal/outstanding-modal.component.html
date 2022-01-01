@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      outstanding
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button color='danger' (click)="fnClose()">
+        <ion-icon mode="ios" slot="icon-only" name="close" ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <div class="div-table">
+  <table>
+    <thead>
+      <tr>
+        <th>Sno</th><th>Name</th><th>Address</th><th>Balance Amount</th><th>Bill Amount</th>
+        <th>Bill Date</th><th>Bill no</th><th>Due Date</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <ng-container *ngFor="let item of JsonObj; let i = index">
+      <tr>
+        <td>{{item.UniqueKey}}</td>
+        <td>{{item.AccountName}}</td>
+        <td>{{item.Addr1}}</td>
+        <td>{{item.BalanceAmt}}</td>
+        <td>{{item.BillAmount}}</td>
+        <td>{{item.BillDate}}</td>
+        <td>{{item.BillNo}}</td>
+        <td>{{item.DueDays}}</td>
+      </tr>
+    </ng-container>
+    </tbody>
+  </table>
+</div>
+</ion-content>

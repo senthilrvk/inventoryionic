@@ -1,0 +1,172 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start" >
+      <ion-menu-button *ngIf="!popup"></ion-menu-button>
+      <ion-button *ngIf="popup" (click)="dismissPop()">
+        <ion-icon mode="ios" slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Master
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="fnAccountGets()" *ngIf="!listview">
+        List
+      </ion-button>
+      <ion-back-button ></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar *ngIf="listview">
+    <ion-searchbar mode="ios" #searchEle debounce="500" [(ngModel)]="search" (ionChange)='fnAccountGets()'></ion-searchbar>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content class="content-background">
+  <div *ngIf="!listview">
+    <form [formGroup]="myForm" (ngSubmit)="customerSubmitForm($event)" class="view_box inner-border">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="stacked">Customer Name <ion-text color="danger">*</ion-text>
+              </ion-label>
+              <ion-input #name required type="text" formControlName="CustomerName"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="stacked">Address 1<ion-text color="danger">*</ion-text>
+              </ion-label>
+              <ion-input required formControlName="Address1"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="stacked">Address 2</ion-label>
+              <ion-input formControlName="Address2"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="stacked">Phone <ion-text color="danger">*</ion-text>
+              </ion-label>
+              <ion-input required type='number' formControlName="Phone"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="stacked">GSTNO</ion-label>
+              <ion-input formControlName="TinNo"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size='6'>
+            <ion-item>
+              <ion-label>Price Menu</ion-label>
+              <ion-select mode="ios" (ionChange)="fnPriceChange($event)" [value]='PriceId'>
+                <ion-select-option *ngFor="let price of pricemenu" [value]="price.PriceMenu_Id">
+                  {{price.DisplayName}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size='6'>
+            <ion-item>
+              <ion-label>Area</ion-label>
+              <ion-select mode="ios" (ionChange)="fnAreaChange($event)" [value]='AreaId'>
+                <ion-select-option *ngFor="let area of jsonAreas" [value]='area.Area_Id' selected>{{area.Area_Name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+
+        <ion-row>
+          <ion-col size='6'>
+            <ion-item>
+              <ion-label>Type</ion-label>
+              <ion-select mode="ios" (ionChange)="fnTypeChange($event)">
+                <ion-select-option value="LOCAL" selected>LOCAL</ion-select-option>
+                <ion-select-option value="INTERSTATE">INTERSTATE</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size='6' *ngIf="!screenShot">
+            <ion-button  expand="full" color="primary" (click)="fnlocationMap()">
+              Location
+              <ion-icon mode="ios" name="pin" slot="end"></ion-icon>
+            </ion-button>
+          </ion-col>
+
+          <ion-col size="2">
+            <ion-button mode="ios" expand="block" type="submit" color="success" class="ion-no-margin" [disabled]="!myForm.valid">
+              Save 
+            </ion-button>
+          </ion-col>
+        </ion-row>
+       
+        <div *ngIf="mapFlag" class="screenshot ion-activatable ripple-parent" (click)="fnlocationMap()">
+          <!-- <img [src]="screenShot" alt="..." onerror="this.src='assets/images/location/location.jpg'"> -->
+          <div #maps id="maps"></div> 
+          <ion-ripple-effect></ion-ripple-effect>
+        </div>
+        <ion-progress-bar *ngIf="progress > 0" color="primary" [value]="progress"></ion-progress-bar>
+      </ion-grid>
+
+    </form>
+    <!-- <ion-list>
+      <ion-list-header>
+        <ion-label>BillSeries</ion-label>
+      </ion-list-header>
+
+      <ion-item *ngFor="let Bill of Billseries">
+        <ion-label>{{ Bill.BillSerPrefix }}, {{ Bill.BranchName}}</ion-label>
+        <ion-checkbox mode="ios" [value]='Bill.BillSerId' [(ngModel)]="Bill.isChecked" slot="start"></ion-checkbox>
+      </ion-item>
+
+    </ion-list> -->
+  </div>
+
+  <ion-virtual-scroll *ngIf="listview" [items]="listSource" approxItemHeight="320px">
+    <ion-card *virtualItem="let item;" (click)="anchorclick(item.AC_Id)" class="ion-activatable ripple-parent">
+     <div class="flex-master">
+       <div class="flex-inner">
+         <ion-text color="dark">{{ item.AC_Name }}</ion-text>
+         <ion-text color="medium">{{ item.Addr1 }},  {{item.Addr2}}</ion-text>
+         <ion-text color="medium">{{item.Phone}}</ion-text>
+       </div>
+
+       <!-- <ion-button slot="end" (click)="anchorclick(item.AC_Id)" fill="outline" size="small" color="light">
+        <ion-icon color="primary" name="create"></ion-icon>
+      </ion-button> -->
+     </div>
+     <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+    </ion-card>
+  </ion-virtual-scroll>
+
+  <ion-fab *ngIf="listview" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button size="small" (click)="fnCreate()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

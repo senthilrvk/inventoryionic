@@ -1,0 +1,125 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="onClose()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>Payment</ion-title>
+
+    <ion-label slot="end">
+      Bill No: {{issueInfoMain.billNo}} &nbsp;
+    </ion-label>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-card>
+    <ion-item button lines='none'>
+      <ion-button shape='round' fill='clear' color="primary" slot="start">
+        <ion-icon slot="icon-only" name='person'></ion-icon>
+      </ion-button>
+
+      <ion-label>
+        <h3>{{issueInfoMain.Issue_CustName ? issueInfoMain.Issue_CustName: 'Add Customer'}}</h3>
+        <ion-button size='small' class="ion-text-capitalize" fill='clear' color="primary" (click)="onRemove()">
+          (Remove)
+        </ion-button>
+      </ion-label>
+      
+      <ion-button shape='round' size='large' fill='clear' color="medium" slot="end" (click)="onAddCustomer()">
+        <ion-icon slot="icon-only" name='add'></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-card>
+
+  <ion-item button lines='none' (click)="onKeyboard()">
+    <ion-label slot="start">Discount: </ion-label>
+    <p slot="end"> &nbsp;{{issueInfoMain.Issue_DisPers | number}} %</p>
+  </ion-item>
+
+  <ion-item lines='none' style="height: 30px;">
+    <ion-label slot="start">Balance </ion-label>
+    <ion-label>&nbsp;Amount </ion-label>
+  </ion-item>
+  <ion-card>
+    <ion-item lines='none'>
+      <ion-badge slot="start" color="danger">₹&nbsp;{{ledgerAmount | number : '1.2-2'}}</ion-badge>
+      <ion-text color="success" slot="end">
+        <p >₹&nbsp;{{issueInfoMain.Issue_Total | number : '1.2-2'}}</p>
+      </ion-text>
+      <ion-button (click)="showlist = !showlist" fill='clear' slot="end" color="medium">
+        <ion-icon name="apps" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-item>
+
+    <ng-container *ngIf="showlist">
+      <ion-item lines='full' *ngFor="let sub of issueSub">
+        <ion-label>
+          <h3>{{sub.ItemDesc}} ({{sub.ItemCode}})</h3>
+          <p>{{sub.IssueSub_Qty}}x&nbsp;₹{{sub.IssueSub_OriginalRate | number : '1.2-2'}}</p>
+        </ion-label>
+        <ion-text color="primary" slot="end">
+          <p>₹&nbsp;{{sub.IssueSub_Amount | number : '1.2-2'}}</p>
+        </ion-text>
+      </ion-item>
+    </ng-container>
+  </ion-card>
+
+  <!-- <ion-card>
+    <ion-item lines='none'>
+      <ion-label>Total Quantity: </ion-label>
+      <ion-text slot="end">
+        <p></p>
+      </ion-text>
+    </ion-item>
+  </ion-card> -->
+
+  <!-- <ion-item lines='none'>
+    <ion-label slot="start">Tax Amount: {{0 | number : '1.2-2'}}</ion-label>
+    <p slot="end">Discount: {{0 | number : '1.2-2'}} </p>
+  </ion-item> -->
+  <!-- | number : '1.2-2' -->
+  <ion-card>
+    <ion-item>
+      <ion-label>Bill Series</ion-label>
+      <ion-select [(ngModel)]="billserId" [compareWith]="compareBillSerWith" (ionChange)='getBillNumber()'>
+        <ion-select-option *ngFor="let item of billserice" [value]='item'>
+          {{item.BillSerPrefix}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+  <ion-item>
+    <ion-label>Sales Man</ion-label>
+    <ion-select [(ngModel)]='billSalesman' [compareWith]="compareSalesmanWith">
+      <ion-select-option *ngFor="let item of salesmanjson" [value]="item" >{{item.AC_Name}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+</ion-card>
+
+  <ion-card>
+    <ion-item>
+      <ion-label>Pay Terms</ion-label>
+      <ion-select [(ngModel)]="billPayTerms" [compareWith]="comparePayTermsWith">
+        <ion-select-option *ngFor="let pay of paytermsData" [value]='pay'>{{pay.PayTerms}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <ion-item button color="tertiary" (click)="onPrinterValidate()" [disabled]='loading'>
+      <ion-label class="ion-text-center">
+        <span *ngIf="!loading">Continue</span>
+        <ion-spinner *ngIf="loading" name="circles"></ion-spinner>
+      </ion-label>
+    </ion-item>
+  </ion-card>
+
+
+</ion-content>

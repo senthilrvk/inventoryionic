@@ -1,0 +1,81 @@
+ion-item {
+    --min-height: 35px;
+    --padding-start: 2px;
+    --inner-padding-end: 0px;
+    font-size: 12px;
+    --padding-top: 0;
+    --padding-bottom: 0px;
+}
+
+.calender {
+    height: 30px;
+    background: #ffffff;
+    font-size: 18px;
+    color: #424242;
+}
+
+
+.ui-autocomplete {
+    width: 95%;
+    position: absolute;
+    z-index: 10;
+    max-height: 230px;
+    overflow: hidden;
+    box-shadow: 0 0 2px #050505;
+    padding: 0 5px 0px 5px;
+    background: #fff;
+
+    .inner-div {
+        overflow: auto;
+        max-height: 190px;
+
+        .txtname {
+            display: grid;
+            line-height: 1.5;
+            height: 36px;
+            overflow: hidden;
+            align-items: end;
+
+            span:first-child {
+                width: 100%;
+                font-size: 14px;
+                font-weight: bold;
+                white-space: nowrap;
+            }
+
+            span:last-child {
+                width: 100%;
+                font-size: 10px;
+                color: #3171e0;
+                white-space: nowrap;
+            }
+        }
+    }
+}
+
+.div-report {
+    overflow: auto;
+
+    table {
+        width: 100%;
+
+        th {
+            font-size: 12px;
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+
+        td {
+            font-size: 12px;
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+        tr:last-child td {
+            background: #ccc;
+        }
+    }
+}
+
+ion-checkbox {
+    margin-inline-end: 10px;
+}

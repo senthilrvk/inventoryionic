@@ -1,0 +1,129 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Purchase List</ion-title>
+  </ion-toolbar>
+
+  <ion-toolbar >
+    <ion-searchbar debounce="500" (ionChange)="fnPurchaseGets()" [(ngModel)]="search"></ion-searchbar>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+
+    <div class='div-create'>
+      <ion-grid class="inner-border" style="padding-inline-start: 0; padding-inline-end: 0;">
+        <ion-row>
+          <ion-col style="padding-inline-start: 0; padding-inline-end: 5px;">
+            <ion-item>
+              <ion-label position="stacked">From</ion-label>
+              <ion-input [(ngModel)]="fromdate" readonly></ion-input>
+              <button (click)="calenderPicker('from')" type="button" slot="end" class="calender">
+                <ion-icon  slot="icon-only" name="calendar"></ion-icon>
+              </button>
+            </ion-item>
+          </ion-col>
+          <ion-col style="padding-inline-start: 5px; padding-inline-end: 0;">
+            <ion-item>
+              <ion-label position="stacked">To</ion-label>
+              <ion-input [(ngModel)]="todate" readonly></ion-input>
+              <button (click)="calenderPicker('to')" type="button" slot="end" class="calender">
+                <ion-icon  slot="icon-only" name="calendar"></ion-icon>
+              </button>
+
+            </ion-item>
+
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+
+      <ion-item>
+        <ion-label>Bill Series</ion-label>
+        <ion-select  placeholder="Select One" [(ngModel)]='billSerId' (ionChange)="fnPurchaseGets()">
+          <ion-select-option *ngFor="let item of billSeries" [value]="item.PurBillSerId" selected>
+            {{item.PurBillSerPrefix}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-list lines="full" *ngIf="loading">
+        <ion-item>
+          <ion-label>
+            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+          </ion-label>
+          <div slot="end" style="width: 100px; height: 35px;">
+            <ion-skeleton-text slot="end" animated style="width: 100%"></ion-skeleton-text>
+          </div>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+          </ion-label>
+          <div slot="end" style="width: 100px; height: 35px;">
+            <ion-skeleton-text slot="end" animated style="width: 100%"></ion-skeleton-text>
+          </div>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+          </ion-label>
+          <div slot="end" style="width: 100px; height: 35px;">
+            <ion-skeleton-text slot="end" animated style="width: 100%"></ion-skeleton-text>
+          </div>
+        </ion-item>
+      </ion-list>
+
+      <ion-virtual-scroll *ngIf="!loading" [items]="dataGetList">
+        <ion-item mode='ios' *virtualItem="let item" lines="full">
+          <ion-label class="ion-text-wrap">
+            <ion-text color="primary">
+              <h3>{{item.Supplier}}</h3>
+            </ion-text>
+            <p>{{item.Address}}</p>
+
+            <ion-text color="dark">
+              <p>BillTotal: {{item.InvoAmt | number:'1.2-2'}}</p>
+            </ion-text>
+          </ion-label>
+          <ion-card slot="end" class="ion-text-center">
+            <ion-text color="dark">
+              <p class="ion-no-margin" style="padding: 5px; border-bottom: 1px solid #ccc">
+                {{item.BillNo}}
+              </p>
+            </ion-text>
+            <ion-button fill="clear"
+            [routerLink]="['/purchase/purchaseBill', { flag: item.Flag, purchaseId: item.PurchaseId, slNo: item.SlNo }]">
+              <ion-icon slot="icon-only"  color="success" name="create"></ion-icon>
+            </ion-button>
+
+            <ion-button fill="clear" (click)="anchorClick(item,'print')">
+              <ion-icon  slot="icon-only"  color="medium" name="print"></ion-icon>
+            </ion-button>
+
+          </ion-card>
+        </ion-item>
+
+      </ion-virtual-scroll>
+
+    </div>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button [routerLink]="['/purchase/purchaseBill', { foo: 'foo' }]">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
+</ion-content>

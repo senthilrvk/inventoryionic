@@ -1,0 +1,15 @@
+<ion-content padding>
+  <ion-item>
+    <ion-label position="floating">To:</ion-label>
+    <ion-input type='tel' [(ngModel)]="phoneNo"></ion-input>
+  </ion-item>
+  <ion-item>
+      <ion-label position="floating">Messages:</ion-label>
+    <ion-textarea rows="6" cols="20"
+     [(ngModel)]="messageInfo">
+    </ion-textarea>
+  </ion-item>
+  <br/>
+  <ion-button color='danger' (click)="cancel()">cancel</ion-button>&nbsp;
+  <ion-button color='success' (click)="fnSendSms()">send</ion-button>
+</ion-content>

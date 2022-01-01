@@ -1,0 +1,76 @@
+<ion-content>
+  
+  <div class="details-view">
+    <div class="top-details">
+      <map #mapElement class="map"></map>
+    </div>
+    <div class="bottom-details">
+      <div class="bottom-delivery ion-padding-start">
+        <p>
+          <span class="drop-icon">
+            <ion-icon name="pin" color="success"></ion-icon>&nbsp;
+            <ion-text color="medium">Pick Up</ion-text>
+          </span>
+          <ion-text color="light" class="text-mute">{{deliveryItem.BranchAdr1}}</ion-text>
+          <ion-text color="light" class="text-mute">{{deliveryItem.BranchAdr2}}</ion-text>
+        </p>
+
+        <p>
+          <span class="drop-icon">
+            <ion-icon name="pin" color="danger"></ion-icon>&nbsp;
+            <ion-text color="medium">DropOff</ion-text>
+          </span>
+          <ion-text color="light" class="text-mute">{{deliveryItem.AC_Name}}</ion-text>
+          <ion-text color="light" class="text-mute">{{deliveryItem.Addr1}}</ion-text>
+          <ion-text color="light" class="text-mute">{{deliveryItem.Addr2}}</ion-text>
+          <ion-text color="light" class="text-mute">{{deliveryItem.CusMobile}}&nbsp;{{deliveryItem.CustomerPhone}}</ion-text>
+        </p>
+      </div>
+
+      <div class="bottom-active ion-padding-start">
+        <div *ngIf="deliveryItem.IssueDelivery_IsTake && deliveryItem.IssueDelivery_IsCompleted">
+          <!-- completed -->
+          <p><ion-text color="medium">Deliverd By {{deliveryItem.IssueDelivery_ReceiveTime}} from</ion-text></p>
+          <p>{{deliveryItem.BranchName}}</p>
+          <p>
+            <ion-text color="medium" class="ion-padding-end">OrderID</ion-text>
+            <ion-text color="medium" class="ion-padding-start">{{deliveryItem.IssueDelivery_OrderNo}}</ion-text>
+         </p>
+        </div>
+
+        <div *ngIf="deliveryItem.IssueDelivery_IsTake && !deliveryItem.IssueDelivery_IsCompleted">
+          <!-- take -->
+          <p><ion-text color="medium">Active Delivery By {{deliveryItem.IssueDelivery_TakeTime}} from</ion-text></p>
+          <p>{{deliveryItem.BranchName}}</p>
+          <p>
+            <ion-text color="medium" class="ion-padding-end">{{trackResult.time}}</ion-text>
+            <ion-text color="medium" class="ion-padding-start">{{trackResult.km}}</ion-text>
+         </p>
+        </div>
+        <div *ngIf="!deliveryItem.IssueDelivery_IsTake && !deliveryItem.IssueDelivery_IsCompleted">
+          <!-- pending -->
+          <p><ion-text color="medium">Assigned Delivery By {{deliveryItem.IssueDelivery_AssignTime}} from</ion-text></p>
+          <p>{{deliveryItem.BranchName}}</p>
+          <p>
+            <ion-text color="medium" class="ion-padding-end">{{trackResult.time}}</ion-text>
+            <ion-text color="medium" class="ion-padding-start">{{trackResult.km}}</ion-text>
+         </p>
+        </div>
+      </div>
+
+      <div class="bottom-content" >
+        <h3>
+          <ion-text color="light">&#8377;&nbsp;{{deliveryItem.BillAmount | number:'1.2-2'}}</ion-text>
+          <span class="span-set"><ion-text color="medium">Guaranteed</ion-text></span>
+        </h3>
+        <!-- <ion-button *ngIf="!deliveryItem.IssueDelivery_IsTake && !deliveryItem.IssueDelivery_IsCompleted"  expand="block" color="success" (click)="onActive()">PickUp Order</ion-button>
+        <ion-button *ngIf="deliveryItem.IssueDelivery_IsTake && !deliveryItem.IssueDelivery_IsCompleted"  expand="block" color="success" (click)="onAccept()">Accept Order</ion-button> -->
+        <ion-button expand="block" color="success" (click)="startNavigate()" [disabled]='btnNavigate'>
+          <ion-icon slot="start" name="pin" ></ion-icon>
+          Start Navigate
+        </ion-button>
+        <ion-button fill='clear' color="light" size="small" (click)="modalCtrl.dismiss()">Decline</ion-button>
+      </div>
+    </div>
+  </div>
+</ion-content>

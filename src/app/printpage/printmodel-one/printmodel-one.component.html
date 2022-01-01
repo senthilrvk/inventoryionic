@@ -1,0 +1,967 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Print Preview</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="fnPrintpage()">
+        <ion-icon name='print' slot="icon-only" color="primary"></ion-icon>
+      </ion-button>
+      <ion-button (click)="fnSharepage()">
+        <ion-icon name='share-social-outline' slot="icon-only" color="secondary"></ion-icon>
+      </ion-button>
+      <ion-button (click)="fnClose()">
+        <ion-icon name='close' slot='icon-only' color="danger"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<div style="width: 100%;height: 100%;position: absolute;  top: 65px;overflow: auto;">
+
+  <div id="printer-content" style="width: 100%;">
+
+    <div style="margin: 5px; width: 100%; display: inline-table;">
+
+      <div *ngFor="let ArrayList of oArray;let strPageNo = index" class="Page">
+
+        <!-- <img *ngIf="strLogoImageName !='' && bBackgroundImageMask == true" [src]="strLogoImageName" class='water_mark'> -->
+        <div class="subpage">
+
+          <div class="corner" [ngStyle]="{'height': dBranchBoxHeight-7 +'px','width': 85 +'px'}"
+          *ngIf="strLogoImageName !='' && bPrintLogo == true"><img [src]='strLogoImageName' alt="" class="image" />
+        </div>
+
+          <div class="Header" #BranchBoxHeight [ngStyle]="bEditWidth ?{'height.px':dBranchBoxHeight,
+          'resize':'vertical'}:{'min-height.px':dBranchBoxHeight,'max-height.px':dBranchBoxHeight}"
+       [style.border]="bHeaderLine ? '' : 'none'">
+
+          <ng-container *ngIf="bHeaderVisible">
+            <!-- <div class="ClsPrintHeader"><strong>{{nPagePrint}}</strong></div> -->
+            <div class="clsCompanyDetails"
+              [ngStyle]="strLogoImageName !='' && bPrintLogo == true && !bHeaderCenterPosition ?{'margin-left.px':95}:{'margin-left.px':1}">
+
+              <ng-container *ngIf="bPrintHeaderImage">
+                <img [src]="strHeaderImage" />
+              </ng-container>
+              <ng-container *ngIf="!bPrintHeaderImage">
+
+                <span class="headerfont"
+                  [ngStyle]="bHeaderCenterPosition ?{'text-align':'center'}:''">&nbsp;{{JsonBranchInfo?.BranchName}}</span>
+                <span class="addressfont"
+                  [ngStyle]="bHeaderCenterPosition ?{'text-align':'center'}:''">&nbsp;{{JsonBranchInfo?.BranchAdr1}}</span>
+                <span class="addressfont"
+                  [ngStyle]="bHeaderCenterPosition ?{'text-align':'center'}:''">&nbsp;{{JsonBranchInfo?.BranchAdr2}}</span>
+                <span class="addressfont"
+                  [ngStyle]="bHeaderCenterPosition ?{'text-align':'center'}:''">&nbsp;{{JsonBranchInfo?.BranchAdr3}}</span>
+
+                <span class="addressfont" *ngIf="JsonBranchInfo?.Phone != '' "
+                  [ngStyle]="bHeaderCenterPosition ?{'text-align':'center'}:''">
+                  &nbsp;Phone&nbsp;&nbsp;:&nbsp;&nbsp;{{JsonBranchInfo?.Phone}}
+                </span>
+
+                <span class="addressfont" *ngIf="JsonBranchInfo?.DLNo1 != '' "
+                  [ngStyle]="bHeaderCenterPosition ?{'text-align':'center'}:''">
+                  &nbsp;DLNos&nbsp;:&nbsp;{{JsonBranchInfo?.DLNo1}}&nbsp;
+                  <ng-container *ngIf="JsonBranchInfo?.DLNo2 != '' ">
+                    ,&nbsp;{{JsonBranchInfo?.DLNo2}}
+                  </ng-container>
+                </span>
+
+
+                <span class="addressfont" *ngIf=" bHeaderCenterPosition && JsonBranchInfo?.Currency != '' "
+                  [ngStyle]="bHeaderCenterPosition ?{'text-align':'center'}:''">
+                  &nbsp;FSSAI&nbsp;NO:&nbsp;{{JsonBranchInfo?.Currency}}
+                </span>
+
+                <div style="width: 100%;float: left;padding-top: 2px;">
+
+                  <span class="clsComState" *ngIf="JsonBranchInfo?.State != '' "
+                    [ngStyle]="bHeaderCenterPosition ?{'top.px':dBranchBoxHeight-19}:bPrintLogo &&  strLogoImageName !='' ?{'margin-left.px':433}:'' "
+                    style="float: left;padding-right: 6px;width:100%;overflow: hidden;">
+                    <span style="width: 53px;float: left;text-align: left;">STATE</span>
+                    <span
+                      style="float: left;white-space: nowrap;">&nbsp;&nbsp;:&nbsp;&nbsp;{{JsonBranchInfo?.Branch_StateName}}[{{JsonBranchInfo?.Branch_StateCode}}]</span>
+                  </span>
+
+
+                  <span class="clComGstTin" *ngIf="JsonBranchInfo?.TinNo1 != '' "
+                  [ngStyle]="bHeaderCenterPosition ?{'top.px':dBranchBoxHeight-4}:bPrintLogo &&  strLogoImageName !='' ?{'margin-left.px':433}:'' "
+                    style="float: left;padding-right: 6px;width:100%;overflow: hidden;">
+                    <span style="width: 53px;float: left;text-align: left;">GSTTIN</span>
+                    <span
+                      style="float: left;white-space: nowrap;">&nbsp;&nbsp;:&nbsp;&nbsp;{{JsonBranchInfo?.TinNo1}}</span>
+                  </span>
+
+                  <span class="clFssai" *ngIf="!bHeaderCenterPosition && JsonBranchInfo?.Currency != '' "
+                  [ngStyle]="bHeaderCenterPosition ?{'top.px':dBranchBoxHeight-19}:bPrintLogo &&  strLogoImageName !='' ?{'margin-left.px':433}:'' "
+                    style="float: left;padding-right: 6px;width:100%;overflow: hidden;">
+                    <span style="width: 53px;float: left;text-align: left;">FSSAI&nbsp;NO</span>
+                    <span
+                      style="float: left;white-space: nowrap;">&nbsp;&nbsp;:&nbsp;&nbsp;{{JsonBranchInfo?.Currency}}</span>
+                  </span>
+
+
+
+                </div>
+
+              </ng-container>
+
+            </div>
+          </ng-container>
+          </div>
+          <!-- <div class="divcomgstdetails">
+           <span style="float: left;padding-left: 3px;">GSTTIN : {{JsonBranchInfo?.TinNo1}}</span>
+           <span style="float: right;padding-right: 3px;">STATE : {{JsonBranchInfo?.Branch_StateName}}({{JsonBranchInfo?.Branch_StateCode}})</span>
+         </div> -->
+          <div class="divbilldatebox">
+            <!-- <span style="float: left;padding-left: 3px;width:320px"></span>    -->
+            <label
+              style="text-align: center;padding-left: 3px;width:600px;">{{JsonIssueInfo?.BillSerDescription}}</label>
+          </div>
+
+          <div #CustomerBoxHeight class="customerdetails"
+          [ngStyle]="bEditWidth ?{'height.px':dCustomerDetailsHeight,'resize':'vertical'}:{'min-height.px':dCustomerDetailsHeight,'max-height.px':dCustomerDetailsHeight}">
+
+          <div #form1 class="form1"
+            [ngStyle]=" bEditWidth ?{'width.px':dCustomerBox1,'resize':'horizontal'}:{'min-width.px':dCustomerBox1,'max-width.px':dCustomerBox1}">
+
+            <span class="clsCustomer1divspan" style="font-weight: 900;">
+              <span style="font-weight: 900;">Billed
+                To&nbsp;&nbsp;:&nbsp;</span>&nbsp;{{JsonIssueInfo?.Issue_CustName}}</span>
+            <span class="clsCustomer1divspan" style="padding-left: 65px;">&nbsp;&nbsp;{{JsonIssueInfo?.Addr1}}</span>
+            <ng-container *ngIf="JsonIssueInfo?.Addr2 !=''">
+              <span class="clsCustomer1divspan" style="padding-left: 65px;">&nbsp;&nbsp;{{JsonIssueInfo?.Addr2}}</span>
+            </ng-container>
+
+            <ng-container *ngIf="JsonIssueInfo?.Addr3 !=''">
+              <span class="clsCustomer1divspan" style="padding-left: 65px;">&nbsp;&nbsp;{{JsonIssueInfo?.Addr3}}</span>
+            </ng-container>
+
+            <span class="clsCustomer1divspan" *ngIf="JsonIssueInfo?.StateName != ''"><span
+                style="float:left;width: 60px;text-align: left;">State</span>
+              <span style="width: 150px;">:&nbsp;&nbsp;{{JsonIssueInfo?.StateName}}
+                [{{JsonIssueInfo?.StateCode}}]</span>
+            </span>
+
+            <span class="clsCustomer1divspan"><span style="float:left;width: 60px;text-align: left;">GSTIN</span>
+              <span
+                style="float:left ;min-width: 120px;max-width: 120px;white-space: nowrap;overflow: hidden;font-weight: bold;">:&nbsp;&nbsp;{{JsonIssueInfo?.Tin1}}</span>
+              <span *ngIf="JsonIssueInfo?.DLNo1 != ''">
+                <span style="float:left; width: 60px;text-align: left;">&nbsp;&nbsp;&nbsp;
+                  DL No1</span>:&nbsp;&nbsp;{{JsonIssueInfo?.DLNo1}}
+              </span>
+            </span>
+
+            <span class="clsCustomer1divspan"><span style="float:left;width: 60px;text-align: left;">Phone</span>
+              <span
+                style="float:left ;min-width: 120px;max-width: 120px;white-space: nowrap;overflow: hidden;font-weight: bold;">:&nbsp;&nbsp;{{JsonIssueInfo?.Phone}}</span>
+              <span *ngIf="JsonIssueInfo?.DLNo2 != ''">
+                <span style="float:left; width: 60px;text-align: left;">&nbsp;&nbsp;&nbsp;
+                  DL No2</span>:&nbsp;&nbsp;{{JsonIssueInfo?.DLNo2}}
+              </span>
+            </span>
+
+          </div>
+
+          <div #form2 class="form2"
+            [ngStyle]=" bEditWidth ?{'width.px':dCustomerBox2,'resize':'horizontal'}:{'min-width.px':dCustomerBox2,'max-width.px':dCustomerBox2}">
+
+            <span class="clsCustomer2divspan"
+              style="text-decoration: underline;">{{strShippingAddressDisplayName}}</span>
+
+            <!-- <span class="clsCustomer2divspan"><span style="float:left;width: 70px;text-align: left;">DL No</span>:  &nbsp;{{JsonIssueInfo?.DLNo1}}</span>
+                <span class="clsCustomer2divspan"><span style="float:left;width: 70px;text-align: left;">DL No</span>:  &nbsp;{{JsonIssueInfo?.DLNo2}}</span>  -->
+
+            <span class="clsCustomer2divspan">&nbsp;{{JsonIssueInfo?.Issue_ShippingName}}</span>
+            <span class="clsCustomer2divspan">&nbsp;{{JsonIssueInfo?.Issue_ShippingAddr1}}</span>
+            <span class="clsCustomer2divspan">&nbsp;{{JsonIssueInfo?.Issue_ShippingAddr2}}</span>
+            <span class="clsCustomer2divspan">&nbsp;{{JsonIssueInfo?.Issue_ShippingTransporter}}</span>
+            <span class="clsCustomer2divspan">&nbsp;{{JsonIssueInfo?.Issue_ShippingState}}</span>
+            <span class="clsCustomer2divspan">&nbsp;{{JsonIssueInfo?.Issue_ShippingStateCode}}</span>
+
+          </div>
+
+
+          <div #form3 class="form3"
+            [ngStyle]=" bEditWidth ?{'width.px':dCustomerBox3,'resize':'horizontal'}:{'min-width.px':dCustomerBox3,'max-width.px':dCustomerBox3}">
+
+            <span style="float: left;padding-left: 3px;width:100%;"></span>
+            <span style="float: left;padding-left: 3px;font-weight: 900;width:100%;"><span
+                style="float:left;width: 70px;text-align: left;">Bill No</span>:&nbsp;{{strBillNo}}</span>
+            <span style="float: left;padding-left: 3px;width:100%;"><span
+                style="float:left;width: 70px;text-align: left;">Bill Date</span>:&nbsp;{{strBillDate}}</span>
+
+            <ng-container *ngIf="bSupplyDate">
+              <span style="float: left;padding-left: 3px;width:100%;"><span
+                  style="float:left;width: 70px;text-align: left;">Supply Date</span>:&nbsp;{{strSupplyDate}}</span>
+            </ng-container>
+
+            <span *ngIf="bPayTerms" style="float: left;padding-left: 3px;width:100%;"><span
+                style="float:left;width: 70px;text-align: left;">Sale
+                Type</span>:&nbsp;{{JsonIssueInfo?.Issue_PayTerms}}</span>
+
+            <ng-container *ngIf="JsonIssueInfo?.Issue_OrderNo !=''">
+              <span style="float: left;padding-left: 3px;width:100%;"><span
+                  style="float:left;width: 70px;text-align: left;">Order
+                  No</span>:&nbsp;{{JsonIssueInfo?.Issue_OrderNo}}</span>
+              <span style="float: left;padding-left: 3px;width:100%;"><span
+                  style="float:left;width: 70px;text-align: left;">Order Date</span>:&nbsp;{{strOrderDate}}
+              </span>
+            </ng-container>
+
+            <ng-container *ngIf="JsonIssueInfo?.Issue_VechileNo !=''">
+              <span style="float: left;padding-left: 3px;width:100%;"><span
+                  style="float:left;width: 70px;text-align: left;">Vehile
+                  No</span>:&nbsp;{{JsonIssueInfo?.Issue_VechileNo}}</span>
+            </ng-container>
+            <!-- <span style="float: left;padding-left: 3px;width:100%;"><span style="float:left;width: 60px;text-align: left;">State</span>:  &nbsp;{{JsonIssueInfo?.StateName}}</span>
+            <span style="float: left;padding-left: 3px;width:100%;"><span style="float:left;width: 60px;text-align: left;">Code</span>:  &nbsp;{{JsonIssueInfo?.StateCode}}</span> -->
+            <span *ngIf="bSalesman" style="float: left;padding-left: 3px;width:100%;"><span
+                style="float:left;width: 70px;text-align: left;">SalesMan</span>:&nbsp;{{JsonIssueInfo?.SalesManName}}</span>
+          </div>
+
+        </div>
+
+
+          <!-- [ngStyle]="{'min-height.px':dProductDetailsHeight, 'max-height.px':dProductDetailsHeight}" -->
+
+          <div class="ProductDetails">
+            <table>
+              <thead>
+                <tr>
+                  <ng-container *ngFor="let col of PrintItemColumnDetails">
+
+                    <th *ngIf="col.ColumnName=='No'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="tblNo" style="text-align: center; border-bottom: 0.0px #635e5e solid;font-weight: normal;">
+                      No
+                    </th>
+                    <th *ngIf="col.ColumnName=='Product'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="tblProduct"
+                      style="text-align: center; border-bottom: 0.0px #635e5e solid;font-weight: normal;">
+                      Commodity&nbsp;Items</th>
+                    <th *ngIf="col.ColumnName=='MFRNo'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="MFRNo" style="text-align: center; border-bottom: 0.0px #635e5e solid;font-weight: normal;">
+                      MFR</th>
+                    <th *ngIf="col.ColumnName=='HsnCode'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="HSNCode"
+                      style="text-align: center; border-bottom: 0.0px #635e5e solid;font-weight: normal;">
+                      HSNCode</th>
+
+                    <th *ngIf="col.ColumnName=='Qty'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="Qty" style="text-align: center; border-bottom: 0.0px #635e5e solid;font-weight: normal;">
+                      Qty
+                    </th>
+                    <th *ngIf="col.ColumnName=='Free'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="Free" style="text-align: center; border-bottom: 0.0px #635e5e solid;font-weight: normal;">
+                      Free
+                    </th>
+                    <th *ngIf="col.ColumnName=='Batch'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="Batch" style="text-align: center; border-bottom: 0.0px #635e5e solid;font-weight: normal;">
+                      Batch</th>
+                    <th *ngIf="col.ColumnName=='ExpDate'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="ExpDate"
+                      style="text-align: center; border-bottom: 0.0px #635e5e solid;font-weight: normal;">
+                      Expiry</th>
+                    <th *ngIf="col.ColumnName=='Unit'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="Unit" style="text-align: center; border-bottom: 0.0px #635e5e solid;font-weight: normal;">
+                      Unit
+                    </th>
+                    <th *ngIf="col.ColumnName=='UnitPrice'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="UnitPrice"
+                      style="text-align: center; border-bottom: 0.0px #635e5e solid;font-weight: normal;">
+                      Price</th>
+
+                    <th *ngIf="col.ColumnName=='PTR'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="PTR" style="text-align: center; border-bottom: 0.0px #635e5e solid;font-weight: normal;">
+                      {{strPTRHeaderName}}</th>
+
+                    <th *ngIf="col.ColumnName=='PTW'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="PTW" style="text-align: center; border-bottom: 0.0px #635e5e solid;font-weight: normal;">
+                      {{strPTWHeaderName}}</th>
+
+                    <th *ngIf="col.ColumnName=='PricePlusTax'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="PricePlusTax"
+                      style="text-align: center; border-bottom: 0.0px #635e5e solid;font-weight: normal;">Price+</th>
+
+                    <th *ngIf="col.ColumnName=='Mrp'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="Mrp" style="text-align: center; border-bottom: 0.0px #635e5e solid;font-weight: normal;">
+                      MRP
+                    </th>
+
+                    <th *ngIf="col.ColumnName=='GrossValue'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="GrossValue"
+                      style="text-align: center; border-bottom: 0.0px #635e5e solid;font-weight: normal;">Gross</th>
+
+                    <th *ngIf="col.ColumnName=='CashDisc'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="CashDisc"
+                      style="text-align: center; border-bottom: 0.0px #635e5e solid;font-weight: normal;">
+                      Disc</th>
+
+                    <th *ngIf="col.ColumnName=='SchemAmt'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="SchemAmt"
+                      style="text-align: center; border-bottom: 0.0px #635e5e solid;font-weight: normal;">
+                      Scheme</th>
+
+                    <th *ngIf="col.ColumnName=='Gst'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="RateofTax"
+                      style="text-align: center; border-bottom: 0.0px #635e5e solid;font-weight: normal;">
+                      GST</th>
+
+                    <th *ngIf="col.ColumnName=='GstAmt'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="GstAmount"
+                      style="text-align: center; border-bottom: 0.0px #635e5e solid;font-weight: normal;">
+                      GST</th>
+
+                    <th *ngIf="col.ColumnName=='Amount'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="Amount"
+                      style="text-align: center; border-bottom: 0.0px #635e5e solid;font-weight: normal;">
+                      Amount</th>
+
+                    <th *ngIf="col.ColumnName=='CessPers'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="CessPers"
+                      style="text-align: center; border-bottom: 0.0px #635e5e solid;font-weight: normal;">
+                      Cess</th>
+
+                    <th *ngIf="col.ColumnName=='CessAmt'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="CessAmt"
+                      style="text-align: center; border-bottom: 0.0px #635e5e solid;font-weight: normal;">
+                      Cess</th>
+
+                    <th *ngIf="col.ColumnName=='AmtBeforeTotDis'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="AmtBeforeTotDis"
+                      style="text-align: center; border-bottom: 0.0px #635e5e solid;font-weight: normal;">
+                      Amount</th>
+
+                  </ng-container>
+
+                </tr>
+
+                <tr >
+                  <ng-container *ngFor="let col of PrintItemColumnDetails">
+
+                    <th *ngIf="col.ColumnName=='No'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="tblNo" style="text-align: center; border-bottom: 0.2px #635e5e solid;font-weight: normal;">
+                      &nbsp;</th>
+                    <th *ngIf="col.ColumnName=='Product'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="tblProduct"
+                      style="text-align: center; border-bottom: 0.2px #635e5e solid;font-weight: normal;">&nbsp;</th>
+                    <th *ngIf="col.ColumnName=='MFRNo'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="MFRNo" style="text-align: center; border-bottom: 0.2px #635e5e solid;font-weight: normal;">
+                      &nbsp;</th>
+                    <th *ngIf="col.ColumnName=='HsnCode'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="HSNCode"
+                      style="text-align: center; border-bottom: 0.2px #635e5e solid;font-weight: normal;">
+                      SAC</th>
+
+                    <th *ngIf="col.ColumnName=='Qty'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="Qty" style="text-align: center; border-bottom: 0.2px #635e5e solid;font-weight: normal;">
+                      &nbsp;
+                    </th>
+                    <th *ngIf="col.ColumnName=='Free'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="Free" style="text-align: center; border-bottom: 0.2px #635e5e solid;font-weight: normal;">
+                      &nbsp;</th>
+                    <th *ngIf="col.ColumnName=='Batch'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="Batch" style="text-align: center; border-bottom: 0.2px #635e5e solid;font-weight: normal;">
+                      &nbsp;</th>
+                    <th *ngIf="col.ColumnName=='ExpDate'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="ExpDate"
+                      style="text-align: center; border-bottom: 0.2px #635e5e solid;font-weight: normal;">
+                      &nbsp;</th>
+                    <th *ngIf="col.ColumnName=='Unit'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="Unit" style="text-align: center; border-bottom: 0.2px #635e5e solid;font-weight: normal;">
+                      &nbsp;</th>
+                    <th *ngIf="col.ColumnName=='UnitPrice'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="UnitPrice"
+                      style="text-align: center; border-bottom: 0.2px #635e5e solid;font-weight: normal;">
+                      &nbsp;</th>
+                    <th *ngIf="col.ColumnName=='PTR'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="PTR" style="text-align: center; border-bottom: 0.2px #635e5e solid;font-weight: normal;">
+                      &nbsp;</th>
+
+                    <th *ngIf="col.ColumnName=='PTW'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="PTW" style="text-align: center; border-bottom: 0.2px #635e5e solid;font-weight: normal;">
+                      &nbsp;</th>
+
+                    <th *ngIf="col.ColumnName=='PricePlusTax'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="PricePlusTax"
+                      style="text-align: center; border-bottom: 0.2px #635e5e solid;font-weight: normal;">Gst</th>
+                    <th *ngIf="col.ColumnName=='Mrp'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="Mrp" style="text-align: center; border-bottom: 0.2px #635e5e solid;font-weight: normal;">
+                      &nbsp;
+                    </th>
+                    <th *ngIf="col.ColumnName=='GrossValue'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="GrossValue"
+                      style="text-align: center; border-bottom: 0.2px #635e5e solid;font-weight: normal;">Value</th>
+                    <th *ngIf="col.ColumnName=='CashDisc'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="CashDisc"
+                      style="text-align: center; border-bottom: 0.2px #635e5e solid;font-weight: normal;">
+                      &nbsp;</th>
+                    <th *ngIf="col.ColumnName=='SchemAmt'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="SchemAmt"
+                      style="text-align: center; border-bottom: 0.2px #635e5e solid;font-weight: normal;">
+                      Amount</th>
+                    <th *ngIf="col.ColumnName=='Gst'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="RateofTax"
+                      style="text-align: center; border-bottom: 0.2px #635e5e solid;font-weight: normal;">
+                      %</th>
+                    <th *ngIf="col.ColumnName=='GstAmt'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="GstAmount"
+                      style="text-align: center; border-bottom: 0.2px #635e5e solid;font-weight: normal;">
+                      Amount</th>
+                    <th *ngIf="col.ColumnName=='Amount'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="Amount"
+                      style="text-align: center; border-bottom: 0.2px #635e5e solid;font-weight: normal;">
+                      &nbsp;</th>
+
+                    <th *ngIf="col.ColumnName=='CessPers'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="CessPers"
+                      style="text-align: center; border-bottom: 0.2px #635e5e solid;font-weight: normal;">
+                      %</th>
+
+                    <th *ngIf="col.ColumnName=='CessAmt'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="CessAmt"
+                      style="text-align: center; border-bottom: 0.2px #635e5e solid;font-weight: normal;">
+                      Amount</th>
+
+                    <th *ngIf="col.ColumnName=='AmtBeforeTotDis'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="AmtBeforeTotDis"
+                      style="text-align: center; border-bottom: 0.2px #635e5e solid;font-weight: normal;">
+                      &nbsp;</th>
+
+                  </ng-container>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of ArrayList" [ngClass]="{'clsProductBottom': bProductBorderLine && item.ItemDesc !='' }">
+                  <ng-container *ngFor="let col of PrintItemColumnDetails">
+                    <td *ngIf="col.ColumnName=='No'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="tblNo">{{item.SlNo}}&nbsp;</td>
+                    <td *ngIf="col.ColumnName=='Product'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="tblProduct">
+                      &nbsp;{{item.ItemDesc}}</td>
+                    <td *ngIf="col.ColumnName=='MFRNo'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="MFRNo">&nbsp;{{item.MFR}}</td>
+                    <td *ngIf="col.ColumnName=='HsnCode'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="HSNCode">
+                      &nbsp;{{item.HSNCode}}</td>
+                    <td *ngIf="col.ColumnName=='Qty'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="Qty">{{item.IssueSub_Qty}}&nbsp;</td>
+                    <td *ngIf="col.ColumnName=='Free'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="Free">{{item.IssueSub_FreeQty}}&nbsp;</td>
+                    <td *ngIf="col.ColumnName=='Batch'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="Batch">{{item.Batch}}&nbsp;</td>
+                    <td *ngIf="col.ColumnName=='ExpDate'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="ExpDate">
+                      {{item.ExpDate}}&nbsp;</td>
+                    <td *ngIf="col.ColumnName=='Unit'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="Unit">{{item.Unit}}&nbsp;</td>
+                    <td *ngIf="col.ColumnName=='UnitPrice'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="UnitPrice">
+                      {{item.Rate}}&nbsp;</td>
+
+                    <td *ngIf="col.ColumnName=='PTR'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="PTR">{{item.PTR}}&nbsp;</td>
+
+                    <td *ngIf="col.ColumnName=='PTW'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="PTW">{{item.PTW}}&nbsp;</td>
+
+                    <td *ngIf="col.ColumnName=='PricePlusTax'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="PricePlusTax">
+                      {{item.IssueSub_OriginalRate}}&nbsp;</td>
+                    <td *ngIf="col.ColumnName=='Mrp'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="Mrp">{{item.IssueSub_Mrp}}&nbsp;</td>
+                    <td *ngIf="col.ColumnName=='GrossValue'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="GrossValue">
+                      {{item.GrossValue}}&nbsp;</td>
+                    <td *ngIf="col.ColumnName=='CashDisc'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="CashDisc">
+                      {{item.CashDisc}}&nbsp;</td>
+                    <td *ngIf="col.ColumnName=='SchemAmt'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="SchemAmt">
+                      {{item.SchemAmt}}&nbsp;</td>
+                    <td *ngIf="col.ColumnName=='Gst'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="RateofTax">{{item.IssueSub_TaxPers}}&nbsp;</td>
+                    <td *ngIf="col.ColumnName=='GstAmt'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="GstAmount">
+                      {{item.IssueSub_TaxAmt}}&nbsp;</td>
+                    <td *ngIf="col.ColumnName=='Amount'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="Amount">
+                      {{item.RowTotal}}&nbsp;</td>
+
+                    <td *ngIf="col.ColumnName=='CessPers'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="CessPers">
+                      {{item.CessPers}}&nbsp;</td>
+                    <td *ngIf="col.ColumnName=='CessAmt'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="CessAmt">
+                      {{item.CessAmt}}&nbsp;</td>
+                    <td *ngIf="col.ColumnName=='AmtBeforeTotDis'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="AmtBeforeTotDis">
+                      {{item.AmtBeforeTotDis}}&nbsp;</td>
+                  </ng-container>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <ng-container *ngFor="let col of PrintItemColumnDetails">
+                    <td *ngIf="col.ColumnName=='No'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="tblNo $primary-color" style="border-top: 0.2px  solid;font-weight: bold;">&nbsp;</td>
+                    <td *ngIf="col.ColumnName=='Product'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="tblProduct $primary-color"
+                      style="text-align: center;border-top: 0.2px  solid;font-weight: bold;">&nbsp;TOTAL</td>
+                    <td *ngIf="col.ColumnName=='MFRNo'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="MFRNo $primary-color" style="border-top: 0.2px  solid;font-weight: bold;">&nbsp;</td>
+                    <td *ngIf="col.ColumnName=='HsnCode'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="HSNCode $primary-color"
+                      style="border-top: 0.2px  solid;font-weight: bold;">&nbsp;</td>
+                    <td *ngIf="col.ColumnName=='Qty'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="Qty $primary-color" style="border-top: 0.2px  solid;font-weight: bold;">
+                      <ng-container *ngIf="(oArray.length-1) == strPageNo">
+                        {{TotQty}}&nbsp;
+                      </ng-container>
+                      &nbsp;
+                    </td>
+                    <td *ngIf="col.ColumnName=='Free'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="Free $primary-color" style="border-top: 0.2px  solid;font-weight: bold;">
+                      <ng-container *ngIf="(oArray.length-1) == strPageNo">
+                        {{TotFQty}}&nbsp;
+                      </ng-container>
+                      &nbsp;
+                    </td>
+                    <td *ngIf="col.ColumnName=='Batch'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="Batch $primary-color" style="border-top: 0.2px  solid;font-weight: bold;">&nbsp;</td>
+                    <td *ngIf="col.ColumnName=='ExpDate'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="ExpDate $primary-color"
+                      style="border-top: 0.2px  solid;font-weight: bold;">&nbsp;</td>
+                    <td *ngIf="col.ColumnName=='Unit'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="Unit $primary-color" style="border-top: 0.2px  solid;font-weight: bold;">&nbsp;</td>
+
+                    <td *ngIf="col.ColumnName=='UnitPrice'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="UnitPrice $primary-color"
+                      style="border-top: 0.2px  solid;font-weight: bold;">&nbsp;</td>
+
+                    <td *ngIf="col.ColumnName=='PTR'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="PTR $primary-color" style="border-top: 0.2px  solid;font-weight: bold;">&nbsp;</td>
+
+                    <td *ngIf="col.ColumnName=='PTW'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="PTW $primary-color" style="border-top: 0.2px  solid;font-weight: bold;">&nbsp;</td>
+
+
+                    <td *ngIf="col.ColumnName=='PricePlusTax'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="PricePlusTax $primary-color" style="border-top: 0.2px  solid;font-weight: bold;">&nbsp;
+                    </td>
+                    <td *ngIf="col.ColumnName=='Mrp'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="Mrp $primary-color" style="border-top: 0.2px  solid;font-weight: bold;">&nbsp;</td>
+                    <td *ngIf="col.ColumnName=='GrossValue'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="GrossValue $primary-color"
+                      style="border-top: 0.2px  solid;font-weight: bold;">
+                      <ng-container *ngIf="(oArray.length-1) == strPageNo">
+                        {{TotGrossValue | number : '1.2-2' }}&nbsp;
+                      </ng-container>
+                    </td>
+                    <td *ngIf="col.ColumnName=='CashDisc'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="CashDisc $primary-color"
+                      style="border-top: 0.2px  solid;font-weight: bold;">&nbsp;</td>
+                    <td *ngIf="col.ColumnName=='SchemAmt'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="SchemAmt $primary-color"
+                      style="border-top: 0.2px  solid;font-weight: bold;">&nbsp;</td>
+                    <td *ngIf="col.ColumnName=='Gst'" [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="RateofTax $primary-color" style="border-top: 0.2px  solid;font-weight: bold;">&nbsp;</td>
+                    <td *ngIf="col.ColumnName=='GstAmt'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="GstAmount $primary-color"
+                      style="border-top: 0.2px  solid;font-weight: bold;">
+                      <ng-container *ngIf="(oArray.length-1) == strPageNo">
+                        {{TotTaxAmt | number : '1.2-2' }}&nbsp;
+                      </ng-container>
+                    </td>
+                    <td *ngIf="col.ColumnName=='Amount'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="Amount $primary-color"
+                      style="border-top: 0.2px  solid;font-weight: bold;">
+                      <ng-container *ngIf="(oArray.length-1) == strPageNo">
+                        {{dTotBillRowTotal | number : '1.2-2' }}
+                      </ng-container>
+                      &nbsp;
+                    </td>
+
+                    <td *ngIf="col.ColumnName=='CessPers'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="CessPers $primary-color"
+                      style="border-top: 0.2px  solid;font-weight: bold;">&nbsp;</td>
+                    <td *ngIf="col.ColumnName=='CessAmt'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}" class="CessAmt $primary-color"
+                      style="border-top: 0.2px  solid;font-weight: bold;">
+                      <ng-container *ngIf="(oArray.length-1) == strPageNo">
+                        {{TotCessAmt | number : '1.2-2' }}&nbsp;
+                      </ng-container>
+                    </td>
+                    <td *ngIf="col.ColumnName=='AmtBeforeTotDis'"
+                      [ngStyle]="{'min-width.px':col.Width, 'max-width.px':col.Width}"
+                      class="AmtBeforeTotDis $primary-color" style="border-top: 0.2px  solid;font-weight: bold;">
+                      <ng-container *ngIf="(oArray.length-1) == strPageNo">
+                        {{dTotAmtBeforeTotDis | number : '1.2-2' }}
+                      </ng-container>
+                      &nbsp;
+                    </td>
+
+                  </ng-container>
+                </tr>
+              </tfoot>
+            </table>
+
+          </div>
+
+          <div class="FotterSection">
+
+            <div #taxdetails class="taxdetails"
+              [ngStyle]=" bEditWidth ?{'width.px':dFotterTaxsectionWidth,'resize':'horizontal'}:{'min-width.px':dFotterTaxsectionWidth,'max-width.px':dFotterTaxsectionWidth}">
+
+              <table *ngIf="(oArray.length-1) == strPageNo" class="tblTaxDetails">
+                <thead>
+                  <th style="text-align: center;">&nbsp;%</th>
+                  <th>TAXABLE</th>
+                  <th>GST</th>
+                  <th>SGST</th>
+                  <th>CGST</th>
+                  <th>IGST</th>
+                  <th *ngIf="TotCessAmt !=0">KFC</th>
+                  <th *ngIf="TotAddCess !=0">Add.Cess</th>
+                </thead>
+                <tbody *ngFor="let taxinfo of argTaxIds">
+                  <tr *ngIf="taxinfo.Active">
+                    <td style="text-align: center;">{{taxinfo.TaxPercent}}%</td>
+                    <td>{{taxinfo.Amount}}</td>
+                    <td>{{taxinfo.TaxAmount}}</td>
+                    <td>{{taxinfo.SGSTTaxAmount}}</td>
+                    <td>{{taxinfo.CGSTTaxAmount}}</td>
+                    <td>{{taxinfo.IGSTTaxAmount}}</td>
+                    <td *ngIf="TotCessAmt !=0">{{taxinfo.CessAmt}}</td>
+                    <td *ngIf="TotAddCess !=0">{{taxinfo.AdditionalCessAmt}}</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div class="BankDetails">
+                <div class="banksection" *ngIf="bBankDisplay">
+                  <span style="width: 100%; display: block;">BankName&nbsp;:&nbsp;{{JsonBranchInfo?.Branch_BankName}}
+                  </span>
+                  <span style="width: 100%; display: block;" *ngIf="JsonBranchInfo?.Branch_BankAddr1 != '' ">
+                    {{JsonBranchInfo?.Branch_BankAddr1}}
+                  </span>
+                  <span style="font-weight: 800;">Ac&nbsp;No&nbsp;:&nbsp;{{JsonBranchInfo?.Branch_BankAcNo}}&nbsp;,&nbsp;Bank
+                    IFSC&nbsp;:&nbsp;{{JsonBranchInfo?.Branch_IFSCCODE}}
+                  </span>
+                </div>
+
+                <div *ngIf="JsonIssueInfo?.Flag == 'Yes' && JsonIssueInfo?.OldBalance != 0 " class="divOutstanding">
+                  <span>
+                    <span style="width: 60px;float: left;">O/S AMT</span><span
+                      style="float: left;text-align: center;width: 10px;">:</span>
+                    {{JsonIssueInfo?.OldBalance| number : '1.2-2'}}
+                  </span>
+                  <span>
+                    <span style="width: 60px;float: left;">BILL AMT</span><span
+                      style="float: left;text-align: center;width: 10px;">:</span>
+                    {{dTotalBillTotal| number : '1.2-2'}}
+                  </span>
+
+                  <span>
+                    <span style="width: 60px;float: left;">Balance</span><span
+                      style="float: left;text-align: center;width: 10px;">:</span>
+                    {{dBillBalance| number : '1.2-2'}}
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div #QrDetails *ngIf="dQRCodeWidth>0" class="clsQrDetails"
+              [ngStyle]=" bEditWidth ?{'width.px':dQRCodeWidth,'resize':'horizontal'}:{'min-width.px':dQRCodeWidth,'max-width.px':dQRCodeWidth}"
+              >
+              <span>UPI CODE</span>
+              <ng-container *ngIf="!bQRImageType">
+                <ngx-qrcode class="qrimg" [elementType]="elementType" [value]="strQRCode" cssClass="aclass"
+                  errorCorrectionLevel="L">
+                </ngx-qrcode>
+              </ng-container>
+
+              <img *ngIf="bQRImageType" [src]="strQrImage" />
+            </div>
+
+
+            <div #AmtWordSection class="clsAmtWordSection"
+              [ngStyle]=" bEditWidth ?{'width.px':dFooterAmountWordSectionWidth,'resize':'horizontal'}:{'min-width.px':dFooterAmountWordSectionWidth,'max-width.px':dFooterAmountWordSectionWidth}">
+              <table>
+                <tr>
+                  <td style="border-left: none;border-top: none;padding-right: 5px;border-right: none;">AmtBeforeTax</td>
+                </tr>
+                <tr>
+                  <td style="border-left: none;border-top: none;border-right: none;padding-right: 5px;">
+                    <ng-container *ngIf="JsonIssueInfo?.Issue_Block!='Amt'">
+                      Dis% <ng-container *ngIf="bDiscountVisible">
+                        ({{JsonIssueInfo?.Issue_DisPers}})
+                      </ng-container>
+
+                    </ng-container>
+                    <ng-container *ngIf="JsonIssueInfo?.Issue_Block=='Amt'">
+                      Discount
+                    </ng-container>
+
+                  </td>
+                </tr>
+                <tr>
+                  <td style="border-left: none;border-top: none;border-right: none;padding-right: 5px;">Add GST</td>
+                </tr>
+                <tr>
+                  <td style="border-left: none;border-top: none;border-right: none;padding-right: 5px;">Add : TCS</td>
+                </tr>
+                <tr *ngIf="TotCessAmt !=0">
+                  <td style="border-left: none;border-top: none;border-right: none;padding-right: 5px;">Add KFC</td>
+                </tr>
+                <tr>
+                  <td style="border-left: none;border-top: none;border-right: none;padding-right: 5px;">{{
+                    JsonIssueInfo?.Field2}}</td>
+                </tr>
+                <tr>
+                  <td style="border-left: none;border-top: none;border-right: none;padding-right: 5px;">Courier Charge
+                  </td>
+                </tr>
+                <tr>
+                  <td style="border:none;padding-right: 5px;">Rof</td>
+                </tr>
+              </table>
+            </div>
+
+            <div #AmtSection class="clsAmtSection"
+              [ngStyle]=" bEditWidth ?{'width.px':dFooterAmountSectionWidth,'resize':'horizontal'}:{'min-width.px':dFooterAmountSectionWidth,'max-width.px':dFooterAmountSectionWidth}">
+              <table>
+                <tr>
+                  <td style="border-right: none;border-top: none;">
+                    <ng-container *ngIf="(oArray.length-1) == strPageNo">{{ TotAmtBeforeTax | number : '1.2-2' }}
+                    </ng-container>&nbsp;
+                  </td>
+                </tr>
+                <tr>
+
+                  <!-- <td>:</td> -->
+                  <td style="border-right: none;">
+                    <ng-container *ngIf="(oArray.length-1) == strPageNo && bDiscountVisible">{{ TotDisAmt | number :
+                      '1.2-2' }}
+                    </ng-container>
+                    &nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td style="border-right: none;">
+                    <ng-container *ngIf="(oArray.length-1) == strPageNo">{{ TotSGstTotal+TotCGstTotal+TotIGstTotal |
+                      number : '1.2-2' }}
+                    </ng-container> &nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td style="border-right: none;">
+                    <ng-container *ngIf="(oArray.length-1) == strPageNo">{{ JsonIssueInfo?.Issue_TCSAmt | number : '1.2-2'
+                      }}
+                    </ng-container> &nbsp;
+                  </td>
+                </tr>
+
+                <tr *ngIf="TotCessAmt !=0">
+                  <td style="border-right: none;">
+                    <ng-container *ngIf="(oArray.length-1) == strPageNo">{{ TotCessAmt | number : '1.2-2' }}
+                    </ng-container>
+                    &nbsp;
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="border-right: none;">
+                    <ng-container *ngIf="(oArray.length-1) == strPageNo">{{
+                      JsonIssueInfo?.Issue_OtherCharge+JsonIssueInfo?.Issue_OtherTaxAmt | number : '1.2-2'
+                      }}
+                    </ng-container> &nbsp;
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="border-right: none;">
+                    <ng-container *ngIf="(oArray.length-1) == strPageNo">{{
+                      JsonIssueInfo?.Issue_Freight+JsonIssueInfo?.Issue_CourierTaxAmt | number : '1.2-2'
+                      }}
+                    </ng-container> &nbsp;
+                  </td>
+                </tr>
+
+                <tr>
+
+                  <td style="border-right: none;border-bottom: none;">
+                    <ng-container *ngIf="(oArray.length-1) == strPageNo">
+                      {{ JsonIssueInfo?.Issue_ROF | number : '1.2-2' }}
+                    </ng-container> &nbsp;
+                  </td>
+                </tr>
+
+              </table>
+
+            </div>
+
+
+
+
+            <div class="FooterTotalSection">
+
+              <span class="AmtInWords"
+                [ngStyle]=" bEditWidth ?{'width.px':dAmtInWordsWidth,'resize':'horizontal'}:{'min-width.px':dAmtInWordsWidth,'max-width.px':dAmtInWordsWidth}">
+                <ng-container *ngIf="(oArray.length-1) == strPageNo">Rupees : {{ JsonIssueInfo?.AmtInWords }}
+                </ng-container>
+
+                <span style="float: right;" class="GrandTotalLabel">
+                  &nbsp;Bill Total
+                </span>
+
+              </span>
+              <div
+                [ngStyle]="{'min-width.px':dFooterAmountSectionWidth+dFooterAmountWordSectionWidth-1, 'max-width.px':dFooterAmountSectionWidth+dFooterAmountWordSectionWidth-1}"
+                style="float: left;">
+
+                <!-- <span class="GrandTotalLabel"
+                  [ngStyle]=" bEditWidth ?{'width.px':dFooterAmountWordSectionWidth-20,'resize':'horizontal'}:{'min-width.px':dFooterAmountWordSectionWidth-20,'max-width.px':dFooterAmountWordSectionWidth-20}">Bill
+                  Total</span> -->
+                <span class="GrandTotalAmount"
+                  [ngStyle]="{'min-width.px':dFooterAmountSectionWidth+dFooterAmountWordSectionWidth-10, 'max-width.px':dFooterAmountSectionWidth+dFooterAmountWordSectionWidth-10}">
+
+                  <ng-container *ngIf="(oArray.length-1) == strPageNo"><i class="fa fa-rupee" style="font-size:16px;"></i>
+                    &nbsp;{{ dTotalBillTotal | number : '1.2-2' }}
+                  </ng-container>&nbsp;
+                </span>
+
+              </div>
+
+            </div>
+
+
+          </div>
+
+          <ng-container *ngIf="JsonIssueInfo?.Remarks !='' ">
+            <div class="MessageDiv">
+              <span style="font-weight: bold;padding-left: 4px;">{{JsonIssueInfo?.Remarks}} </span>
+            </div>
+          </ng-container>
+
+          <div class="DeclareSection" *ngIf="bDeclaration">
+
+            <ng-container>
+
+              <div #DeclareWordSectionWidth class="DeclareDetails" [ngStyle]=" bEditWidth ?{'width.px':dDeclareWordSectionWidth,'resize':'horizontal'}:
+                  {'min-width.px':dDeclareWordSectionWidth,'max-width.px':dDeclareWordSectionWidth}">
+
+                <ng-container>
+                  <span [ngStyle]="bDeclarationFirstLineBold ? {'font-size':'11px','padding-left':'20px' }:''"
+                    style="font-weight: bold;width:100%;float: left;">{{JsonBranchInfo?.Branch_Declaration1}}</span>
+                  <span style="font-weight: bold;width:100%;float: left;">{{JsonBranchInfo?.Branch_Declaration2}}</span>
+                  <span style="font-weight: bold;width:100%;float: left;">{{JsonBranchInfo?.Branch_Declaration3}}</span>
+                  <span style="font-weight: bold;width:100%;float: left;">{{JsonBranchInfo?.Branch_Declaration4}}</span>
+                </ng-container>
+
+              </div>
+
+              <div #SignatureSectionWidth class="SignatureSection" style="float: right;" [ngStyle]=" bEditWidth ?{'width.px':dSignatureSectionWidth,'resize':'horizontal'}:
+                  {'min-width.px':dSignatureSectionWidth,'max-width.px':dSignatureSectionWidth}">
+
+                <div style="float: left;">
+                  <span
+                    style="width: 100%;overflow: hidden;float: left;white-space: nowrap;">For&nbsp;{{JsonBranchInfo?.BranchName}}</span>
+                  <br />
+                  <br />
+                  <br />
+                  <span>Authorised&nbsp;Signatory</span>
+                </div>
+
+                <div *ngIf="(oArray.length-1) != strPageNo" style="float: right;font-weight:bolder">
+                  <br />
+                  <br />
+                  <br />
+                  Continue ...
+                </div>
+
+              </div>
+            </ng-container>
+          </div>
+
+          <div style="border-bottom: 1px solid;width: 100%;float: left;"
+            *ngIf="JsonBranchInfo?.BranchFtr1 !='' || JsonBranchInfo?.BranchFtr2 !='' ">
+            <ng-container *ngIf="JsonBranchInfo?.BranchFtr1 !='' ">
+              <div class="MessageDiv">
+                <span class="MessageSection" style="padding-top: 4px;">&nbsp;{{JsonBranchInfo?.BranchFtr1}}</span>
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="JsonBranchInfo?.BranchFtr2 !='' ">
+              <div class="MessageDiv">
+                <span class="MessageSection">&nbsp;{{JsonBranchInfo?.BranchFtr2}}</span>
+              </div>
+            </ng-container>
+          </div>
+
+          <div *ngIf="bAcknowledgement" class="Acknowledgement">
+
+            <div style="width:360px;float:left;padding-left: 4px;overflow: hidden;">
+              <br>
+              <span class="subheading" style="float:left;;width:80px;text-align:left;float:left">&nbsp;Party</span>
+              <span class="subheading" style="float:left;width:10px;text-align:center;float:left">:</span>
+              <span class="subheading"
+                style="width:260px;text-align:left;float:left;white-space: nowrap;overflow: hidden;">&nbsp;{{JsonIssueInfo?.Issue_CustName}}</span>
+              <span class="subheading" style="float:left;width:80px;text-align:left;float:left">&nbsp;INVNO&nbsp;&DATE
+              </span>
+              <span class="subheading" style="float:left;width:10px;text-align:center;float:left">:</span>
+              <span class="subheading"
+                style="float:left;width:260px;text-align:left;float:left;white-space: nowrap;overflow: hidden;">&nbsp;
+                {{
+                JsonIssueInfo?.BillSerPrefix }}-{{ JsonIssueInfo?.Issue_SlNo}}&nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;{{
+                strBillDate}}</span>
+              <span class="subheading" style="float:left;width:80px;text-align:left;float:left">&nbsp;Amount</span>
+              <span class="subheading" style="float:left;width:10px;text-align:center;float:left">:</span>
+              <span class="subheading"
+                style="float:left;font-weight: bold;width:260px;text-align:left;white-space: nowrap;overflow: hidden;">&nbsp;{{
+                dTotalBillTotal | number : '1.2-2' }}</span>
+
+
+            </div>
+
+
+            <div style="width:350px;float:left;overflow: hidden;">
+              <span class="subheading" style="font-weight: bold;text-align:left;float:left;width:100%;">
+                &nbsp;{{JsonBranchInfo?.BranchName}}</span>
+              <span class="subheading"
+                style="text-align:left;float:left;width:100%;white-space: nowrap;overflow: hidden;">&nbsp;{{JsonBranchInfo?.BranchAdr1}}</span>
+              <span class="subheading"
+                style="text-align:left;float:left;width:100%;white-space: nowrap;overflow: hidden;">&nbsp;{{JsonBranchInfo?.BranchAdr2}}</span>
+
+              <br>
+              <span class="subheading"
+                style="float:left;width:100%;text-align:center;float:left;height:28px;width:100%;">&nbsp;</span>
+              <span class="subheading" style="float:left;width:254px;text-align:right;width:100%;">Customer
+                Signature with seal</span>
+            </div>
+
+
+          </div>
+
+
+          <!-- <div class="FooterImage" #FooterImageHeight *ngIf="bFooterImageBox"
+            [ngStyle]="bEditWidth ?{'height.px':dFooterImageBoxHeight,'resize':'vertical'}:{'min-height.px':dFooterImageBoxHeight,'max-height.px':dFooterImageBoxHeight}">
+
+            <img  src="{{strFooterImage}}" />
+          </div> -->
+
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+

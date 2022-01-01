@@ -1,0 +1,159 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <!-- <ion-menu-button></ion-menu-button> -->
+      <ion-button (click)="onBack()">
+        <ion-icon mode="ios" slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Ledger
+    </ion-title>
+
+    <ion-buttons slot="end">
+
+      <ion-button *ngIf="content" (click)="fnSharepage()">
+        <ion-icon mode="ios" slot="icon-only" name="share"></ion-icon>
+      </ion-button>
+
+      <ion-button (click)="searchbar = !searchbar">
+        <ion-icon mode="ios" slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+
+  <ion-toolbar *ngIf="searchbar">
+    <ion-searchbar mode="ios" #search placeholder="Filter Report" showCancelButton="focus" animated (ionInput)='fnSearch($event)'
+      (ionCancel)='fnClose($event)'></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid *ngIf="!content" class="inner-border">
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="stacked">From</ion-label>
+          <ion-input [(ngModel)]="fromdate" readonly></ion-input>
+          <button (click)="calenderPicker('from')" type="button" slot="end" class="calender">
+            <ion-icon slot="icon-only" name="calendar"></ion-icon>
+          </button>
+
+        </ion-item>
+
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label position="stacked">To</ion-label>
+          <ion-input [(ngModel)]="Todate" readonly></ion-input>
+          <button (click)="calenderPicker('to')" type="button" slot="end" class="calender">
+            <ion-icon slot="icon-only" name="calendar"></ion-icon>
+          </button>
+
+        </ion-item>
+
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size='12'>
+        <ion-item>
+          <ion-label>Customer:</ion-label>
+          <ion-input type="text" #lgrname [(ngModel)]='acName'
+            (ionInput)='fnFindname()' placeholder="search here.." name="AcName">
+          </ion-input>
+          <ion-spinner name="lines-small" color="danger" *ngIf="loding"></ion-spinner>
+        </ion-item>
+
+        <div class="ui-autocomplete" *ngIf="jsonAccountname.length !==0">
+         
+          <div class="inner-div">
+            <ion-item *ngFor="let item of jsonAccountname" (click)="fnNameClick(item)">
+              <div class="txtname">
+                <span>{{item.AC_Name}}</span>
+                <span>{{item.Addr1}} {{item.Addr2}}</span>
+              </div>
+            </ion-item>
+          </div>
+        </div>
+      </ion-col>
+
+      <ion-col size='12'>
+        <ion-item>
+          <ion-label>All</ion-label>
+          <ion-checkbox mode="ios" [(ngModel)]="checkedAll"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-button expand="full" (click)="onclick()">Get Report</ion-button>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+  <div *ngIf="content">
+    <ion-button expand="block" size="small" color="tertiary" style="width: 140px;"
+    (click)="fnBillwiseOutstandingOnAcId()">
+      outstanding
+    </ion-button>
+
+<div *ngIf="eMail" style="display: flex; place-content: space-between; align-items: center;">
+    <ion-label >Email: {{eMail}}</ion-label>
+    &nbsp;
+    <ion-button expand="block" size="small" color="success" style="width: 140px;"
+    (click)="directMail()">
+      Send Mail
+    </ion-button>
+  </div>
+    <div style="width: 100%; overflow-x: scroll;  overflow-y: scroll;">
+      <div id="printer_content" style="width: 100%;">
+        <div class="page" style="margin-bottom: 21%;">
+          <div style="outline: 2cm #ffffff solid;  width: 19.2cm;">
+            <div style="overflow: hidden; text-align: center">
+              <div>
+                <span style="font-weight: bold; font-size: 9pt;width:100px;text-align:center">
+                  LEDGER REPORT {{acName}} {{fromdate }} - {{Todate }}</span></div>
+            </div>
+            <div class="DetailSection" style="width: 100%;font-family: Arial,Arial,Gadget,sans-serif;
+            font-size: 8pt;padding: 0px,0px,0px,0px;">
+              <table class="tblSales" style="border-collapse: collapse; width: 100%;">
+                <thead>
+                  <tr>
+                    <th style="border-width: 1px 1px 1px 1px; border-style: solid;">SNo</th>
+                    <th style="border-width: 1px 1px 1px 1px; border-style: solid;">Date</th>
+                    <th style="border-width: 1px 1px 1px 1px; border-style: solid;">Vch No</th>
+                    <th style="border-width: 1px 1px 1px 1px; border-style: solid;">Narration</th>
+                    <th style="border-width: 1px 1px 1px 1px; border-style: solid;">Debit</th>
+                    <th style="border-width: 1px 1px 1px 1px; border-style: solid;">Credit</th>
+                    <th style="border-width: 1px 1px 1px 1px; border-style: solid;">Balance</th>
+                    <th style="border-width: 1px 1px 1px 1px; border-style: solid;">Adj.Bills</th>
+                    <th style="border-width: 1px 1px 1px 1px; border-style: solid;">Remarks</th>
+                  </tr>
+                </thead>
+                <tbody>
+                     <tr *ngFor="let data of dataRepTemp; let i = index">
+                      <td style="border-width: 0px 1px 1px 1px; border-style: solid;">{{ i + 1 }}</td>
+                      <td style="border-width: 0px 1px 1px 1px; border-style: solid;">{{data.Date}}</td>
+                      <td style="border-width: 0px 1px 1px 1px; border-style: solid;">{{data.VchNo}}</td>
+                      <td style="border-width: 0px 1px 1px 1px; border-style: solid;">{{data.Narration}}</td>
+                      <td style="border-width: 0px 1px 1px 1px; border-style: solid;">{{data.Debit}}</td>
+                      <td style="border-width: 0px 1px 1px 1px; border-style: solid;">{{data.Credit}}</td>
+                      <td style="border-width: 0px 1px 1px 1px; border-style: solid;">{{data.Balance}}</td>
+                      <td style="border-width: 0px 1px 1px 1px; border-style: solid;">{{data.AdjustedBills}}</td>
+                      <td style="border-width: 0px 1px 1px 1px; border-style: solid;">{{data.Remarks}}</td>
+                    </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</ion-content>

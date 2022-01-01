@@ -1,0 +1,231 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Sales Return
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <!-- <ion-button (click)="fnClear()">
+        clear
+      </ion-button> -->
+      <ion-button  (click)="alertListConfirm('back')"> 
+        <ion-icon mode="ios" slot="icon-only"  name="arrow-back"></ion-icon>
+      </ion-button>
+
+      <!-- <ion-back-button ></ion-back-button> -->
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="flex-radio">
+      <ion-text color="primary">No: {{txtBillNo}}</ion-text>
+      <ion-text color="success">Date: {{ IssueInfo.IssueRetDate | date: "dd/MM/yyy" }}</ion-text>
+  </div>
+  <ion-radio-group class="flex-radio inner-border" [(ngModel)]="billTypes"
+   (ionChange)='fnchangeBill($event)'>
+    <ion-item>
+      <ion-label>Product Wise</ion-label>
+      <ion-radio value="productwise"></ion-radio>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label>Bill Wise</ion-label>
+      <ion-radio value="billwise"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+ 
+  <ion-grid class="view_box inner-border">
+    <ion-row *ngIf="billTypes == 'billwise'">
+      <ion-col>
+        <ion-item>
+          <ion-label>Search Bill No: </ion-label>
+          <ion-input (ionInput)='fnBillNoSearch($event)' [(ngModel)]="invoBill" clearInput ></ion-input>
+        </ion-item>
+      </ion-col> 
+    </ion-row>
+
+    <div class="back-drop" *ngIf="billSearch.length" (click)="billSearch = []"></div>
+    <div class="ui-autocomplete" *ngIf="billSearch.length">
+      <ion-list class="inner-div">
+        <ion-item *ngFor="let res of billSearch"
+          (click)="fnBillClick(res)">
+          <div class="txtname"> 
+            <span>{{res.InvoiceNo}}</span>
+            <span >{{res.CustomerName}}, <span style="color: #333;">{{res.Addr}}</span></span>
+          </div>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label>Customer: </ion-label>
+          <ion-input [(ngModel)]="IssueInfo.Issue_CustName" (ionInput)='fnCustomerSearch($event)' 
+          clearInput [disabled]="billTypes == 'billwise' ? true: false"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <div  class="back-drop" *ngIf="customerSearch.length" (click)="customerSearch = []"></div>
+        <div class="ui-autocomplete" *ngIf="customerSearch.length">
+          <ion-list class="inner-div">
+            <ion-item *ngFor="let res of customerSearch"
+              (click)="fncustomerClick(res)">
+              <div class="txtname">
+                <span>{{res.AC_Name}}</span>
+                <span>{{res.Addr1}}, {{res.Phone}}</span>
+              </div>
+            </ion-item>
+          </ion-list>
+        </div>
+
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label>Salesman: </ion-label>
+          <ion-select placeholder="Bill" [(ngModel)]="IssueInfo.SalesExeId">
+            <ion-select-option *ngFor="let sale of jsonSales"  [value]="sale.AC_Id">
+              {{ sale.AC_Name }}
+            </ion-select-option>
+           
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-item>
+          <ion-label>Type: </ion-label>
+          <ion-select placeholder="Type" [(ngModel)]="IssueInfo.Issue_Type">
+            <ion-select-option value="LOCAL">LOCAL</ion-select-option>
+            <ion-select-option value="INTERSTATE">INTERSTATE</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col *ngIf="billTypes == 'billwise'">
+        <ion-item>
+          <ion-label>Prefix: </ion-label>
+          <ion-select placeholder="Bill" [(ngModel)]="IssueInfo.BillSerId">
+            <ion-select-option *ngFor="let bill of billSeries" [value]="bill.BillSerId">
+              {{bill.BillSerPrefix}}
+            </ion-select-option>
+           
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-item>
+          <ion-label>Payterms: </ion-label>
+          <ion-select placeholder="Type" [(ngModel)]="IssueInfo.IssueRet_PayTerms">
+            <ion-select-option value="CREDIT">CREDIT</ion-select-option>
+            <ion-select-option value="CASH">CASH</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      
+      <ion-col size="6">
+        <ion-item>
+          <ion-label>Dis(%): </ion-label>
+          <ion-input [(ngModel)]="IssueInfo.Issue_DisPers" (keyup)='fnGetTotal()'></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col [size]="billTypes == 'billwise'? '6': '12'">
+        <ion-item>
+          <ion-label>Remark: </ion-label>
+          <ion-input [(ngModel)]="IssueInfo.CrditNoteNos"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    
+  </ion-grid>
+
+  <div class="tbl-sale">
+    <table>
+      <thead>
+        <tr>
+          <th *ngFor="let col of dynamicHeader" >{{col.name}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of IssueSubDetailsInfo; let i = index" >
+          <ng-container *ngFor="let cols of dynamicHeader" >
+            <td *ngIf="cols.col == 'Del'">
+              <ion-button fill="clear" shape="round" size="small" (click)="removeItem(i)">
+                <ion-icon slot="icon-only" color="danger" name="close-circle"></ion-icon>
+              </ion-button>
+            </td>
+            <td *ngIf="cols.col == 'no'">&nbsp;{{i+1}}</td>
+            <td *ngIf="cols.col == 'BillSerId'">
+              <!-- {{getBillSeries(item.BillSerId)}} -->
+              <ion-select [(ngModel)]="item.BillSerId"> 
+                <ion-select-option *ngFor="let bill of billSeries" [value]="bill.BillSerId">
+                  {{bill.BillSerPrefix}}
+                </ion-select-option>
+              </ion-select>
+            </td>
+            <td *ngIf="cols.col == 'ItemCode'" (click)="productView(i)">&nbsp;{{item[cols.col]}}</td>
+            <td *ngIf="cols.col == 'ItemDesc'" (click)="productView(i)">&nbsp;{{item[cols.col]}}</td>
+            <td *ngIf="cols.col == 'BillRetQty'" (click)="productView(i)">&nbsp;{{item[cols.col] | number}}</td>
+            <td *ngIf="cols.col == 'IssueSub_Batch'" (click)="productView(i)">&nbsp;{{item[cols.col]}}</td>
+            <td *ngIf="cols.col == 'IssueSub_ExpDate'" (click)="productView(i)">&nbsp;{{item[cols.col]}}</td>
+            <td *ngIf="cols.col == 'IssueSub_OriginalRate'" (click)="productView(i)">&nbsp;{{item[cols.col] | number:'1.2-2'}}</td>
+            <td *ngIf="cols.col == 'IssueSub_Qty'" (click)="productView(i)">&nbsp;{{item[cols.col] | number}}</td>
+            <td *ngIf="cols.col == 'IssueSub_RQty'" (click)="productView(i)">&nbsp;{{item[cols.col] | number}}</td>
+            <td *ngIf="cols.col == 'IssueSub_Mrp'" (click)="productView(i)">&nbsp;{{item[cols.col] | number:'1.2-2'}}</td>
+            <td *ngIf="cols.col == 'IssueSub_FreeQty'" (click)="productView(i)">&nbsp;{{item[cols.col] | number}}</td>
+            <td *ngIf="cols.col == 'IssueSub_RFreeQty'" (click)="productView(i)"> &nbsp;{{item[cols.col] | number}}</td>
+            <td *ngIf="cols.col == 'IssueSub_PdodDis'" (click)="productView(i)">&nbsp;{{item[cols.col] | number}}</td>
+            <td *ngIf="cols.col == 'IssueSub_ProdDisAmt'" (click)="productView(i)">&nbsp;{{item[cols.col] | number:'1.2-2'}}</td>
+            <td *ngIf="cols.col == 'IssueSub_Pack'" (click)="productView(i)">&nbsp;{{item[cols.col] | number}}</td>
+            <td *ngIf="cols.col == 'Issue_SlNo'" (click)="productView(i)">&nbsp;{{item[cols.col] | number}}</td>
+            <td *ngIf="cols.col == 'Issue_BillDate'" (click)="productView(i)">&nbsp;{{item[cols.col]}}</td>
+            <td *ngIf="cols.col == 'IssueSub_TaxPers'" (click)="productView(i)">&nbsp;{{item[cols.col] | number}}</td>
+            <td *ngIf="cols.col == 'IssueSub_TaxAmt'" (click)="productView(i)">&nbsp;{{item[cols.col] | number:'1.2-2'}}</td>
+            <td *ngIf="cols.col == 'IssueSub_Amount'" (click)="productView(i)">&nbsp;{{item[cols.col] | number:'1.2-2'}}</td>
+            <td *ngIf="cols.col == 'IssueSub_RetAmount'" (click)="productView(i)">&nbsp;{{item[cols.col] | number:'1.2-2'}}</td>
+
+                        
+            <!-- <td *ngIf="cols.col != 'Del' && cols.col != 'no' && cols.col != 'BillSerId'"
+             (click)="productView(i)">&nbsp;{{item[cols.col]}}</td> -->
+          </ng-container>
+         
+          <!-- <td *ngIf="billTypes != 'billwise'" class="end-sticy">
+            
+            <ion-button fill="clear" shape="round" size="small" (click)="productView(i)">
+              <ion-icon slot="icon-only" color="success" name="create"></ion-icon>
+            </ion-button>
+          </td> -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- <ion-fab *ngIf="billTypes == 'productwise'" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button size="small" color="tertiary" (click)="productModal()" title="product List">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab> -->
+  
+  <button *ngIf="billTypes == 'productwise'" (click)="productModal()" class="fab-prod-list">
+    product List
+  </button>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="light">
+    <ion-title >Total: {{IssueInfo.Issue_CrAmt | number:'1.2-2'}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="tertiary" (click)="alertListConfirm('list')">List</ion-button>
+      <ion-button *ngIf="btnSave" color="success" (click)="fnSave()">Save</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

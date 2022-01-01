@@ -1,0 +1,76 @@
+<ion-header>
+
+  <ion-toolbar color="light">
+    <ion-title>Return List</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="_searchHide = !_searchHide">
+        <ion-icon mode="ios" slot="icon-only" name='search'></ion-icon>
+      </ion-button>
+
+      <ion-button color="danger" (click)="closePop()">
+        <ion-icon mode="ios" slot="icon-only" name='close'></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar *ngIf="_searchHide">
+    <ion-searchbar mode="ios" showCancelButton="always" debounce="500" (ionCancel)='_searchHide = false'
+     [(ngModel)]="search" (ionChange)='Gets()' ></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-grid class="view_box inner-border">
+    <ion-row>
+      <ion-col size='6'>
+        <ion-item>
+          <ion-label  (click)="calenderPicker('From')">
+            From Date
+            <p >{{fromdate | date:'dd/MM/yyy'}}</p>
+          </ion-label>
+         
+        </ion-item>
+      </ion-col>
+      <ion-col size='6'>
+        <ion-item>
+          <ion-label (click)="calenderPicker('To')">
+            To Date
+            <p >{{Todate | date:'dd/MM/yyy'}}</p>
+          </ion-label>
+          
+          <!-- <ion-input [(ngModel)]="Todate" readonly (click)="calenderPicker($event)"></ion-input> -->
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-virtual-scroll [items]="billSource" approxItemHeight="320px">
+    <ion-card *virtualItem="let item" class="product-card ion-activatable ripple-parent" >
+      <div class="product-card-inner">
+        <div class="product-card-band">
+            <span>{{item.BillNo}} </span>
+            <span>{{item.ReturnType}}</span>
+        </div>
+
+        <div class="product-card-banner">
+          <span>{{item.Customer}} </span>
+          <p><ion-text color="primary"> {{item.Amount | number:'1.2-2'}}</ion-text>,  {{item.BillDate}}</p>
+        </div>
+
+        <div class="product-card-action">
+          <ion-button fill="clear" shape="round" size="small" (click)="fnPrint(item)">
+            <ion-icon slot="icon-only" color="medium" name="print"></ion-icon>
+          </ion-button>
+
+          <ion-button fill="clear" shape="round" size="small" (click)="anchorClick(item)">
+            <ion-icon slot="icon-only" color="primary" name="create"></ion-icon>
+          </ion-button>
+
+        </div>
+      </div>
+      <ion-ripple-effect></ion-ripple-effect>
+    </ion-card>
+</ion-virtual-scroll>
+  
+</ion-content>

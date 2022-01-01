@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Locate List</ion-title>
+
+    
+    <ion-buttons slot="end" *ngIf="listshow">
+      <ion-button (click)="startTracking()" >
+        Track
+       </ion-button>
+  
+      <ion-button color='danger' (click)="onDismiss()">
+        <ion-icon mode="ios" slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar mode="ios" #search debounce="500"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="!listshow">
+
+  <ion-list  lines="full">
+    <ion-item *ngFor="let item of dataSource | filterPipe: {keyword: search.value, params: 'AC_Name'}" 
+    (click)="locationGet(item)"  class="ion-activatable ripple-parent" >
+    <ion-label>
+      <h3>&nbsp;{{item.AC_Name}}</h3>
+      <p>&nbsp;{{item.Addr1}} {{item.Addr2}}</p>
+    </ion-label>
+    <ion-icon mode="ios" name="pin" color="success" slot="end"></ion-icon>
+    
+      <ion-ripple-effect></ion-ripple-effect>
+    
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+
+<ion-content  *ngIf="listshow">
+
+  <!-- <ion-card>
+		<ion-card-content>
+			<div #directionsPanel></div>
+		</ion-card-content>
+	</ion-card> -->
+  <div #mapElement class="map"></div>
+</ion-content>
+
+<ion-footer *ngIf="footer">
+  <ion-toolbar>
+    <ion-title size="small">{{trackResult.time}}</ion-title>
+    <ion-label slot="end">{{trackResult.km}}</ion-label>
+  </ion-toolbar>
+</ion-footer>
+<!-- AC_Id Field1 Field2 -->

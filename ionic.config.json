@@ -1,0 +1,7 @@
+{
+  "name": "codeappsInventry",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

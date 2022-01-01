@@ -1,0 +1,23 @@
+.tbl-div {
+  overflow: auto;
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    th {
+        border: 0.1px solid #fff;
+        font-size: 13px;
+        padding: 3px;
+        background: #8bc34a;
+        color: #fff;
+    }
+    td {
+      font-size: smaller;
+      border: 0.1px solid #999;
+      padding: 3px;
+      white-space: nowrap;
+    }
+    tr:last-child td {
+      background: #ccc;
+    }
+  }
+}

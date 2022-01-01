@@ -1,0 +1,189 @@
+<ion-content no-padding>
+  <div class="main-content">
+    <!-- Branch url page -->
+    <div *ngIf="loginActivity.branch" class="branch-content">
+      <div padding class="branch-login">
+        <form #form="ngForm" (ngSubmit)="login(form, 'main')">
+          <div class="inn-login">
+            <div class="head-login">
+              <h1><span>&lt;[.]&gt;</span>CodeApps</h1>
+              <p>Order Taking & Spot Billing<br />Inventory App</p>
+
+            </div>
+
+            <div class="login-inputs">
+              
+              <ion-text color="warning">
+                <p>{{serverActive? 'http://': 'https://' }}{{tempUrl}}</p>
+              </ion-text>
+              <span style="position: relative">
+                <span class="span-icon">
+                  <ion-icon name="link" color='light' slot='icon-only'></ion-icon>
+                </span>
+                <input autocomplete="off" name="url" type="url" 
+                [placeholder]="serverActive? 'Enter Server IP Address': 'Enter Your Branch Url'"
+                [(ngModel)]='tempUrl' required />
+              </span>
+                
+                <ion-item style="width: 280px;">
+                  <ion-label>Server IP</ion-label>
+                  <ion-toggle name="server" [(ngModel)]="serverActive"></ion-toggle>
+                </ion-item>
+               
+              <button type="submit" [disabled]="form.invalid || urlloader">
+                Submit
+                <span class="loader" *ngIf="urlloader">
+                  <ion-spinner name="crescent" color="light"></ion-spinner>
+                </span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="invoice-img">
+        <img src="assets/images/invoice-form.png" />
+      </div>
+    </div>
+
+    <!-- welcome page -->
+    
+      <div *ngIf="loginActivity.welcome" padding class="welcom-content">
+        <div class="welcom-header">
+          <h1>Welcome Back!</h1>
+          <div class="welcom-image">
+            <img src="assets/images/invoice-form.png" />
+          </div>
+          <div class="welcom-card">
+           
+            <ion-card mode="ios" button='true' color="primary" (click)="onLoginPageClick('order')">
+              <div class="card-main">
+              <div class="card-img">
+                <img src='assets/images/avator/Order.png' />
+              </div>
+              <p>Order Login</p>
+            </div>
+            </ion-card>
+
+            <ion-card mode="ios" button='true' color="primary" (click)="onLoginPageClick('inventory')">
+              <div class="card-main">
+              <div class="card-img">
+                <img src="assets/images/avator/Inventory.png" />
+              </div>
+              <p>Inventory Login</p>
+            </div>
+            </ion-card>
+
+          </div>
+          <div class="welcom-branch">
+            <p>
+              <ng-container *ngFor="let item of branchData">
+              <ion-text color="medium" class="branch" justify-content-center *ngIf="item.BranchId == 17">
+                <span text-center>{{ item.BranchName }}</span>
+                <span text-center>{{ item.BranchAdr1 }}</span>
+                <span text-center>{{ item.BranchAdr2 }}</span>
+                <span text-center>{{ item.BranchAdr3 }}</span>
+               </ion-text>
+            </ng-container>
+          </p>
+          </div>
+
+          <ion-button mode="ios" fill='clear' color="danger" class="ion-text-capitalize" (click)="resetConfirm()">
+            <ion-icon mode="ios" slot="start" name="refresh"></ion-icon>
+            Reset Branch
+          </ion-button>
+        </div>
+      </div>
+
+    <!-- Order login -->
+      <div *ngIf="loginActivity.order" class="login-wrapper">
+          <div>
+            <div class="login-header-img">
+            <img src="../../assets/images/avator/login-top.png">
+          </div>
+            <div class="login-content">
+              <h1 class="ion-text-left text-blue">Order Login</h1>
+              <form #ordform="ngForm" (ngSubmit)="login(ordform, 'order')" method="post">
+  
+                <ion-item class="item-padding ">
+                  <ion-icon name='person' mode="ios" color='dark' slot='start'></ion-icon>
+                  <ion-label  position="floating">UserName</ion-label>
+                  <ion-input ngModel type="text" name="UserName" mode="ios" required></ion-input>
+                </ion-item>
+        
+                <ion-item class="item-padding ">
+                  <ion-icon name='lock-closed-outline' mode="ios" color='dark' slot='start'></ion-icon>
+                  <ion-label position="floating">Password</ion-label>
+                  <ion-input ngModel type="password" name="password" mode="ios" required></ion-input>
+                </ion-item>
+               
+                <ion-button shape="round" type="submit" color="primary" class="ion-float-right ion-margin-top ion-text-capitalize"
+                 style="width: 125px;" [disabled]="ordform.invalid" expand="block" mode="ios">Login</ion-button>
+  
+                 <ion-button shape='round' fill='outline' color="medium" (click)="openMain()"
+                 class="ion-float-right ion-margin-top ion-text-capitalize" mode="ios">Main</ion-button>
+  
+              </form>
+            </div>
+          </div>
+        
+          <div class="login-footer-img"> 
+            <img src="../../assets/images/avator/login-bottom.png">
+          </div>
+      </div>
+
+    <!-- Inventory login -->
+      <div *ngIf="loginActivity.inventory" class="login-wrapper">
+        <div>
+          <div class="login-header-img">
+          <img src="../../assets/images/avator/login-top.png">
+            </div>
+          <div class="login-content">
+            <h1 class="ion-text-left text-blue">Inventory Login</h1>
+            <form #invenform="ngForm" (ngSubmit)="login(invenform, 'inventory')" method="post">
+              <ion-item class="item-padding">
+                <ion-icon mode="ios" name='person' color='dark' slot='start'></ion-icon>
+                <ion-label position="floating">UserName</ion-label>
+                <ion-input ngModel type="text" name="UserName" mode="ios" required ></ion-input>
+              </ion-item>
+      
+              <ion-item class="item-padding">
+                <ion-icon mode="ios" name='lock-closed-outline' color='dark' slot='start'></ion-icon>
+                <ion-label position="floating">Password</ion-label>
+                <ion-input ngModel type="password" name="password" mode="ios" required ></ion-input>
+              </ion-item>
+      
+              <ion-item class="item-padding selectbranch">
+                <ion-icon mode="ios" name="git-branch" color='dark' slot='start'></ion-icon>
+                <ion-label>Branch</ion-label>
+                <ion-select [value]="BranchId" mode="ios" (ionChange)="fnchangebranch($event)" required >
+                  <ion-select-option *ngFor="let item of branchData" [value]="item.BranchId">
+                    {{ item.BranchName }}
+                  </ion-select-option>
+                </ion-select>
+              </ion-item>
+      
+              <ion-button class="ion-float-right ion-margin-top ion-text-capitalize"
+              style="width: 125px;" shape="round" type="submit" color="primary"
+              [disabled]="invenform.invalid" expand="block" mode="ios">Login</ion-button>
+    
+              <ion-button shape='round' fill='outline' color="medium" (click)="openMain()"
+                class="ion-float-right ion-margin-top ion-text-capitalize" mode="ios">Main</ion-button>
+            </form>
+          </div>
+        </div>
+        
+        <div class="login-footer-img">
+          <img src="../../assets/images/avator/login-bottom.png">
+        </div>
+    </div>
+  
+  </div>
+
+</ion-content>
+
+<ion-footer mode="ios" *ngIf="loginActivity.welcome">
+  <ion-toolbar mode="ios" class="ion-text-center">
+    <a>© 2021 All Rights Reserved | CodeApps</a>
+  </ion-toolbar>
+</ion-footer>

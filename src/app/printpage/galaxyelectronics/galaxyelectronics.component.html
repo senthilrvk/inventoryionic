@@ -1,0 +1,790 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Print Preview</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="fnPrintpage()">
+        <ion-icon name='print' slot="icon-only" color="primary"></ion-icon>
+      </ion-button>
+      <ion-button (click)="fnSharepage()">
+        <ion-icon name='share' slot="icon-only" color="secondary"></ion-icon>
+      </ion-button>
+      <ion-button (click)="fnClose()">
+        <ion-icon name='close' slot='icon-only' color="danger"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div style="width: 100%; overflow-x: scroll;  overflow-y: scroll;">
+ 
+  <div id="printer_content" style="width: 100%;">
+    <div class="page" *ngFor="let item of endCount; let k =index" style="margin-bottom: 21%;">
+
+      <div style="border: 1px #000000 solid; height: 265mm;
+       max-height: 265mm; min-height: 265mm;
+        outline: 2cm #ffffff solid;  width: 19.2cm;">
+
+        <div class="HeaderSection" style="border: 0.2px #000000 solid;
+        height: 105px; max-height: 105px; min-height: 105px;
+        border-top: none; border-left: none; border-right: none; 
+         border-bottom: none; width: 100%; overflow: hidden; text-align: center">
+          <span class="subheading"
+            style="float:right;font-weight: bold; font-size: 9pt;width:800px;text-align:right;padding-right:10px;">
+          </span>
+
+          <div><span class="fontheader"></span></div>
+          <div><span class="subheading" style="font-weight: bold; font-size: 9pt;width:100px;text-align:center">
+              {{BranchInfo?.BranchName}}</span></div>
+          <div><span class="subheading"
+              style="font-weight: bold; font-size: 9pt;width:100px;text-align:center">{{BranchInfo?.BranchAdr1}}</span>
+          </div>
+          <div><span class="subheading"
+              style="font-weight: bold; font-size: 9pt;width:100px;text-align:center">{{BranchInfo?.BranchAdr2}}</span>
+          </div>
+          <div><span class="subheading"
+              style="font-weight: bold; font-size: 9pt;width:100px;text-align:center">{{BranchInfo?.BranchAdr3}}</span>
+          </div>
+          <div><span class="subheading" style="font-weight: bold; font-size: 9pt;width:100px;text-align:center">GST
+              INVOICE</span></div>
+        </div>
+        <div class="HeaderBillDetails" style="border: 0.2px #000000 solid;
+        height: 60px; max-height: 60px; min-height: 60px; border-left: none;
+        border-right: none; width: 100%; padding: 0px,0px,0px,0px; overflow: hidden; border-bottom: none;">
+
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 9pt;width:100px;text-align:left">&nbsp;&nbsp;GSTTIN</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">:</span>
+          <span class="subheading1"
+            style="float: left; font-weight: bold; font-size: 9pt;min-width:367px;max-width:367px;border: 0.2px #000000 solid;border-bottom: none;border-top: none;border-left: none;border-right: solid;border-width: 1px;">&nbsp;{{BranchInfo?.TinNo1}}</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 9pt;width:90px;">&nbsp;REVERSE&nbsp;TAX </span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">:</span>
+          <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:110px;">Yes/No </span>
+
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 9pt;width:100px;text-align:left">&nbsp;&nbsp;DL&nbsp;NO</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">:</span>
+          <span class="subheading1"
+            style="float: left; font-weight: bold; font-size: 9pt;min-width:367px;max-width:367px;border: 0.2px #000000 solid;border-bottom: none;border-top: none;border-left: none;border-right: solid;border-width: 1px;">&nbsp;</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 9pt;width:90px;">&nbsp;INVOICE&nbsp;NO </span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">:</span> 
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 9pt;width:110px;">{{ IssueInfo?.BillSerPrefix }} -
+            {{ IssueInfo?.Issue_SlNo}}</span>
+
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 9pt;width:100px;text-align:left">&nbsp;&nbsp;STATE</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">:</span>
+          <span class="subheading1"
+            style="float: left; font-weight: bold; font-size: 9pt;min-width:367px;max-width:367px;border: 0.2px #000000 solid;border-bottom: none;border-top: none;border-left: none;border-right: solid;border-width: 1px;">
+            &nbsp;Kerala <label style="Padding-left:150px;">STATE CODE : 32</label></span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 9pt;width:90px;">&nbsp;INVOICE&nbsp;DATE </span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">:</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 9pt;width:110px;">&nbsp;{{IssueInfo?.Issue_BillDate}}</span>
+
+
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 9pt;width:100px;text-align:left">&nbsp;&nbsp;VEHICLE&nbsp;NO</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">:</span>
+          <span class="subheading1"
+            style="float: left; font-weight: bold; font-size: 9pt;min-width:367px;max-width:367px;border: 0.2px #000000 solid;border-bottom: none;border-top: none;border-left: none;border-right: solid;border-width: 1px;">
+            &nbsp; {{IssueInfo?.Issue_LRNo}}</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 9pt;width:90px;">&nbsp;PAYTERMS</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">:</span>
+          <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:110px;">&nbsp;
+            {{IssueInfo?.Issue_PayTerms}}</span>
+
+
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 9pt;width:100px;text-align:left">&nbsp;&nbsp;</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">&nbsp;&nbsp;</span>
+          <span class="subheading1"
+            style="float: left; font-weight: bold; font-size: 9pt;min-width:367px;max-width:367px;border: 0.2px #000000 solid;border-bottom: none;border-top: none;border-left: none;border-right: solid;border-width: 1px;">
+            &nbsp;</span>
+          <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:90px;">&nbsp;</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">&nbsp;</span>
+          <span class="subheading" style="float: left; font-weight: bold; font-size: 9pt;width:110px;">&nbsp;</span>
+
+        </div>
+        <div class="CustomerDetails" style="border: 0.2px #000000 solid;
+        height: 123px; max-height: 123px; min-height: 123px; border-left: none;
+        border-right: none; width: 100%; padding: 0px,0px,0px,0px; overflow: hidden;">
+
+          <span class="subheading"
+            style="float:left;width:367px;text-align: center;border-right: 0.2px #000000 solid; border-bottom: 0.2px #000000 solid;font-size: 9pt;">&nbsp;&nbsp;Billed
+            To&nbsp;&nbsp;:</span>
+          <span class="subheading"
+            style="float:left;width:356px;text-align: center; border-bottom: 0.2px #000000 solid;font-size: 9pt;">
+            Shipped To&nbsp;&nbsp;:</span>
+
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:100px;text-align:left">&nbsp;&nbsp;NAME</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:20px;text-align:center">:</span>
+          <span class="subheading1"
+            style=" white-space:nowrap;float: left; font-weight: bold; font-size:8pt;min-width:310px;max-width:310px;border: 0.2px #000000 solid;border-bottom: none;border-top: none;border-left: none;border-right: solid;border-width: 1px;">&nbsp;&nbsp;{{IssueInfo?.Issue_CustName}}</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:100px;text-align:left">&nbsp;&nbsp;NAME</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:20px;text-align:center">:</span>
+          <span class="subheading1"
+            style="float: left; font-weight: bold; font-size: 8pt;min-width:130px;max-width:130px;border: 0.2px #000000 solid;border-bottom: none;border-top: none;border-left: none;border-right: none;border-width: 1px;overflow:hidden;">&nbsp;</span>
+          <br />
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:100px;text-align:left">&nbsp;&nbsp;ADDRESS</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:20px;text-align:center">:</span>
+          <span class="subheading1"
+            style="float: left; font-weight: bold; font-size: 8pt;min-width:310px;max-width:310px;border: 0.2px #000000 solid;border-bottom: none;border-top: none;border-left: none;border-right: solid;border-width: 1px;">&nbsp;{{IssueInfo?.Addr1}}</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:100px;text-align:left">&nbsp;&nbsp;ADDRESS</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:20px;text-align:center">:</span>
+          <span class="subheading1"
+            style="float: left; font-weight: bold; font-size: 8pt;min-width:130px;max-width:130px;border: 0.2px #000000 solid;border-bottom: none;border-top: none;border-left: none;border-right: none;border-width: 1px;">&nbsp;&nbsp;</span> 
+          <br />
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:100px;text-align:left">&nbsp;&nbsp;</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:20px;text-align:center">:</span>
+          <span class="subheading1"
+            style="float: left; font-weight: bold; font-size: 8pt;min-width:310px;max-width:310px;border: 0.2px #000000 solid;border-bottom: none;border-top: none;border-left: none;border-right: solid;border-width: 1px;">&nbsp;&nbsp;{{IssueInfo?.Addr2}} </span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:100px;text-align:left">&nbsp;&nbsp;</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:20px;text-align:center">:</span>
+          <span
+            style="float: left; font-weight: bold; font-size: 8pt;min-width:130px;max-width:130px;border: 0.2px #000000 solid;border-bottom: none;border-top: none;border-left: none;border-right: none;border-width: 1px;">&nbsp;</span>
+
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:100px;text-align:left">&nbsp;&nbsp;GSTIN</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:20px;text-align:center">:</span>
+          <span class="subheading1"
+            style="float: left; font-weight: bold; font-size: 8pt;min-width:310px;max-width:310px;border: 0.2px #000000 solid;border-bottom: none;border-top: none;border-left: none;border-right: solid;border-width: 1px;">&nbsp;&nbsp;{{IssueInfo?.Tin1}}</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:100px;text-align:left">&nbsp;&nbsp;GSTIN</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:20px;text-align:center">:</span>
+          <span
+            style="float: left; font-weight: bold; font-size: 8pt;min-width:130px;max-width:130px;border: 0.2px #000000 solid;border-bottom: none;border-top: none;border-left: none;border-right: none;border-width: 1px;">&nbsp;</span>
+
+
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:100px;text-align:left">&nbsp;&nbsp;PHONE</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:20px;text-align:center">:</span>
+          <span class="subheading1"
+            style="float: left; font-weight: bold; font-size: 8pt;min-width:310px;max-width:310px;border: 0.2px #000000 solid;border-bottom: none;border-top: none;border-left: none;border-right: solid;border-width: 1px;">&nbsp;&nbsp;</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:100px;text-align:left">&nbsp;&nbsp;</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:20px;text-align:center;">&nbsp;&nbsp;</span>
+          <span class="subheading1"
+            style="float: left; font-weight: bold; font-size: 8pt;min-width:130px;max-width:130px;border: 0.2px #000000 solid;border-bottom: none;border-top: none;border-left: none;border-right: none;border-width: 1px;">&nbsp;&nbsp;</span>
+
+
+
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:100px;text-align:left">&nbsp;&nbsp;SALESMAN</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:20px;text-align:center">:</span>
+          <span class="subheading1"
+            style="float: left; font-weight: bold; font-size: 8pt;min-width:310px;max-width:310px;border: 0.2px #000000 solid;border-bottom: none;border-top: none;border-left: none;border-right: solid;border-width: 1px;">&nbsp;&nbsp;</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:100px;text-align:left">&nbsp;&nbsp;</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:20px;text-align:center;">&nbsp;&nbsp;</span>
+          <span class="subheading1"
+            style="float: left; font-weight: bold; font-size: 8pt;min-width:130px;max-width:130px;border: 0.2px #000000 solid;border-bottom: none;border-top: none;border-left: none;border-right: none;border-width: 1px;">&nbsp;&nbsp;</span>
+
+
+
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:100px;text-align:left">&nbsp;&nbsp;STATE</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:20px;text-align:center">:</span>
+          <span class="subheading1"
+            style="float: left; font-weight: bold; font-size: 8pt;min-width:310px;max-width:310px;border: 0.2px #000000 solid;border-bottom: none;border-top: none;border-left: none;border-right: solid;border-width: 1px;">&nbsp;KERALA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATE
+            CODE&nbsp;&nbsp;:32</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:100px;text-align:left">&nbsp;&nbsp;STATE</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:20px;text-align:center">:</span>
+          <span class="subheading1"
+            style="float: left; font-weight: bold; font-size: 8pt;min-width:130px;max-width:130px;border: 0.2px #000000 solid;border-bottom: none;border-top: none;border-left: none;border-right: none;border-width: 1px;">&nbsp;</span>
+
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 9pt;width:100px;text-align:left">&nbsp;&nbsp;Order&nbsp;No</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">:</span>
+          <span class="subheading1"
+            style="float: left; font-weight: bold; font-size: 9pt;min-width:310px;max-width:310px;border: 0.2px #000000 solid;border-bottom: none;border-top: none;border-left: none;border-right: solid;border-width: 1px;overflow:hidden;">&nbsp;</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 9pt;width:100px;text-align:left">&nbsp;&nbsp;</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 9pt;width:20px;text-align:center">&nbsp;</span>
+          <span class="subheading1"
+            style="float: left; font-weight: bold; font-size: 9pt;min-width:135px;max-width:135px;border: 0.2px #000000 solid;border-bottom: none;border-top: none;border-left: none;border-right: none;border-width: 1px;">&nbsp;</span>
+
+
+          <br />
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:100px;text-align:left">&nbsp;&nbsp;</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:20px;text-align:center">&nbsp;&nbsp;</span>
+          <span class="subheading1"
+            style="float: left; font-weight: bold; font-size: 8pt;min-width:310px;max-width:310px;border: 0.2px #000000 solid;border-bottom: none;border-top: none;border-left: none;border-right: solid;border-width: 1px;">&nbsp;</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:100px;text-align:left">&nbsp;&nbsp;</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:20px;text-align:center">&nbsp;</span>
+          <span class="subheading1"
+            style="float: left; font-weight: bold; font-size: 8pt;min-width:130px;max-width:130px;border: 0.2px #000000 solid;border-bottom: none;border-top: none;border-left: none;border-right: none;border-width: 1px;">&nbsp;</span>
+          <br />
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:100px;text-align:left">&nbsp;&nbsp;</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:20px;text-align:center">&nbsp;&nbsp;</span>
+          <span class="subheading1"
+            style="float: left; font-weight: bold; font-size: 8pt;min-width:310px;max-width:310px;border: 0.2px #000000 solid;border-bottom: none;border-top: none;border-left: none;border-right: solid;border-width: 1px;">&nbsp;</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:100px;text-align:left">&nbsp;&nbsp;</span>
+          <span class="subheading"
+            style="float: left; font-weight: bold; font-size: 8pt;width:20px;text-align:center">&nbsp;</span>
+          <span class="subheading1"
+            style="float: left; font-weight: bold; font-size: 8pt;min-width:130px;max-width:130px;border: 0.2px #000000 solid;border-bottom: none;border-top: none;border-left: none;border-right: none;border-width: 1px;">&nbsp;</span>
+
+        </div>
+
+
+        <div class="DetailSection" style="border: 1px #000000 solid;
+        height: 429px;        max-height: 429px;        min-height: 429px;        overflow: hidden;
+        border-top: none;        border-left: none;        border-right: none;        width: 100%;
+        font-family: Arial,Arial,Gadget,sans-serif;        font-size: 8pt;        padding: 0px,0px,0px,0px;">
+
+          <table class="tblSales" style="border-collapse: collapse;">
+            <thead>
+              <tr>
+                <th class="tblNo" style="text-align: center; border-bottom: 0.2px #000000 solid;font-weight: bold;width: 22px;
+    min-width: 22px;    max-width: 22px;    overflow: hidden;    text-align: right;    border-left: none;
+      border-top: none;    border-right: solid;    border-width: 1px; font-size: 8pt;    height: auto;">No&nbsp;</th>
+                <th class="Mrp" style="text-align: center; border-bottom: 0.2px #000000 solid;font-weight: bold;
+             font-size: 8pt;    height: auto; width: 46px;max-width: 46px; min-width: 46px;overflow: hidden;text-align: right;
+                     border-left: none;border-top: none;border-right: solid;border-width: 1px;
+                     padding: 0px;font-weight: bold;">Mrp&nbsp;</th>
+                <th class="tblProduct" style="text-align: center; border-bottom: 0.2px #000000 solid;font-weight: bold;
+              font-size: 8pt;    height: auto; width: 197px; min-width: 197px; max-width: 197px;
+                     overflow: hidden; text-align: left; border-left: none; border-top: none; border-right: solid;
+                     border-width: 1px; padding: 0px; font-weight: bold;
+                     white-space: nowrap;">&nbsp;Commodity&nbsp;Items</th>
+                <th class="tblItemCode" style="text-align: center; border-bottom: 0.2px #000000 solid;font-weight: bold;
+                width: 52px; font-size: 8pt;    height: auto;    min-width: 52px;
+    max-width: 52px;    overflow: hidden;    text-align: left;    border-left: none;        border-top: none;    border-right: solid;
+    border-width: 1px;    padding: 0px;    font-size: 8pt;    font-weight: bold;
+    white-space: nowrap;">HSNCode</th>
+                <th class="RateofTax" style="text-align: center; border-bottom: 0.2px #000000 solid;font-weight: bold;
+                width: 26px; font-size: 8pt;    height: auto;    max-width: 26px;
+    min-width: 26px;    overflow: hidden;    text-align: right;    border-left: none;
+    border-top: none;    border-right: solid;    border-width: 1px;    padding: 0px;    font-weight: bold;">GST</th>
+                <th class="Qty" style="text-align: center; border-bottom: 0.2px #000000 solid;font-weight: bold;width: 27px;
+                max-width: 27px;font-size: 8pt;    height: auto;min-width: 27px;overflow: hidden;
+                text-align: right;border-left: none; border-top: none;border-right: solid;
+                border-width: 1px;padding: 0px;font-weight: bold;">Qty&nbsp;</th>
+                <th class="Free" style="text-align: center; border-bottom: 0.2px #000000 solid;font-weight: bold;width: 26px;
+               font-size: 8pt; height: auto; max-width: 26px; min-width: 26px;
+                overflow: hidden; text-align: right; border-left: none; border-top: none;
+                border-right: solid; border-width: 1px; padding: 0px; font-weight: bold;">Fre&nbsp;</th>
+                <th class="UnitPrice" style="text-align: center; border-bottom: 0.2px #000000 solid;font-weight: bold;width: 42px;
+                font-size: 8pt;    height: auto; max-width: 42px; min-width: 42px; overflow: hidden; text-align: right; border-left: none;
+                border-top: none; border-right: solid; border-width: 1px; padding: 0px; font-weight: bold;">Price&nbsp;</th>
+                <th class="GrossValue"
+                  style="text-align: center; border-bottom: 0.2px #000000 solid;font-weight: bold;
+                font-size: 8pt;    height: auto; width: 48px;    max-width: 48px;    min-width: 48px;    overflow: hidden;
+    text-align: right; border-left: none;    border-top: none;    border-right: solid;    border-width: 1px; padding: 0px;    font-weight: bold;">
+                  Gs&nbsp;Value</th>
+                <th class="CashDisc" style="text-align: center; border-bottom: 0.2px #000000 solid;font-weight: bold;
+                font-size: 8pt;    height: auto;width: 38px;    max-width: 38px;    min-width: 38px;    overflow: hidden;    text-align: right;    border-left: none;
+    border-top: none;    border-right: solid;    border-width: 1px;    padding: 0px;    font-weight: bold;">
+                  Disc&nbsp;</th>
+                <th class="NetValue"
+                  style="text-align: center; border-bottom: 0.2px #000000 solid;font-weight: bold;
+                font-size: 8pt;    height: auto;    width: 51px;    max-width: 51px;    min-width: 51px;    overflow: hidden;
+                text-align: right;    border-left: none;    border-top: none;    border-right: solid;    border-width: 1px;    padding: 0px;    font-weight: bold;">
+                  Net&nbsp;Value</th>
+                <th class="SGST" style="font-size: 8pt;    height: auto;    width: 39px;max-width: 39px;
+                min-width: 39px;overflow: hidden; text-align: right;border-left: none; border-top: none;border-right: solid; border-width: 1px;padding: 0px;font-weight:bold;text-align: center; border-bottom: 0.2px #000000 solid;font-weight: bold;">
+                  SGST&nbsp;
+                </th>
+                <th class="CGST"
+                  style="width: 39px; font-size: 8pt;    height: auto;    max-width: 39px; min-width: 39px; overflow: hidden; text-align: right;
+                border-left: none; border-top: none; border-right: solid; border-width: 1px; padding: 0px; font-weight:bold;text-align: center; border-bottom: 0.2px #000000 solid;font-weight: bold;">
+                  CGST&nbsp;
+                </th>
+                <th class="Amount" style="text-align: center; border-bottom: 0.2px #000000 solid;font-weight: bold;width: 58px;
+                font-size: 8pt;    height: auto;    max-width: 58px;min-width: 58px; overflow: hidden;text-align: right;border-left: none;border-top: none;                border-right: none;
+                border-width: 1px;padding: 0px;font-weight: bold;">
+                Amount&nbsp;</th>
+              </tr>
+
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let data of IssueSubDetailsInfo; let i = index">
+                    <tr *ngIf="24 >= i && k == 0 || k > 0 && i > 24 * k">
+                                      
+                        <td class="tblNo" style="border-bottom: 0.2px #000000 solid;width: 22px;
+                            font-size: 8pt;    height: auto;    min-width: 22px;max-width: 22px; overflow: hidden;
+                            text-align: right;border-left: none; border-top: none; border-right: solid;
+                            border-width: 1px;">{{i + 1}}&nbsp;</td>
+                        <td class="Mrp" style="border-bottom: 0.2px #000000 solid;font-size: 8pt;
+                             height: auto;width: 46px;max-width: 46px; min-width: 46px;overflow: hidden;text-align: right;
+                             border-left: none;border-top: none;border-right: solid; border-width: 1px;padding: 0px; 
+                             font-weight: bold;">{{data.IssueSub_Mrp | number:'1.1-2'}}&nbsp;</td>
+                        <td class="tblProduct" style="border-bottom: 0.2px #000000 solid;font-size: 8pt;
+                             height: auto;width: 197px;min-width: 197px; max-width: 197px;overflow: hidden;text-align: left;border-left: none;
+                             border-top: none;border-right: solid;border-width: 1px;padding: 0px;                     font-weight: bold;
+                             white-space: nowrap;">{{ data.ItemDesc }}&nbsp;</td>
+                        <td class="tblItemCode" style="border-bottom: 0.2px #000000 solid; width: 52px;    min-width: 52px;    max-width: 52px;
+            overflow: hidden;    text-align: left;    border-left: none;    border-top: none;    border-right: solid;    border-width: 1px;    padding: 0px;    font-size: 8pt;    font-weight: bold;
+            white-space: nowrap;">{{data.HSNCode}}&nbsp;</td>
+                        <td class="RateofTax" style="border-bottom: 0.2px #000000 solid;width: 26px;
+                        max-width: 26px; min-width: 26px;overflow: hidden; text-align: right;
+                        border-left: none; font-size: 8pt;height: auto; border-top: none; border-right: solid;
+                        border-width: 1px; padding: 0px; font-weight: bold;">
+                          {{data.IssueSub_TaxPers | number:'1.1-2'}}&nbsp;</td>
+                        <td class="Qty" style="border-bottom: 0.2px #000000 solid;width: 27px;
+                        font-size: 8pt;    height: auto; max-width: 27px;
+                        min-width: 27px; overflow: hidden; text-align: right; border-left: none; border-top: none; border-right: solid;                border-width: 1px; padding: 0px;
+                        font-weight: bold;">{{data.IssueSub_Qty }}&nbsp;</td>
+                        <td class="Free" style="border-bottom: 0.2px #000000 solid;width: 26px;
+                        font-size: 8pt;    height: auto; max-width: 26px; min-width: 26px; overflow: hidden;
+                        text-align: right; border-left: none;border-top: none; border-right: solid;
+                        border-width: 1px; padding: 0px;font-weight: bold;">{{data.IssueSub_FreeQty }}&nbsp;</td>
+                        <td class="UnitPrice" style="border-bottom: 0.2px #000000 solid;width: 42px;
+                        font-size: 8pt;    height: auto;    max-width: 42px; min-width: 42px; overflow: hidden; text-align: right; border-left: none;
+                        border-top: none; border-right: solid; border-width: 1px; padding: 0px;
+                        font-weight: bold;">
+                         {{data.IssueSub_ActualRate | number:'1.1-2'}}&nbsp;</td>
+                        <td class="GrossValue" style="border-bottom: 0.2px #000000 solid;width: 48px;
+                        font-size: 8pt;    height: auto;    max-width: 48px; min-width: 48px;
+                        overflow: hidden; text-align: right; border-left: none; border-top: none;                border-right: solid; border-width: 1px;
+                        padding: 0px; font-weight: bold;">
+                          {{data.IssueSub_Qty * data.IssueSub_ActualRate | number:'1.1-2'}}&nbsp;</td>
+                        <td class="CashDisc" style="border-bottom: 0.2px #000000 solid;
+                       font-size: 8pt;    height: auto;     width: 38px;    max-width: 38px;    min-width: 38px;    overflow: hidden;    text-align: right;    border-left: none;    
+            border-top: none;    border-right: solid;    border-width: 1px;
+            padding: 0px;    font-weight: bold;">
+                         {{data.IssueSub_ProdDisAmt | number:'1.1-2'}}&nbsp;</td>
+                        <td class="NetValue" style="border-bottom: 0.2px #000000 solid;
+                        font-size: 8pt;    height: auto;    width: 51px;    max-width: 51px;
+            min-width: 51px;    overflow: hidden;    text-align: right;    border-left: none;
+                border-top: none;    border-right: solid;    border-width: 1px;
+            padding: 0px;    font-weight: bold;">
+                          {{data.IssueSub_Qty * data.IssueSub_ActualRate - data.IssueSub_ProdDisAmt | number:'1.1-2'}}&nbsp;</td>
+                        <td class="SGST" style="border-bottom: 0.2px #000000 solid;width: 39px;
+                        font-size: 8pt;    height: auto;    max-width: 39px;min-width: 39px;
+                        overflow: hidden;text-align: right;border-left: none;border-top: none;                border-right: solid;                border-width: 1px;
+                        padding: 0px;font-weight:bold;">
+                          {{data.IssueSub_SGSTTaxAmount | number:'1.1-2'}}&nbsp;</td>
+                        <td class="CGST" style="border-bottom: 0.2px #000000 solid;width: 39px;
+                        font-size: 8pt;    height: auto;    max-width: 39px;min-width: 39px;
+                        overflow: hidden;text-align: right;border-left: none;border-top: none;border-right: solid;
+                        border-width: 1px;padding: 0px;font-weight:bold;">
+                          {{data.IssueSub_CGSTTaxAmount | number:'1.1-2'}}&nbsp;</td>
+                        <td class="Amount" style="border-bottom: 0.2px #000000 solid;width: 58px;
+                        font-size: 8pt;    height: auto;max-width: 58px;min-width: 58px;overflow: hidden;text-align: right;
+                        border-left: none;border-top: none;border-right: none; border-width: 1px;
+                        padding: 0px;font-weight: bold;">
+                        {{data.IssueSub_Amount - data.IssueSub_CessAmt | number:'1.1-2'}}&nbsp;</td>
+                      </tr>
+                  </ng-container>
+              
+          
+            </tbody>
+
+            <!-- <tfoot>
+              <tr>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                
+              </tr>
+            </tfoot> -->
+          </table>
+        </div>
+
+        <div class="FooterSection" style="border: 0.2px #000000 solid;
+        height: 190px;max-height: 190px;overflow: hidden;border-bottom: none;
+        border-top: none; border-left: none;border-right: none; width: 100%;
+        padding: 0px">
+          <div
+            style="float:left;width:100%;border:1px solid;border-left:0px solid;border-right:0px solid;border-top:0px none;">
+
+            <div style="float:left;width:470px;">
+              <span class="subheading"
+                style="float: left;text-align: center; font-weight: bold; font-size: 9pt;width:100%;border-bottom: 0.0px #000000 solid;border-top: 0.0px #000000 solid;">
+                {{strAmtInwords}} </span>
+              <br />
+              <span
+                style="width:476px;float: left; font-weight: normal; font-size: 8pt;border:none; height:1px;">&nbsp;</span>
+              <span class="subheading"
+                style="width:800px;float: right; font-weight: normal; font-size: 9pt;text-align:center;height:8px;">&nbsp;</span>
+              <span
+                style="height:15px;margin-left:20px;width:40px;float: left; font-weight: normal; font-size: 8pt;border-bottom: 0.2px #000000 solid;border-left: 0.2px #000000 solid;border-top: 0.2px #000000 solid;border-right:0.2px #000000 solid;text-align:center;">&nbsp;%</span>
+              <span
+                style="height:15px;width:110px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.2px #000000 solid;text-align:center;">TAXABLE</span>
+              <span
+                style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.2px #000000 solid;text-align:center;">SGST</span>
+              <span
+                style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.2px #000000 solid;text-align:center;">CGST</span>
+              <span
+                style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.2px #000000 solid;text-align:center;">IGST</span>
+              <span
+                style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.2px #000000 solid;text-align:center;">CESS</span>
+              <span class="subheading"
+                style="width:800px;float: right; font-weight: normal; font-size: 9pt;text-align:center;height:0px;">&nbsp;</span>
+
+              <ng-container *ngFor="let tax of IssueTaxInfo">
+
+
+                <ng-container *ngIf="tax.TaxId == 1">
+                  <span
+                    style="height:15px;margin-left:20px;width:40px;float: left; font-weight: normal; font-size: 8pt;border-bottom: 0.2px #000000 solid;border-left: 0.2px #000000 solid;border-top: 0.0px #000000 solid;border-right:0.2px #000000 solid;text-align:center;">&nbsp;0
+                  </span>
+                  <span
+                    style="height:15px;width:110px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                    {{tax.Amount}}&nbsp;</span>
+                  <span
+                    style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">&nbsp;</span>
+                  <span
+                    style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">&nbsp;</span>
+                  <span
+                    style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">&nbsp;</span>
+                  <span
+                    style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">&nbsp;</span>
+                  <span class="height:15px;subheading"
+                    style="width:800px;float: right; font-weight: normal; font-size: 9pt;text-align:center;height:0px;">&nbsp;
+                  </span>
+                </ng-container>
+                <ng-container *ngIf="tax.TaxId == 3">
+                  <span
+                    style="height:15px;margin-left:20px;width:40px;float: left; font-weight: normal; font-size: 8pt;border-bottom: 0.2px #000000 solid;border-left: 0.2px #000000 solid;border-top: 0.0px #000000 solid;border-right:0.2px #000000 solid;text-align:center;">&nbsp;5
+                  </span>
+                  <span
+                    style="height:15px;width:110px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                    {{tax.Amount}}&nbsp;</span>
+                  <span
+                    style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                    {{tax.SGSTTaxAmount}}&nbsp;</span>
+                  <span
+                    style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                    {{tax.CGSTTaxAmount}}&nbsp;</span>
+                  <span
+                    style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                    {{tax.IGSTTaxAmount}}&nbsp;</span>
+                  <span
+                    style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                    {{tax.CessAmt}}&nbsp;
+                  </span>
+                </ng-container>
+                <ng-container *ngIf="tax.TaxId == 6">
+                  <span
+                    style="height:15px;margin-left:20px;width:40px;float: left; font-weight: normal; font-size: 8pt;border-bottom: 0.2px #000000 solid;border-left: 0.2px #000000 solid;border-top: 0.0px #000000 solid;border-right:0.2px #000000 solid;text-align:center;">&nbsp;12
+                  </span>
+                  <span
+                    style="height:15px;width:110px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                    {{tax.Amount}}&nbsp;</span>
+                  <span
+                    style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                    {{tax.SGSTTaxAmount}}&nbsp;</span>
+                  <span
+                    style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                    {{tax.CGSTTaxAmount}}&nbsp;</span>
+                  <span
+                    style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                    {{tax.IGSTTaxAmount}}&nbsp;</span>
+                  <span
+                    style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                    {{tax.CessAmt}}&nbsp;</span>
+                </ng-container>
+                <ng-container *ngIf="tax.TaxId == 7">
+                  <span
+                    style="height:15px;margin-left:20px;width:40px;float: left; font-weight: normal; font-size: 8pt;border-bottom: 0.2px #000000 solid;border-left: 0.2px #000000 solid;border-top: 0.0px #000000 solid;border-right:0.2px #000000 solid;text-align:center;">&nbsp;18
+                  </span>
+                  <span
+                    style="height:15px;width:110px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                    {{tax.Amount}}&nbsp;</span>
+                  <span
+                    style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                    {{tax.SGSTTaxAmount}}&nbsp;</span>
+                  <span
+                    style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                    {{tax.CGSTTaxAmount}}&nbsp;</span>
+                  <span
+                    style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                    {{tax.IGSTTaxAmount}}&nbsp;</span>
+                  <span
+                    style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                    {{tax.CessAmt}}&nbsp;</span>
+                </ng-container>
+
+                <ng-container *ngIf="tax.TaxId == 8">
+                  <span
+                    style="height:15px;margin-left:20px;width:40px;float: left; font-weight: normal; font-size: 8pt;border-bottom: 0.2px #000000 solid;border-left: 0.2px #000000 solid;border-top: 0.0px #000000 solid;border-right:0.2px #000000 solid;text-align:center;">&nbsp;28
+                  </span>
+                  <span
+                    style="height:15px;width:110px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                    {{tax.Amount}}&nbsp;</span>
+                  <span
+                    style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                    {{tax.SGSTTaxAmount}}&nbsp;</span>
+                  <span
+                    style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                    {{tax.CGSTTaxAmount}}&nbsp;</span>
+                  <span
+                    style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                    {{tax.IGSTTaxAmount}}&nbsp;</span>
+                  <span
+                    style="height:15px;width:70px;float: left; font-weight: normal; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;text-align:right;">
+                    {{tax.CessAmt}}&nbsp;</span>
+                </ng-container>
+
+
+              </ng-container>
+
+
+              <!-- <span class="subheading"
+                   style="width:500px;float: left; font-weight: bold; font-size: 9pt;overflow:hidden;">&nbsp;&nbsp;
+                  {{ IssueInfo.Remarks }}
+              </span> -->
+
+            </div>
+
+            <div style="float:right;width:253px;">
+
+              <span
+                style="width:140px;float: left; font-weight: bold; font-size: 8pt;border-bottom: 0.2px #000000 solid;border-left: 0.2px #000000 solid;border-top: 0.0px #000000 solid;border-right:none;">&nbsp;Total
+                Amt Before Tax</span>
+              <span
+                style="width:10px;float: left; font-weight: bold; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;">:</span>
+              <span
+                style="width:100px;float: left; font-weight: bold; font-size: 8pt;text-align: right;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-right:none;border-top: 0.0px #000000 solid;">
+                {{ TotAmtBeforeTax | number:'1.1-2' }}</span>
+
+              <span
+                style="width:140px;float: left; font-weight: bold; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.2px #000000 solid;border-top: 0.0px #000000 solid;border-right:none;">&nbsp;Add
+                : SGST</span>
+              <span
+                style="width:10px;float: left; font-weight: bold; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;">:</span>
+              <span
+                style="width:100px;float: left; font-weight: bold; font-size: 8pt;text-align: right;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;border-right:none;">
+                {{TotSGstTotal | number:'1.1-2'}}</span>
+
+              <span
+                style="width:140px;float: left; font-weight: bold; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.2px #000000 solid;border-top: 0.0px #000000 solid;border-right:none;">&nbsp;Add
+                : CGST</span>
+              <span
+                style="width:10px;float: left; font-weight: bold; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;">:</span>
+              <span
+                style="width:100px;float: left; font-weight: bold; font-size: 8pt;text-align: right;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;border-right:none;">
+                {{TotCGstTotal | number:'1.1-2'}}</span>
+
+              <span
+                style="width:140px;float: left; font-weight: bold; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.2px #000000 solid;border-top: 0.0px #000000 solid;border-right:none;">&nbsp;Add
+                : IGST</span>
+              <span
+                style="width:10px;float: left; font-weight: bold; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;">:</span>
+              <span
+                style="width:100px;float: left; font-weight: bold; font-size: 8pt;text-align: right;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;border-right:none;">
+                {{TotIGstTotal | number:'1.1-2'}}</span>
+
+
+              <span
+                style="width:140px;float: left; font-weight: bold; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.2px #000000 solid;border-top: 0.0px #000000 solid;border-right:none;">&nbsp;Add
+                : CESS</span>
+              <span
+                style="width:10px;float: left; font-weight: bold; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;">:</span>
+              <span
+                style="width:100px;float: left; font-weight: bold; font-size: 8pt;text-align: right;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;border-right:none;">
+                {{(dTotCessAmt) | number:'1.1-2'}} </span>
+
+              <span
+                style="width:140px;float: left; font-weight: bold; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.2px #000000 solid;border-top: 0.0px #000000 solid;border-right:none;">&nbsp;Total
+                Amt After Tax</span>
+              <span
+                style="width:10px;float: left; font-weight: bold; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;">:</span>
+              <span
+                style="width:100px;float: left; font-weight: bold; font-size: 8pt;text-align: right;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;border-right:none;">
+                {{ (TotAmtBeforeTax + TotSGstTotal + TotCGstTotal + TotIGstTotal) | number:'1.1-2' }}</span>
+
+              <span
+                style="width:140px;float: left; font-weight: bold; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.2px #000000 solid;border-top: 0.0px #000000 solid;border-right:none;">&nbsp;Courier&nbsp;Chg</span>
+              <span
+                style="width:10px;float: left; font-weight: bold; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;">:</span>
+              <span
+                style="width:100px;float: left; font-weight: bold; font-size: 8pt;text-align: right;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;border-right:none;">
+                {{ (IssueInfo?.Issue_Freight) | number:'1.1-2' }}</span>
+
+              <span
+                style="width:140px;float: left; font-weight: bold; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.2px #000000 solid;border-top: 0.0px #000000 solid;border-right:none;">&nbsp;
+                {{ IssueInfo?.Field2 }}</span>
+              <span
+                style="width:10px;float: left; font-weight: bold; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;">:</span>
+              <span
+                style="width:100px;float: left; font-weight: bold; font-size: 8pt;text-align: right;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;border-right:none;">
+                {{ (IssueInfo?.Issue_OtherCharge) | number:'1.1-2' }}</span>
+
+
+              <span
+                style="width:140px;float: left; font-weight: bold; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.2px #000000 solid;border-top: 0.0px #000000 solid;border-right:none;">&nbsp;Rof</span>
+              <span
+                style="width:10px;float: left; font-weight: bold; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;">:</span>
+              <span
+                style="width:100px;float: left; font-weight: bold; font-size: 8pt;text-align: right;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;border-right:none;">
+                {{ (IssueInfo?.Issue_ROF) | number:'1.1-2' }}</span>
+
+              <span
+                style="width:140px;float: left; font-weight: bold; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.2px #000000 solid;border-top: 0.0px #000000 solid;border-right:none;">&nbsp;Dis(
+                {{  IssueInfo?.Issue_DisPers | number:'1.1-2' }})</span>
+              <span
+                style="width:10px;float: left; font-weight: bold; font-size: 8pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;">:</span>
+              <span
+                style="width:100px;float: left; font-weight: bold; font-size: 8pt;text-align: right;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;border-right:none;">
+                {{ (IssueInfo?.Issue_DisAmt) | number:'1.1-2' }}</span>
+
+              <span
+                style="width:140px;float: left; font-weight: bold; font-size: 10pt;border: 0.2px #000000 solid;border-left: 0.2px #000000 solid;border-top: 0.0px #000000 solid;border-right:none;border-bottom: 0.0px #000000 solid;">&nbsp;TOTAL</span>
+              <span
+                style="width:10px;float: left; font-weight: bold; font-size: 10pt;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;border-bottom: 0.0px #000000 solid;">:</span>
+              <span
+                style="width:100px;float: left; font-weight: bold; font-size: 10pt;text-align: right;border: 0.2px #000000 solid;border-left: 0.0px #000000 solid;border-top: 0.0px #000000 solid;border-right:none;border-bottom: 0.0px #000000 solid;">
+                {{ (IssueInfo?.Issue_Total) | number:'1.1-2' }}</span>
+              <br />
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="DeclareSection" style="border: 0.2px #000000 solid;
+        height: 200px; max-height: 200px; min-height: 200px; overflow: hidden;
+        border-bottom: none; border-top: none; border-left: none; border-right: none; width: 100%;">
+          <br />
+          <div style="width:270px;float:left;padding-left:10px;">
+            <span
+              style="width:70px;float: left; font-weight: bold; font-size: 8pt;border:none;border-top: 0.2px #000000 solid;border-left: 0.2px #000000 solid;">&nbsp;Bank
+              Name</span>
+            <span
+              style="width:10px;float: left; font-weight: bold; font-size: 8pt;border:none;border-top: 0.2px #000000 solid;">:</span>
+            <span
+              style="width:170px;float: left; font-weight: bold; font-size: 8pt;border:none;border-top: 0.2px #000000 solid;border-right: 0.2px #000000 solid;overflow:hidden; white-space: nowrap;">&nbsp;</span>
+
+            <span
+              style="width:70px;float: left; font-weight: bold; font-size: 8pt;border:none;border-left: 0.2px #000000 solid;">&nbsp;Address</span>
+            <span style="width:10px;float: left; font-weight: bold; font-size: 8pt;border:none;">:</span>
+            <span
+              style="width:170px;float: left; font-weight: bold; font-size: 8pt;border:none;border-right: 0.2px #000000 solid;overflow:hidden; white-space: nowrap;">&nbsp;</span>
+
+            <span
+              style="width:70px;float: left; font-weight: bold; font-size: 8pt;border:none;border-left: 0.2px #000000 solid;">&nbsp;Account
+              No</span>
+            <span style="width:10px;float: left; font-weight: bold; font-size: 8pt;border:none;">:</span>
+            <span
+              style="width:170px;float: left; font-weight: bold; font-size: 8pt;border:none;border-right: 0.2px #000000 solid;overflow:hidden; white-space: nowrap;">&nbsp;</span>
+
+            <span
+              style="width:70px;float: left; font-weight: bold; font-size: 8pt;border:none;border-bottom: 0.2px #000000 solid;border-left: 0.2px #000000 solid;">&nbsp;Bank
+              IFSC</span>
+            <span
+              style="width:10px;float: left; font-weight: bold; font-size: 8pt;border:none;border-bottom: 0.2px #000000 solid;">:</span>
+            <span
+              style="width:170px;float: left; font-weight: bold; font-size: 8pt;border:none;border-bottom: 0.2px #000000 solid;border-right: 0.2px #000000 solid;overflow:hidden; white-space: nowrap;">&nbsp;</span>
+
+          </div>
+
+          <div style="width:170px;float:left;padding-left:5px;display:none;">
+
+            <span
+              style="width:60px;float: left; font-weight: bold; font-size: 8pt;border:none;border-top: 0.2px #000000 solid;border-left: 0.2px #000000 solid;">&nbsp;O/S
+              AMT</span>
+            <span
+              style="width:10px;float: left; font-weight: bold; font-size: 8pt;border:none;border-top: 0.2px #000000 solid;">:</span>
+            <span
+              style="width:70px;float: left; font-weight: bold; font-size: 8pt;border:none;border-top: 0.2px #000000 solid;border-right: 0.2px #000000 solid;text-align:right;">
+              {{ (IssueInfo?.OldBalance) | number:'1.1-2' }} + '&nbsp;&nbsp;</span>
+
+            <span
+              style="width:60px;float: left; font-weight: bold; font-size: 8pt;border:none;border-left: 0.2px #000000 solid;">&nbsp;BILL
+              AMT</span>
+            <span style="width:10px;float: left; font-weight: bold; font-size: 8pt;border:none;">:</span>
+            <span
+              style="width:70px;float: left; font-weight: bold; font-size: 8pt;border:none;border-right: 0.2px #000000 solid;text-align:right;">
+              {{ (IssueInfo?.Issue_Total) | number:'1.1-2' }} + '&nbsp;&nbsp;</span>
+
+            <span
+              style="width:60px;float: left; font-weight: bold; font-size: 8pt;border:none;border-left: 0.2px #000000 solid;border-bottom: 0.2px #000000 none;">&nbsp;TOT
+              AMT</span>
+            <span
+              style="width:10px;float: left; font-weight: bold; font-size: 8pt;border:none;border-bottom: 0.2px #000000 none;">:</span>
+            <span
+              style="width:70px;float: left; font-weight: bold; font-size: 8pt;border:none;border-right: 0.2px #000000 solid;border-bottom: 0.2px #000000 none;text-align:right;">
+              {{ ((IssueInfo?.OldBalance) + (IssueInfo?.Issue_Total)) | number:'1.1-2' }} + '&nbsp;&nbsp;</span>
+
+            <span
+              style="width:60px;float: left; font-weight: bold; font-size: 8pt;border:none;border-left: 0.2px #000000 solid;border-bottom: 0.2px #000000 solid;">&nbsp;</span>
+            <span
+              style="width:10px;float: left; font-weight: bold; font-size: 8pt;border:none;border-bottom: 0.2px #000000 solid;">&nbsp;</span>
+            <span
+              style="width:70px;float: left; font-weight: bold; font-size: 8pt;border:none;border-right: 0.2px #000000 solid;border-bottom: 0.2px #000000 solid;text-align:right;">&nbsp;&nbsp;</span>
+
+
+          </div>
+
+          <div style="float:right;width:250px;">
+
+            <span class="subheading"
+              style="width:320px;float: right; font-weight: bold; font-size: 9pt;text-align:center">&nbsp;</span>
+            <span class="subheading"
+              style="width:800px;float: right; font-weight: bold; font-size: 9pt;text-align:center">&nbsp;</span>
+            <span class="subheading"
+              style="width:800px;float: right; font-weight: bold; font-size: 9pt;text-align:center">&nbsp;</span>
+            <span class="subheading"
+              style="width:800px;float: right; font-weight: bold; font-size: 9pt;text-align:center">&nbsp;</span>
+            <span class="subheading"
+              style="width:320px;float: right; font-weight: bold; font-size: 9pt;text-align:center">Authorised&nbsp;Signatory</span>
+
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</ion-content>

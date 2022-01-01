@@ -1,0 +1,50 @@
+<ion-toolbar>
+  
+  <ion-title>Filter Product</ion-title>
+
+  <ion-buttons slot="end" >
+
+     <ion-button color="medium" (click)="drefresh()">
+      Reset
+     </ion-button>
+
+    <ion-button color="danger" (click)="dismiss()">
+      Close
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>
+
+<ion-content>
+  <ion-item>
+    <ion-label>Sort By Price</ion-label>
+    <ion-select [(ngModel)]="sortPrice" >
+      <ion-select-option value="default">Default</ion-select-option>
+      <ion-select-option value="hightolow">High To Low</ion-select-option>
+      <ion-select-option value="lowtohigh">Low To High</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+
+  
+  <ion-item>
+    <ion-label>Sort By Image</ion-label>
+    <ion-select [(ngModel)]="sortImage" >
+      <ion-select-option value="default">Default</ion-select-option>
+      <ion-select-option value="ascending">Ascending </ion-select-option>
+      <ion-select-option value="descending">Descending </ion-select-option>
+    </ion-select>
+  </ion-item>
+ 
+
+  <ion-item>
+    <ion-label>Stocked Item</ion-label>
+    <ion-checkbox [(ngModel)]="sortStock" color="primary"></ion-checkbox>
+  </ion-item>
+
+  <ion-button expand="full" color='success' (click)="apply()"> 
+    Apply
+    
+  </ion-button>
+  
+</ion-content>
+

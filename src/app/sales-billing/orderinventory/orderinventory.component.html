@@ -1,0 +1,535 @@
+<ion-header >
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="onReload()" >
+        <ion-icon slot="icon-only" name="home" color='light'></ion-icon>
+    </ion-button>
+      <!-- <ion-menu-button ></ion-menu-button> -->
+    </ion-buttons>
+
+    <ion-title *ngIf="!showSearch">
+      Inventory
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button *ngIf="!showSearch && product_show" (click)="fnProductBack()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar *ngIf="!showSearch && product_show || !showSearch && bBillListShow">
+    <ion-searchbar #search debounce="500" color='light' showCancelButton='never' animated
+      (ionChange)="fnSearch($event)"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="content-background">
+
+  <div class="div-background">
+    <div *ngIf="bBillListShow" class='div-create'>
+      <ion-grid class="inner-border" style="padding-inline-start: 0; padding-inline-end: 0;">
+        <ion-row>
+          <ion-col style="padding-inline-start: 0; padding-inline-end: 5px;">
+            <ion-item>
+              <ion-label position="stacked">From</ion-label>
+              <ion-input [(ngModel)]="fromdate" readonly></ion-input>
+              <button (click)="calenderPicker('from')" type="button" slot="end" class="calender">
+                <ion-icon  slot="icon-only" name="calendar"></ion-icon>
+              </button>
+            </ion-item>
+          </ion-col>
+          <ion-col style="padding-inline-start: 5px; padding-inline-end: 0;">
+            <ion-item>
+              <ion-label position="stacked">To</ion-label>
+              <ion-input [(ngModel)]="Todate" readonly></ion-input>
+              <button (click)="calenderPicker('to')" type="button" slot="end" class="calender">
+                <ion-icon  slot="icon-only" name="calendar"></ion-icon>
+              </button>
+
+            </ion-item>
+
+          </ion-col>
+        </ion-row>
+
+        <!-- <ion-row>
+          <ion-col>
+
+          </ion-col>
+        </ion-row> -->
+      </ion-grid>
+
+      <ion-item>
+        <ion-label>Bill Series</ion-label>
+        <ion-select  placeholder="Select One" (ionChange)="fnBillCopyChangeBillSeries($event)"
+          [value]='dCopyBillSerId'>
+          <ion-select-option *ngFor="let item of BillSeriesJson" [value]="item.BillSerId" selected>
+            {{item.BillSerPrefix}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-list lines="full" *ngIf="loading">
+        <ion-item>
+          <ion-label>
+            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+          </ion-label>
+          <div slot="end" style="width: 100px; height: 35px;">
+            <ion-skeleton-text slot="end" animated style="width: 100%"></ion-skeleton-text>
+          </div>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+          </ion-label>
+          <div slot="end" style="width: 100px; height: 35px;">
+            <ion-skeleton-text slot="end" animated style="width: 100%"></ion-skeleton-text>
+          </div>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+          </ion-label>
+          <div slot="end" style="width: 100px; height: 35px;">
+            <ion-skeleton-text slot="end" animated style="width: 100%"></ion-skeleton-text>
+          </div>
+        </ion-item>
+      </ion-list>
+
+      <ion-virtual-scroll *ngIf="!loading" [items]="dataGetList">
+        <ion-item mode='ios' *virtualItem="let item" lines="full">
+          <ion-label class="ion-text-wrap">
+            <ion-text color="primary">
+              <h3>{{item.Customer}}</h3>
+            </ion-text>
+            <p>{{item.Address}}</p>
+
+            <ion-text color="dark">
+              <p>BillTotal: {{item.Amount | number:'1.2-2'}}</p>
+            </ion-text>
+          </ion-label>
+          <ion-card slot="end" class="ion-text-center">
+            <ion-text color="dark">
+              <p class="ion-no-margin" style="padding: 5px; border-bottom: 1px solid #ccc">
+                {{item.BillNo}}
+              </p>
+            </ion-text>
+            <ion-button fill="clear" (click)='anchorClick(item, "anchor")'>
+              <ion-icon slot="icon-only"  color="success" name="create"></ion-icon>
+            </ion-button>
+
+            <ion-button fill="clear" (click)="anchorClick(item,'print')">
+              <ion-icon  slot="icon-only"  color="medium" name="print"></ion-icon>
+            </ion-button>
+
+          </ion-card>
+        </ion-item>
+
+      </ion-virtual-scroll>
+
+    </div>
+
+    <div class="view_box " *ngIf="!product_show && !bBillListShow">
+
+      <ion-card style="margin: 4px">
+        <ion-item button lines='none' (click)="onAddCustomer()">
+            <ion-icon slot="icon-only" name='person' color="primary" slot="start"></ion-icon>
+          <ion-label>
+            <h3>{{AcName ? AcName: 'Add Customer'}}</h3>
+            <p>{{Address}}</p>
+          </ion-label>
+
+          <ion-button shape='round' size='large' fill='clear' color="medium" slot="end" >
+            <ion-icon slot="icon-only" name='add'></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-card>
+
+      <ion-grid class="inner-border">
+
+        <ion-row responsive-sm>
+          <ion-col size="8">
+            <ion-item>
+              <ion-label>
+                Balance: {{ledgerAmount | number:'1.2-2'}}
+              </ion-label>
+              <ion-button  *ngIf="AcName && AcId" slot="end" (click)="fnBillwiseOutstandingOnAcId()">
+                O/S
+              </ion-button>
+            </ion-item>
+          </ion-col>
+          <ion-col size="4">
+            <ion-item>
+              <ion-label>View</ion-label>
+              <ion-toggle (ionChange)='toggleChange($event)' checked></ion-toggle>
+            </ion-item>
+
+          </ion-col>
+        </ion-row>
+
+        <div *ngIf="!divshow">
+          <ion-row responsive-sm>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label>
+                  Bill No: {{billNo}}
+                </ion-label>
+
+              </ion-item>
+            </ion-col>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label>
+                  Date: {{todays}}
+                </ion-label>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <ion-row responsive-sm>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label>Bill Series</ion-label>
+                <ion-select  placeholder="Select One" (ionChange)="fnchangeBillSeries($event)"
+                  [(ngModel)]="BillSeriesSelected" disabled="{{isDisabled}}">
+                  <ion-select-option *ngFor="let item of BillSeriesJson" [value]="item.BillSerId" selected>
+                    {{item.BillSerPrefix}}
+                  </ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+
+            <ion-col size="6">
+              <ion-item>
+                <ion-label>Pay terms</ion-label>
+                <ion-select  placeholder="Select One" (ionChange)="fnchangePayterms($event)"
+                  [(ngModel)]="PaytermsSelected">
+                  <ion-select-option *ngFor="let terms of paytermsData" [value]="terms.PayTerms">{{terms.PayTerms}}
+                  </ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <ion-row responsive-sm>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label>DiffPrice</ion-label>
+                <ion-select  placeholder="Select One" (ionChange)="fnchangePrice($event)"
+                  [value]='PriceSelected'>
+                  <ion-select-option *ngFor="let item of Pricejson" [value]="item.PriceMenu_Id" selected>
+                    {{item.DisplayName}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+
+            <ion-col size="6">
+              <ion-item>
+                <ion-label>SalesMan</ion-label>
+                <ion-select  placeholder="Select One" (ionChange)="fnchangeSalesman($event)"
+                  [value]='SalesManSelectedId'>
+                  <ion-select-option *ngFor="let item of Salesmanjson" [value]="item.AC_Id"
+                   selected>{{item.AC_Name}}
+                  </ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label>Disc(%):</ion-label>
+                <ion-input type='number' inputmod="numeric" [(ngModel)]="IssueInfo.Issue_DisPers"
+                  (keyup)='fnAmountCalculation()'></ion-input>
+              </ion-item>
+              <!-- <ion-toggle color='dark' [(ngModel)]="toogDisc"></ion-toggle> -->
+            </ion-col>
+
+            <!-- <ion-col size="6">
+              <ion-item>
+                <ion-label>Add Cess:</ion-label>
+                <ion-select  (ionChange)="fnchangeCess($event)" [(ngModel)]="cessValue">
+                  <ion-select-option value='No'>No</ion-select-option>
+                  <ion-select-option value='Yes'>Yes</ion-select-option>
+                </ion-select>
+                  </ion-item>
+            </ion-col> -->
+
+
+            <ion-col size="6">
+              <ion-item>
+                <ion-input inputmod="text" placeholder="VechileNo (optional)" [(ngModel)]="IssueInfo.Issue_VechileNo">
+                </ion-input>
+              </ion-item>
+<!--
+              <ion-item>
+                <ion-select>
+                  <ion-select-option value='No'>No</ion-select-option>
+                  <ion-select-option value='Yes'>Yes</ion-select-option>
+                </ion-select>
+              </ion-item> -->
+
+            </ion-col>
+
+          </ion-row>
+
+          <ion-row *ngIf="IssueInfo.Issue_TCSPers">
+            <ion-col size="6">
+              <ion-item>
+                <ion-label>TCS(%)</ion-label>
+                <ion-input type='number' inputmod="numeric" [(ngModel)]="IssueInfo.Issue_TCSPers" disabled></ion-input>
+              </ion-item>
+            </ion-col>
+
+            <ion-col size="6">
+              <ion-item>
+                <ion-label>TCSAmt</ion-label>
+                <ion-input type='number' inputmod="numeric" [(ngModel)]="IssueInfo.Issue_TCSAmt" disabled></ion-input>
+              </ion-item>
+            </ion-col>
+
+          </ion-row>
+
+          <ion-row *ngIf="ListIssueSubDetailsInfo.length !==0">
+            <ion-col size="12">
+              <ion-item>
+                <ion-input inputmod="text" placeholder="Remark" [(ngModel)]="Remarks"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </div>
+
+        <ion-row *ngIf="shownNext">
+          <ion-col size="12">
+            <!-- <ion-item *ngIf="shownNext">
+              <ion-input placeholder="Address" [value]='Address' disabled></ion-input>
+            </ion-item> -->
+            <ion-item>
+              <ion-label>GSTIN: {{IssueInfo.Issue_GSTinNo}}</ion-label>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <div class="div-tablelist" *ngIf="ListIssueSubDetailsInfo.length !==0">
+        <table class="tbl-report">
+          <thead>
+            <tr>
+              <th>Del</th>
+              <th>No</th>
+              <th>Product Name</th>
+              <th>Qty</th>
+              <th>Free</th>
+              <th>Rate</th>
+              <!-- <th>Price</th> -->
+              <th>Gross Value</th>
+              <th>GST%</th>
+              <th>GSTAmt</th>
+              <th *ngIf='ctrlDisc'>Disc(%)</th>
+
+              <th>Amount</th>
+              <th *ngIf="SettingBatch==='Yes'">Batch</th>
+              <th *ngIf="SettingExpiry ==='Yes'">Expiry</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let IssueSub of ListIssueSubDetailsInfo; let i = index" (click)='fnEditRow(IssueSub)'>
+              <td (click)="onRemove(IssueSub)">
+                <ion-icon  name="close" color='danger'></ion-icon>
+              </td>
+              <td>{{ i+1 }}</td>
+              <td>
+                {{ IssueSub.ItemDesc }}
+              </td>
+              <td>
+                {{IssueSub.IssueSub_Qty}}
+              </td>
+              <td>
+                {{IssueSub.IssueSub_FreeQty}}
+              </td>
+              <td>
+                {{IssueSub.IssueSub_OriginalRate | number:'1.2-2'}}
+              </td>
+              <!-- <td>
+                {{IssueSub.IssueSub_ActualRate | number:'1.2-2'}}
+              </td> -->
+              <td>
+                {{totalGross(i) | number:'1.2-2'}}
+              </td>
+              <td>
+                {{IssueSub.IssueSub_TaxPers | number}}
+              </td>
+              <td>
+                {{IssueSub.IssueSub_TaxAmt | number:'1.2-2'}}
+              </td>
+              <td *ngIf='ctrlDisc'>
+                {{IssueSub.IssueSub_PdodDis | number:'1.2-2'}}
+              </td>
+              <td>
+                {{IssueSub.IssueSub_Amount | number:'1.2-2'}}
+              </td>
+              <td *ngIf="SettingBatch==='Yes'">{{IssueSub.IssueSub_Batch}} </td>
+              <td *ngIf="SettingExpiry ==='Yes'">{{IssueSub.IssueSub_ExpDate}}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+
+            <tr>
+              <td colspan='3'>Total</td>
+              <td [attr.colspan]="ctrlDisc ? 7: 6">
+                {{getTotalQty()}} + {{getTotalFreeQty()}} = {{getTotalQty() + getTotalFreeQty()}}
+              </td>
+              <td colspan='3'>{{IssueInfo.Issue_Total | number:'1.2-2'}}</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+        <!-- <ion-list lines='full' mode='ios' *ngIf="ListIssueSubDetailsInfo.length">
+
+          <ion-card mode='ios' button='true' class="card-list" (click)='fnEditRow(IssueSub)'
+           *ngFor="let IssueSub of ListIssueSubDetailsInfo;let i = index" >
+            <ion-card-header>
+              <ion-card-subtitle color="primary">{{i +1 }}. {{ IssueSub.ItemDesc }}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+              <div style="display: flex;">
+                <div class="ion-margin-end sp-in-b" >
+                  <div >
+                    <span class="ion-margin-end">Quantity:&nbsp;<b>{{IssueSub.IssueSub_Qty}}</b></span>
+                    <span>Free:&nbsp;<b>{{IssueSub.IssueSub_FreeQty}}</b></span>
+                  </div>
+
+                  <div>
+                    <span class="ion-margin-end">Rate:&nbsp;<b>{{IssueSub.IssueSub_OriginalRate | number:'1.2-2'}}</b></span>
+                    <span>Price:&nbsp;<b>{{IssueSub.IssueSub_ActualRate | number:'1.2-2'}}</b></span>
+                  </div>
+
+                  <div>Gross Value:&nbsp;<b>{{IssueSub.IssueSub_AmountBeforeTax | number:'1.2-2'}}</b></div>
+
+                </div>
+
+                <div class="sp-in-b">
+                  <div>
+                    <span class="ion-margin-end">GST%:&nbsp;<b>{{IssueSub.IssueSub_TaxPers | number}}</b></span>
+                    <span>GSTAmt:&nbsp;<b>{{IssueSub.IssueSub_TaxAmt | number}}</b></span>
+                  </div>
+
+                  <div>
+                    <span *ngIf="SettingBatch=='Yes'" class="ion-margin-end">Batch:&nbsp;{{IssueSub.IssueSub_Batch}}</span>
+                    <span *ngIf="SettingExpiry =='Yes'">Expiry:&nbsp;{{IssueSub.IssueSub_ExpDate}}</span>
+                  </div>
+
+                  <div>
+                    <span>
+                    Amount:&nbsp;
+                    <ion-text color="primary"><span>{{IssueSub.IssueSub_Amount | number:'1.2-2'}}</span></ion-text>
+                  </span></div>
+                </div>
+              </div>
+            </ion-card-content>
+
+            <ion-fab vertical="top" horizontal="end" edge slot="fixed">
+              <ion-fab-button size="small" color="danger" (click)="onRemove(IssueSub)">
+                <ion-icon  name="close"></ion-icon>
+              </ion-fab-button>
+            </ion-fab>
+          </ion-card>
+        </ion-list> -->
+
+        <!-- <ion-card mode='ios' class="bottom-bill ion-no-margin" *ngIf="ListIssueSubDetailsInfo.length"
+        style="border-radius: 0px;">
+          <ion-item color="success">
+            <ion-label>
+              Total Qty:
+
+              <b>{{getTotalQty() + getTotalFreeQty()}}</b>
+            </ion-label>
+            <ion-label slot="end">
+              Total:
+              <b>{{IssueInfo.Issue_Total | number:'1.2-2'}}</b>
+            </ion-label>
+          </ion-item>
+        </ion-card> -->
+
+    </div>
+
+
+    <div *ngIf="product_show &&  !bBillListShow">
+
+      <div *ngIf="productload">
+        <div class="ion-padding custom-skeleton">
+          <ion-skeleton-text animated style="height: 25px"></ion-skeleton-text>
+          <ion-skeleton-text animated style="height: 50px"></ion-skeleton-text>
+          <ion-skeleton-text animated style="height: 50px"></ion-skeleton-text>
+          <ion-skeleton-text animated style="height: 50px"></ion-skeleton-text>
+          <ion-skeleton-text animated style="height: 50px"></ion-skeleton-text>
+          <ion-skeleton-text animated style="height: 50px"></ion-skeleton-text>
+          <ion-skeleton-text animated style="height: 50px"></ion-skeleton-text>
+          <ion-skeleton-text animated style="height: 50px"></ion-skeleton-text>
+          <ion-skeleton-text animated style="height: 25px"></ion-skeleton-text>
+          <ion-skeleton-text animated style="height: 50px"></ion-skeleton-text>
+          <ion-skeleton-text animated style="height: 50px"></ion-skeleton-text>
+          <ion-skeleton-text animated style="height: 50px"></ion-skeleton-text>
+          <ion-skeleton-text animated style="height: 50px"></ion-skeleton-text>
+          <ion-skeleton-text animated style="height: 50px"></ion-skeleton-text>
+          <ion-skeleton-text animated style="height: 50px"></ion-skeleton-text>
+          <ion-skeleton-text animated style="height: 50px"></ion-skeleton-text>
+        </div>
+      </div>
+
+      <ion-virtual-scroll [items]="ProductData">
+        <ion-card *virtualItem="let item;" class="ion-activatable">
+          <ion-item button (click)="fnproductClick(item)">
+            <ion-label [color]="item.StockQty === 0? 'danger': 'primary'" style="min-width: 60px; flex: 0;">
+              <p>Stock</p>
+              <h3>{{item.StockQty}}</h3>
+            </ion-label>
+            <ion-label class="ion-text-wrap">
+              <h4>{{item.ItemDesc}}</h4>
+              <p>{{item.Manufacture}}</p>
+            </ion-label>
+
+            <span slot="end" style="margin: 0;font-size: 12px;">MRP: {{item.MRP | number:'1.2-2'}}</span>
+          </ion-item>
+
+        </ion-card>
+      </ion-virtual-scroll>
+
+    </div>
+  </div>
+
+  <ion-fab *ngIf="bBillListShow" vertical="bottom" horizontal="start" slot="fixed" class="ion-text-center">
+    <ion-fab-button  size="small" (click)="fnCreate(); showSearch = false">
+      <ion-icon  name="add"></ion-icon>
+    </ion-fab-button>
+    <ion-label color="primary">create</ion-label>
+  </ion-fab>
+
+
+</ion-content>
+
+
+<ion-footer *ngIf="!product_show && !bBillListShow">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button  color='secondary' (click)="fnBackToList()">Back To List</ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button  color='primary' (click)="getproducts()">ProductList</ion-button>
+      <ion-button  color='success' *ngIf="ListIssueSubDetailsInfo.length !==0"
+      [disabled]='disSave' (click)="fnsave()">
+        Save
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

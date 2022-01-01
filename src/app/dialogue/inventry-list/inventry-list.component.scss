@@ -1,0 +1,11 @@
+.btn-grid {
+    display: grid;
+    grid-row-gap: 15px;
+}
+
+.sticky-date {
+    position: sticky;
+    top: -10px;
+    z-index: 10;
+    background: #fff;
+}

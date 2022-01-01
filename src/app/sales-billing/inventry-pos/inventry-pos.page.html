@@ -1,0 +1,222 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="onReload()" >
+        <ion-icon slot="icon-only" name="home" color='dark'></ion-icon>
+    </ion-button> 
+      <!-- <ion-menu-button ></ion-menu-button> -->
+    </ion-buttons>
+    <ion-label slot="start">
+      Bill No: {{issueInfo.billNo}}
+    </ion-label>
+    <ion-item lines="none" slot="end">
+      <ion-select class="sin-select" [(ngModel)]='issueInfo.Issue_SaleType'>
+        <ion-select-option *ngFor="let item of Pricejson" [value]="item.PriceMenu_Id" selected>
+          {{item.DisplayName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- 
+    <ion-item slot="end">
+      <ion-select [(ngModel)]="issueInfo.billSerId" class="sin-select">
+        <ion-select-option *ngFor="let bill of billSeriesData" [value]='bill.BillSerId'>
+          {{bill.BillSerPrefix}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item> -->
+
+
+    <ion-buttons slot="end">
+      <ion-button (click)="scan()">
+        <ion-icon name="barcode" slot="icon-only"></ion-icon>
+      </ion-button>
+
+      <ion-button (click)="morePopover($event)">
+        <ion-icon  name="ellipsis-vertical-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+
+    </ion-buttons>
+
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form #form ngNoForm id="nonseamless" method="post" name="redirect"
+    action="https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction">
+    <input type="hidden" id="encRequest" name="encRequest">
+    <input type="hidden" name="access_code" id="access_code">
+  </form>
+  <!-- <ion-button (click)="demoPrint()">Test print</ion-button> -->
+  <div class="sale-flex" #Divmain>
+    <div class="top-flex" [style.height.px]='mainHeight'>
+      <ion-list lines='full'>
+        <ion-item button *ngFor="let item of listProducts" (click)="onEdit(item)">
+          <ion-label class="ion-text-wrap">
+            <ion-text color="dark">
+              <h3>Product:<b>&nbsp;{{item.ItemDesc}} ({{item.ItemCode}})</b></h3>
+            </ion-text>
+            <p>Quantity: <b>{{item.IssueSub_Qty}} x ₹{{item.IssueSub_OriginalRate}}</b></p>
+          </ion-label>
+          <div  slot="end" text-right>
+            <ion-text color="medium" slot="end">
+              <p>Mrp: {{item.IssueSub_Mrp}}</p>
+            </ion-text>
+            <ion-text color="primary"slot="end" >
+              <p>Price: {{item.IssueSub_Amount}}</p>
+            </ion-text>
+          </div>
+          <!-- <ion-text color="primary" slot="end">
+            <p>₹ {{item.IssueSub_Amount}}</p>
+          </ion-text> -->
+        </ion-item>
+      </ion-list>
+    </div>
+    
+    <div class="second-flex" #DivButton>
+      <ion-item lines="none">
+        <ion-label class="ion-text-wrap">
+          <ion-text color="dark">
+            <h3 class="ion-text-nowrap">Product:
+              <b>
+                <span [ngClass]="{'active-text': focusIndexed == 0}">{{issueSub.ItemCode}}</span>
+                <span style="display: block;">{{issueSub.ItemDesc}}</span>
+              </b>
+            </h3>
+          </ion-text>
+          <p>Quantity:
+            <b>
+              <span [ngClass]="{'active-text': focusIndexed == 1}">{{issueSub.IssueSub_Qty}}</span> x ₹
+              {{issueSub.IssueSub_OriginalRate}}
+            </b>
+          </p>
+          <ion-text color="secondary">
+            <p>Discount:
+              <b>
+                <span [ngClass]="{'active-text': focusIndexed == 2}">{{issueSub.IssueSub_PdodDis}}</span>
+              </b>
+              &nbsp;&nbsp;Tax %: <b>{{issueSub.IssueSub_TaxPers}}</b>
+            </p>
+          </ion-text>
+
+        </ion-label>
+
+        <div slot="end" text-right>
+        <ion-text color="medium" slot="end">
+          <p>Mrp: {{issueSub.IssueSub_Mrp}}</p>
+        </ion-text>
+        <ion-text color="primary" slot="end">
+          <p>Price: {{issueSub.IssueSub_Amount}}</p>
+        </ion-text>
+      </div>
+      </ion-item>
+
+      <div class="bottom-keybord">
+        <ion-grid>
+          <ion-row>
+            <ion-col size='3'>
+              <ion-button expand="full" color="medium" (click)="onKeyboard('1')">1</ion-button>
+            </ion-col>
+            <ion-col size='3'>
+              <ion-button expand="full" color="medium" (click)="onKeyboard('2')">2</ion-button>
+            </ion-col>
+            <ion-col size='3'>
+              <ion-button expand="full" color="medium" (click)="onKeyboard('3')">3</ion-button>
+            </ion-col>
+            <ion-col size='3'>
+              <ion-button *ngIf="editFlag" expand="full" (click)="onDelete()" color="danger">
+                Del
+              </ion-button>
+              <ion-button *ngIf="!editFlag" expand="full" (click)="onSelectionChange(0)"
+                [color]="focusIndexed == 0 ? 'primary': 'medium'">Code</ion-button>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size='3'>
+              <ion-button expand="full" color="medium" (click)="onKeyboard('4')">4</ion-button>
+            </ion-col>
+            <ion-col size='3'>
+              <ion-button expand="full" color="medium" (click)="onKeyboard('5')">5</ion-button>
+            </ion-col>
+            <ion-col size='3'>
+              <ion-button expand="full" color="medium" (click)="onKeyboard('6')">6</ion-button>
+            </ion-col>
+            <ion-col size='3'>
+              <ion-button expand="full" (click)="onSelectionChange(1)"
+                [color]="focusIndexed == 1 ? 'primary': 'medium'">Qty</ion-button>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size='3'>
+              <ion-button expand="full" color="medium" (click)="onKeyboard('7')">7</ion-button>
+            </ion-col>
+            <ion-col size='3'>
+              <ion-button expand="full" color="medium" (click)="onKeyboard('8')">8</ion-button>
+            </ion-col>
+            <ion-col size='3'>
+              <ion-button expand="full" color="medium" (click)="onKeyboard('9')">9</ion-button>
+            </ion-col>
+            <ion-col size='3'>
+              <ion-button expand="full" (click)="onSelectionChange(2)"
+                [color]="focusIndexed == 2 ? 'primary': 'medium'">Disc</ion-button>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size='3'>
+              <ion-button expand="full" color="medium" (click)="onKeyboard('+')">+</ion-button>
+            </ion-col>
+            <ion-col size='3'>
+              <ion-button expand="full" color="medium" (click)="onKeyboard('0')">0</ion-button>
+            </ion-col>
+            <ion-col size='3'>
+              <ion-button expand="full" color="medium" (click)="onKeyboard('.')">.</ion-button>
+            </ion-col>
+            <ion-col size='3'>
+              <ion-button expand="full" color="medium" (click)="onKeyboard('backspace')">
+                <ion-icon slot="icon-only" name="backspace"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size='6'>
+              <ion-button class="ion-text-capitalize" expand="full" color="success" (click)="onAddRow()"
+                [disabled]='loading'>
+                <span *ngIf="!loading">{{editFlag ? 'Replace': 'Add'}}</span>
+                &nbsp;<ion-spinner name="crescent" color="light" *ngIf="loading"></ion-spinner>
+              </ion-button>
+            </ion-col>
+            <ion-col size='6'>
+              <ion-button class="ion-text-capitalize" expand="full" color="danger" (click)="onClear()">Clear
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </div>
+
+  </div>
+
+</ion-content>
+
+<ion-footer class="footer-thermal">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="solid" expand='full' (click)="paymentModal()" style="width: 100px;" color="tertiary"
+        class="ion-text-capitalize" [disabled]="listProducts.length ? false: true">
+        Payment
+      </ion-button>
+    </ion-buttons>
+    <ion-text color="primary">
+      &nbsp; Items: {{listProducts.length}}
+    </ion-text>
+    <ion-text color="danger" slot="end">
+      <ion-label>₹ {{getTotalAmount() | number : '1.2-2' }}</ion-label>
+      &nbsp;
+    </ion-text>
+    <ion-buttons slot="end">
+      <ion-button fill="solid" expand='full' (click)="onNewBill()" color="secondary"
+        class="ion-text-capitalize">New Bill</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

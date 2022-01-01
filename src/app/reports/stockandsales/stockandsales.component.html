@@ -1,0 +1,146 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <!-- <ion-menu-button></ion-menu-button> -->
+      <ion-button (click)="onBack()">
+        <ion-icon  mode="ios" slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Stockandsales
+    </ion-title> 
+
+    <ion-buttons slot="end" *ngIf="content">
+
+      <ion-button (click)="searchbar = !searchbar">
+        <ion-icon  mode="ios" slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+
+      <ion-button (click)="fnExport()">
+        <ion-icon  mode="ios" slot="icon-only" name="more"></ion-icon>
+      </ion-button>
+      
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar *ngIf="searchbar">
+    <ion-searchbar  mode="ios" #search placeholder="Filter Report" showCancelButton="focus" animated (ionInput)='fnSearch($event)'
+      (ionCancel)='fnClose($event)'></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid *ngIf="!content" class="inner-border">
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="stacked">From</ion-label>
+          <ion-input [(ngModel)]="fromdate" readonly></ion-input>
+          <button (click)="calenderPicker('from')" type="button" slot="end" class="calender">
+            <ion-icon mode="ios"  slot="icon-only" name="calendar"></ion-icon>
+          </button>
+
+        </ion-item>
+
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label position="stacked">To</ion-label>
+          <ion-input [(ngModel)]="Todate" readonly></ion-input>
+          <button (click)="calenderPicker('to')" type="button" slot="end" class="calender">
+            <ion-icon  mode="ios" slot="icon-only" name="calendar"></ion-icon>
+          </button>
+
+        </ion-item>
+
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size='12'>
+        <ion-item>
+          <ion-label>Change Search</ion-label>
+          <ion-toggle (ionChange)='fntoggle($event)'></ion-toggle>
+        </ion-item>
+      </ion-col>
+      <ion-col size='12'>
+        <ion-item>
+          <ion-label>{{nameToggle}}:</ion-label>
+          <ion-input type="text" id="txtname" clearOnEdit='true' [(ngModel)]='manufacture'
+            (ionInput)='fnManufactureSearch($event)' placeholder="search here.." name="AcName">
+          </ion-input>
+          <ion-spinner name="lines-small" color="danger" *ngIf="loding"></ion-spinner>
+        </ion-item>
+
+        <div class="ui-autocomplete" *ngIf="jsonManafacture.length !==0">
+          <ion-item>
+            <label style="text-align: center;">Manafacture Name</label>
+          </ion-item>
+
+          <div class="inner-div">
+            <ion-item *ngFor="let m of jsonManafacture" (click)="fnManafactureClick(m)">
+              <div class="txtname">
+                <span>{{m[colHeaders]}}</span>
+                <span>{{m.Manufacture_Addr1}} {{m.Manufacture_Addr2}}</span>
+              </div>
+            </ion-item>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item lines="none">
+          <ion-label>PurRate</ion-label>
+          <ion-checkbox  mode="ios" checked="true" slot="start" [(ngModel)]="RateChecked"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+
+      <ion-col>
+        <ion-item lines="none">
+          <ion-label>StockValue</ion-label>
+          <ion-checkbox  mode="ios" checked="true" slot="start" [(ngModel)]="StockChecked"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+
+      <ion-col>
+        <ion-item lines="none">
+          <ion-label>SalesValue</ion-label>
+          <ion-checkbox  mode="ios" checked="true" slot="start" [(ngModel)]="SalesChecked"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="manafactureId !==0 && manufacture != ''">
+      <ion-col>
+        <ion-button expand="full" shape="round" (click)="fnReport()">Report</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  <div *ngIf="content">
+
+    <div class="div-report" id="tblPrint">
+        
+      <table>
+        <thead>
+          <tr>
+            <th *ngFor="let c of tblHeader">{{c}}</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let d of tblreport">
+            <td *ngFor="let f of tblHeader">{{d[f]}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+</ion-content>

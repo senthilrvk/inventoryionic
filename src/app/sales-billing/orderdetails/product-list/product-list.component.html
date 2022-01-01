@@ -1,0 +1,144 @@
+
+<ion-toolbar>
+
+  <ion-searchbar slot="start" debounce="500" [(ngModel)]="keyword"
+  animated (ionChange)="onGetProduct()" placeholder="Filter Product" color='light'>
+  </ion-searchbar>
+
+  <ion-buttons slot="end">
+    <ion-button (click)="productimage = !productimage">
+      <ion-icon mode="ios" *ngIf="!productimage" name="grid-outline" slot="icon-only" color="dark"></ion-icon>
+      <ion-icon mode="ios" *ngIf="productimage" name="list-outline" slot="icon-only" color="dark"></ion-icon>
+    </ion-button>
+    <ion-button (click)="showFilterPicker()">
+      <ion-icon name="filter-outline" slot="icon-only"
+      color="dark"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+
+</ion-toolbar>
+
+
+<ion-content style="position: absolute;">
+
+  <div class="loader-new" *ngIf="loading">
+    <ion-spinner name="dots" color='primary'></ion-spinner>
+  </div>
+
+  <ion-list *ngIf="!productimage && productjson.length > 0">
+    <ion-card *ngFor="let item of productjson" [button]='true'  (click)="onRowClick(item)">
+      <ion-item>
+        <ion-label [color]="item.StockQty == 0? 'danger': 'primary'" style="min-width: 70px; flex: 0;">
+          <p>Stock</p>
+          <h3>{{item.StockQty}}/{{item.OrderQty}}</h3>
+        </ion-label>
+        <ion-label class="ion-text-wrap">
+          <h4>{{item.ItemDesc}}</h4>
+          <p *ngIf="itemCodeVis" style="color: #3880ff;">
+            code: <b>{{item.ItemCode}}</b>
+          </p>
+          <p>{{item.ManufactureName}}</p>
+        </ion-label>
+
+        <span slot="end" style="margin: 0;font-size: 12px;">
+          <p>MRP: {{item.MRP | number:'1.2-2'}}</p>
+          <p>Rate: {{item.SelRate | number:'1.2-2'}}</p>
+        </span>
+      </ion-item>
+
+    </ion-card>
+  </ion-list>
+
+  <div *ngIf="productimage && productjson.length > 0" class="gridColumn">
+
+    <ion-grid>
+      <ion-row *ngFor="let purchase of productjson; let i = index; let even = even">
+        <ng-container *ngIf="even">
+          <ion-col size='6' *ngIf="productjson[i]">
+            <div class="innderdiv_1">
+              <div class="div_cart">
+                <button (click)='onRowClick(productjson[i])'>
+                  <ion-icon name="cart" slot='icon-only'></ion-icon>
+                  <!-- <ion-badge slot="end" color='danger'>{{productjson[i].StockQty}}</ion-badge> -->
+                </button>
+              </div>
+              <div class="innderdiv_2" (click)="ImageModal($event, productjson[i].ItemDesc)">
+                <ion-img [src]="fnImageGet(productjson[i])">
+                </ion-img>
+              </div>
+
+              <div class="innderdiv_3">
+                <div>
+                  <span>Rs.
+                    <strong>{{productjson[i].SelRate | number:'1.2-2'}}</strong>
+                  </span>
+                  <span>MRP.
+                    <strong>{{productjson[i].MRP | number:'1.2-2'}}</strong>
+                  </span>
+                  <!-- <span>Stock:&nbsp;
+                    <strong>{{productjson[i].StockQty}}</strong>
+                  </span> -->
+                </div>
+                <span>{{productjson[i].ItemDesc}}&nbsp;</span>
+                <p *ngIf="itemCodeVis" style="color: #3880ff;">code: ({{productjson[i].ItemCode}})</p>
+                <p style="font-size: 12px;" [ngStyle]="{'color': productjson[i].StockQty > 0 ? '#666': 'red'}">stock -
+                  {{productjson[i].StockQty}}</p>
+                <p>{{productjson[i].ManufactureName}}</p>
+
+              </div>
+
+            </div>
+          </ion-col>
+
+          <ion-col size='6' *ngIf="productjson[i + 1]">
+            <div class="innderdiv_1">
+              <div class="div_cart">
+                <button (click)='onRowClick(productjson[i + 1])'>
+                  <ion-icon mode="ios" name="cart" slot='icon-only'></ion-icon>
+                  <!-- <ion-badge slot="end" color='danger'>{{productjson[i + 1].StockQty}}</ion-badge> -->
+                </button>
+              </div>
+
+              <div class="innderdiv_2" (click)="ImageModal($event, productjson[i + 1].ItemDesc)">
+                <ion-img [src]="fnImageGet(productjson[i + 1])" >
+                </ion-img>
+              </div>
+
+              <div class="innderdiv_3">
+                <div>
+                  <span>Rs.<strong>{{productjson[i + 1].SelRate | number:'1.2-2'}}</strong></span>
+                  <span>MRP.
+                    <strong>{{productjson[i + 1].MRP | number:'1.2-2'}}</strong>
+                  </span>
+                  <!-- <span>Stock:&nbsp;
+                    <strong>{{productjson[i + 1].StockQty}}</strong>
+                  </span> -->
+                </div>
+                <span>{{productjson[i + 1].ItemDesc}}&nbsp;</span>
+                <p *ngIf="itemCodeVis" style="color: #3880ff;">code: ({{productjson[i + 1].ItemCode}})</p>
+                <p style="font-size: 12px;" [ngStyle]="{'color': productjson[i+1].StockQty > 0 ? '#666': 'red'}">stock
+                  - {{productjson[i + 1].StockQty}}</p>
+                <p>{{productjson[i + 1].ManufactureName}}</p>
+
+              </div>
+
+            </div>
+          </ion-col>
+        </ng-container>
+
+      </ion-row>
+
+    </ion-grid>
+
+
+  </div>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+
+</ion-content>
+
+

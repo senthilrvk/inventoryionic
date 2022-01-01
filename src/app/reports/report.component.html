@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title >
+      Report
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+ 
+<ion-content padding>
+  
+  
+   <ion-button mode="ios" expand="full" color="primary" *ngIf="menuShow.SalesmanWiseSale && menuShow.salesRpt"  (click)="onReport('salesmanwise')">
+     Salesmanwise Sales Report
+    
+  </ion-button>
+
+  <ion-button mode="ios" expand="full" color="primary" *ngIf="menuShow.StockandSale && menuShow.StockReport"  (click)="onReport('stockandsales')">
+    Stock And Sales Report
+   </ion-button>
+
+   <ion-button mode="ios" expand="full" color="primary" *ngIf="menuShow.salesRpt && (menuShow.salesOrderReport && isOrderLogin)"  (click)="onReport('salesOrderReport')">
+    Sales Order Report
+   </ion-button>
+
+   
+
+ <ion-button mode="ios" expand="full" color="primary" (click)="onReport('remarks')">
+  Customer Remarks Report
+</ion-button>
+
+
+ <ion-button mode="ios" expand="full" color="primary" *ngIf="menuShow.GodownReport && menuShow.GodownwiseStockAndSales" (click)="onReport('godownwiseStockAndSales')">
+ Godownwise Stock and Sales 
+</ion-button>
+<!-- <div  class="ion-activatable report-ripple" (click)="onReport('godownwiseStockAndSales')">
+  Godownwise Stock and Sales 
+  <ion-ripple-effect></ion-ripple-effect>
+ </div> -->
+
+
+<ion-button mode="ios" expand="full" color="primary" *ngIf="menuShow.Leadger && menuShow.AccountsReport" (click)="onReport('ledger')">
+  Ledger Report
+</ion-button>
+
+</ion-content>

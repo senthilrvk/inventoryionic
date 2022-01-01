@@ -1,0 +1,52 @@
+<!-- <ion-button (click)="dismiss()">close</ion-button> -->
+
+<ion-header>
+    <ion-toolbar color="light">
+        <ion-button color="light" (click)='onClose()' size='small' expand="full">
+            <ion-icon mode="ios" name='close' color='danger'></ion-icon>
+        </ion-button>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-list lines='full'>
+
+        <ion-list-header color="danger" *ngIf="!dataReport.length" lines="none">
+            <ion-label>
+                No Stocked Products !!
+            </ion-label>
+        </ion-list-header>
+
+        <ion-item button *ngFor="let item of dataReport" style="font-size: 14px;" 
+        (click)="fnOrderClick(item)" [disabled]="!item.Store_BalQty ? true: false">
+            <ion-label>
+                <span style="display: block;">Stock: {{item.Store_BalQty}}</span>
+                <ion-text color="primary">
+                    <span *ngIf="batchValid == 'Yes'" style="display: block;">Batch: {{item.Store_Batch}}</span>
+                </ion-text>
+                <span *ngIf="expiryValid == 'Yes'" style="display: block;">Exp: {{item.Store_ExpDate}}</span>
+            </ion-label>
+            <div slot="end">
+                <span  style="display: block;">MRP: {{item.Store_PerMRP}}</span>
+                <ion-text color="tertiary">
+                    <span>Rate:
+                        <span *ngIf="priceMenuid == 1">{{item.Store_SellRate}}</span>
+                        <span *ngIf="priceMenuid == 2">{{item.Store_DisributRate}}</span>
+                        <span *ngIf="priceMenuid == 3">{{item.Store_PerMRP}}</span>
+                        <span *ngIf="priceMenuid == 4">{{item.SpRate1}}</span>
+                        <span *ngIf="priceMenuid == 5">{{item.SpRate2}}</span>
+                        <span *ngIf="priceMenuid == 6">{{item.SpRate3}}</span>
+                        <span *ngIf="priceMenuid == 7">{{item.SpRate4}}</span>
+                        <span *ngIf="priceMenuid == 8">{{item.SpRate5}}</span>
+                    </span>
+                </ion-text>
+            </div>
+        </ion-item>
+    </ion-list>
+
+
+    <div class="div-spinner" *ngIf="loading">
+        <ion-spinner name="dots" color='tertiary'></ion-spinner>
+    </div>
+</ion-content>

@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-title color="tertiary">Product List</ion-title>
+    <ion-buttons slot="end">
+     
+      <ion-button (click)="savePop()" color="danger"> 
+        <ion-icon mode="ios" slot="icon-only"  name="arrow-back"></ion-icon>
+      </ion-button>
+     
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar color="light">
+    <ion-searchbar mode="ios" placeholder="Product search.." debounce="500" [(ngModel)]="searchkey" (ionChange)='fnProductSearch()'></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-virtual-scroll [items]="productItems">
+    <ion-card *virtualItem="let item" (click)="fnProductKeyDown(item)"
+    class="product-card ion-activatable ripple-parent">
+      <div class="product-card-inner">
+        <div class="product-card-band">
+            <span>{{item.StockQty}} </span>
+            <span>Stock</span>
+        </div>
+
+        <div class="product-card-banner">
+          <span>{{item.ItemDesc}} </span>
+          <p>{{item.ManufactureName}}</p>
+        </div>
+      </div>
+      <ion-ripple-effect></ion-ripple-effect>
+    </ion-card>
+  </ion-virtual-scroll>
+</ion-content>
